@@ -1,3 +1,4 @@
+import {Card, CardContent} from "@mui/material"
 import { styled } from '@mui/material/styles';
 import { makeStyles } from "@mui/styles"
 

@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardContent, IconButton, Stack, Typography } from "@mui/material"
+import { Box, Button, IconButton, Stack, Typography } from "@mui/material"
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { ColorCard, InfosCard, StyledCard } from "./style";
 
