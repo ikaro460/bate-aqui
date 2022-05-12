@@ -88,8 +88,10 @@ export default function Login() {
             Entrar
           </Button>
           <div>
-            <span>Esqueceu a senha?</span>
-            <span>Não tem uma conta? Cadastre-se!</span>
+            <span onClick={() => history.push("/")}>Esqueceu a senha?</span>
+            <span onClick={() => history.push("/signup")}>
+              Não tem uma conta? Cadastre-se!
+            </span>
           </div>
         </form>
       </Container>
