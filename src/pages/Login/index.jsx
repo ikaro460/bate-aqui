@@ -4,7 +4,9 @@ import {
   Container,
   FormControlLabel,
   FormGroup,
+  Stack,
   TextField,
+  Typography,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import React, { useEffect } from "react";
@@ -13,6 +15,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { StyledLogin } from "./styles.jsx";
+import LoginImagem from "../../imgs/Asset 1.png";
+
+import { makeStyles } from "@mui/styles";
+const useStyles = makeStyles((themes) => ({
+  img: {
+    width: "200px",
+  },
+}));
 
 export default function Login() {
   const history = useHistory();
@@ -21,6 +32,7 @@ export default function Login() {
     password: yup.string().required("Campo obrigatório"),
   });
 
+  const classes = useStyles();
   const {
     register,
     handleSubmit,
@@ -57,44 +69,46 @@ export default function Login() {
   };
 
   return (
-    <>
+    <Stack direction="column">
       <Container>
-        <img src=".\imgs\Asset 1.png" alt="background-img" />
+        <img className={classes.img} src={LoginImagem} alt="background-img" />
       </Container>
-      <Container maxWidth="sm">
+      <Container maxWidth="xs">
         <div>
           <LockOutlinedIcon />
         </div>
+        <h1>Login</h1>
         <form onSubmit={handleSubmit(onSubmitFunction)}>
-          <TextField
-            label="Nome de usuário *"
-            inputProps={register("username")}
-            error={!!errors.username}
-            helperText={errors.username?.message}
-          ></TextField>
-          <TextField
-            label="Senha *"
-            inputProps={register("password")}
-            error={!!errors.password}
-            helperText={errors.password?.message}
-          ></TextField>
+          <Stack spacing={4}>
+            <TextField
+              label="Nome de usuário *"
+              inputProps={register("username")}
+              error={!!errors.username}
+              helperText={errors.username?.message}
+            ></TextField>
+            <TextField
+              label="Senha *"
+              inputProps={register("password")}
+              error={!!errors.password}
+              helperText={errors.password?.message}
+            ></TextField>
+          </Stack>
           <FormGroup>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label="Manter conectado"
-            />
+            <FormControlLabel control={<Checkbox />} label="Manter conectado" />
           </FormGroup>
           <Button type="submit" variant="contained">
             Entrar
           </Button>
           <div>
-            <span onClick={() => history.push("/")}>Esqueceu a senha?</span>
-            <span onClick={() => history.push("/signup")}>
+            <Typography onClick={() => history.push("/")}>
+              Esqueceu a senha?
+            </Typography>
+            <Typography onClick={() => history.push("/signup")}>
               Não tem uma conta? Cadastre-se!
-            </span>
+            </Typography>
           </div>
         </form>
       </Container>
-    </>
+    </Stack>
   );
 }
