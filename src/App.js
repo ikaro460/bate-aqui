@@ -5,7 +5,7 @@ import Routes from "./routes"
 
 function App() {
 
-  const {darkMode} = useDarkMode()
+  const { darkMode } = useDarkMode()
 
   const theme = createTheme({
     palette: {
@@ -32,9 +32,24 @@ function App() {
           dark: "#BF360C",
           contrastText: '#fff',
         },
+        text: {
+          primary: "#fff"
+        }
       })
     },
   })
+
+  theme.components = {
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          color: "#fff",
+        }
+      }
+    }
+  }
+
+  // console.log(theme)
 
   return (
     <div className="App">

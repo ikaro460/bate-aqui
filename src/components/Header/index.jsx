@@ -1,6 +1,9 @@
-import { AppBar, IconButton, Typography } from "@mui/material";
+import { AppBar, IconButton, Typography, Button } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
+import { useState } from "react";
+import { useSideBar } from "../../provider/SideBar";
+
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   height: "56px",
@@ -17,16 +20,22 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 
 export default function Header() {
 
+  const [logged, setLogged] = useState(false)
+
+  const { toggleSideBar } = useSideBar()
+
   return(
     <StyledAppBar elevation={0} >
 
-      <IconButton>
-        <MenuIcon sx={{color: "#fff"}} />
+      <IconButton onClick={toggleSideBar}  >
+        <MenuIcon />
       </IconButton>
 
       <Typography>BateAqui</Typography>
 
-      <Typography>est</Typography>
+      {logged ? (
+        <Typography>est</Typography>
+      ):(<Button sx={{color: "#fff"}} >Login</Button>)}
 
     </StyledAppBar>
   )
