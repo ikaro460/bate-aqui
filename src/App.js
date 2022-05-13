@@ -1,3 +1,5 @@
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { createTheme, ThemeProvider } from '@mui/material';
 import './App.css';
 import { useDarkMode } from './provider/DarkMode';
@@ -33,8 +35,7 @@ function App() {
           contrastText: '#fff',
         },
         text: {
-          primary: "#fff",
-          secondary: "#000"
+          primary: "#000",
         },
         tableRowContrast: "#F7F6FE"
       })
@@ -101,6 +102,14 @@ function App() {
           fontSize: "16px",
         },     
       },
+      subtitle2: {
+        fontFamily: "Roboto",
+        fontWeight: "400",
+        fontSize: "12px",
+        '@media (max-width:600px)': {
+          fontSize: "9.6px",
+        },        
+      },
       tableTitle: {
         fontFamily: "Montserrat",
         fontWeight: "700",
@@ -126,12 +135,9 @@ function App() {
         },          
       },
     },
-    breakpoints: {
-      md: 800,
-    }
   })
 
-    {/*
+  {/*
     font-size 48    roboto 400  h *
     font-size 40    roboto 400 * / montserrat 500
     font-size 24    roboto 400  h *
@@ -174,7 +180,9 @@ function App() {
   return (
     <div className="App">
       <ThemeProvider theme={theme} >
-        <Routes />
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
+          <Routes />
+        </LocalizationProvider>
       </ThemeProvider>
     </div>
   );

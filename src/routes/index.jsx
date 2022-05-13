@@ -29,7 +29,6 @@ export default function Routes() {
         <Login />
       </Route>
 
-
       <Route exact path="/" >
         <SideBar />
         <Header />
