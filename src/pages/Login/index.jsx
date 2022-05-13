@@ -15,8 +15,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { StyledLogin } from "./styles.jsx";
-import LoginImagem from "../../imgs/Asset 1.png";
+import { BoxForm, BoxLogin, IconBox, TypographyBox } from "./styles.jsx";
 
 import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles((themes) => ({
@@ -69,14 +68,14 @@ export default function Login() {
   };
 
   return (
-    <Stack direction="column">
-      <Container>
+    <BoxLogin direction="column">
+      {/* <Container>
         <img className={classes.img} src={LoginImagem} alt="background-img" />
-      </Container>
-      <Container maxWidth="xs">
-        <div>
+      </Container> */}
+      <BoxForm maxWidth="xs">
+        <IconBox>
           <LockOutlinedIcon />
-        </div>
+        </IconBox>
         <h1>Login</h1>
         <form onSubmit={handleSubmit(onSubmitFunction)}>
           <Stack spacing={4}>
@@ -94,21 +93,24 @@ export default function Login() {
             ></TextField>
           </Stack>
           <FormGroup>
-            <FormControlLabel control={<Checkbox />} label="Manter conectado" />
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              label="Manter conectado"
+            />
           </FormGroup>
           <Button type="submit" variant="contained">
             Entrar
           </Button>
-          <div>
+          <TypographyBox>
             <Typography onClick={() => history.push("/")}>
               Esqueceu a senha?
             </Typography>
             <Typography onClick={() => history.push("/signup")}>
               Não tem uma conta? Cadastre-se!
             </Typography>
-          </div>
+          </TypographyBox>
         </form>
-      </Container>
-    </Stack>
+      </BoxForm>
+    </BoxLogin>
   );
 }
