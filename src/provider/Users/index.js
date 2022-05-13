@@ -1,6 +1,5 @@
-import axios from "axios";
-import { createContext, useState, useContext, useEffect } from "react";
-
+import { createContext, useState, useContext } from "react";
+import { api } from "../../services/api";
 const UsersContext = createContext([]);
 
 export const UsersProvider = ({children}) => {
@@ -8,7 +7,7 @@ export const UsersProvider = ({children}) => {
     const [users, setUsers] = useState([]);
 
     const getUsers = (token) => {
-        axios.get('https://bateaqui-api.herokuapp.com/users', {
+        api.get('/users', {
             headers: {
                 "Authorization": `Bearer ${token}`
             }
