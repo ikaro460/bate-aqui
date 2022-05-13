@@ -1,11 +1,14 @@
 import { DarkModeProvider } from "./DarkMode"
+import { SideBarProvider } from "./SideBar"
 
 
 export const Providers = ({children}) => {
 
   return(
     <DarkModeProvider>
-      {children}
+      <SideBarProvider>
+        {children}
+      </SideBarProvider>
     </DarkModeProvider>
   )
 

@@ -1,9 +1,9 @@
-import { createTheme, ThemeProvider } from '@mui/material';
-import './App.css';
-import { useDarkMode } from './provider/DarkMode';
-import Routes from "./routes"
+import { createTheme } from '@mui/material';
+import { useDarkMode } from '../provider/DarkMode';
 
-function App() {
+
+
+export default function Theme() {
 
   const { darkMode } = useDarkMode()
 
@@ -125,12 +125,9 @@ function App() {
           fontSize: "9.6px",
         },          
       },
-    },
-    breakpoints: {
-      md: 800,
     }
   })
-
+  
     {/*
     font-size 48    roboto 400  h *
     font-size 40    roboto 400 * / montserrat 500
@@ -138,15 +135,15 @@ function App() {
     font-size 20    montserrat 500 subtitle
     font-size 16    roboto 400  h *
     font-size 14    roboto 400  h *
-
+  
           ***  table  ***
-
+  
     font-size 14    montserrat 700
     font-size 14    montserrat 500
-
+  
     font-size 12
   */}
-
+  
   theme.components = {
     MuiSvgIcon: {
       styleOverrides: {
@@ -157,27 +154,8 @@ function App() {
     }
   }
   
-  // theme.typography = {
-  //   h1: {
-  //     fontFamily: "Roboto",
-  //     fontSize: "48px",
-  //     '@media (max-width:600px)': {
-  //       fontSize: "38px",
-  //     },
-  //   }
-  // }
-
-
-
   // console.log(theme)
 
-  return (
-    <div className="App">
-      <ThemeProvider theme={theme} >
-        <Routes />
-      </ThemeProvider>
-    </div>
-  );
-}
+  return theme
 
-export default App;
+}
