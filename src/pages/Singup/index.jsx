@@ -1,5 +1,5 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Checkbox } from "@mui/material";
+import { Checkbox, FormGroup, FormControlLabel, Typography } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Vetor from "../../components/Vetor";
 import { useForm } from "react-hook-form";
@@ -65,7 +65,7 @@ export default function Singup() {
       <BoxSingup>
         <BoxSingupPadlock>
           <BoxPadlock>
-            <LockOutlinedIcon />
+            <LockOutlinedIcon sx={{color: "#fff"}} />
           </BoxPadlock>
         </BoxSingupPadlock>
         <BoxForm onSubmit={handleSubmit(handleOnSubmit)}>
@@ -74,14 +74,14 @@ export default function Singup() {
               inputProps={register("name")}
               error={!!errors.name}
               helperText={errors.name?.message}
-              placeholder="Nome"
+              label="Nome"
               size="small"
             />
             <InputSurname
               inputProps={register("surname")}
               error={!!errors.surname}
               helperText={errors.surname?.message}
-              placeholder="Sobrenome"
+              label="Sobrenome"
               size="small"
             />
           </DivName>
@@ -89,7 +89,7 @@ export default function Singup() {
             inputProps={register("email")}
             error={!!errors.email}
             helperText={errors.email?.message}
-            placeholder="Email"
+            label="Email"
             size="small"
             type="email"
           />
@@ -97,15 +97,13 @@ export default function Singup() {
             inputProps={register("password")}
             error={errors.password}
             helperText={errors.password?.message}
-            placeholder="Senha"
+            label="Senha"
             size="small"
             type="password"
           />
-          <DivCheckBox>
-            <Checkbox required />
-
-            <p>Aceito os termos de uso</p>
-          </DivCheckBox>
+          <FormGroup>
+            <FormControlLabel control={<Checkbox defaultChecked />} label={<Typography variant="h5" >Mantenha-me conectado</Typography> } />
+          </FormGroup>
           <ButtonSubmit variant="contained" type="submit">
             Cadastrar-se
           </ButtonSubmit>

@@ -156,15 +156,15 @@ function App() {
     font-size 12
   */}
 
-  theme.components = {
-    MuiSvgIcon: {
-      styleOverrides: {
-        root: {
-          color: "#fff",
-        }
-      }
-    }
-  }
+  // theme.components = {
+  //   MuiSvgIcon: {
+  //     styleOverrides: {
+  //       root: {
+  //         color: "#fff",
+  //       }
+  //     }
+  //   }
+  // }
   
   // theme.typography = {
   //   h1: {

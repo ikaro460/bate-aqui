@@ -4,8 +4,8 @@ import Home from "../pages/Home";
 import LandingPage from "../pages/LandingPage";
 import SideBar from "../components/SideBar";
 import Turma from "../pages/Turma";
-
 import Login from "../pages/Login";
+import Singup from "../pages/Singup";
 
 export default function Routes() {
   return (
@@ -27,6 +27,12 @@ export default function Routes() {
         <SideBar />
         <Header />
         <Login />
+      </Route>
+
+      <Route exact path="/signup">
+        <SideBar />
+        <Header />
+        <Singup />
       </Route>
 
       <Route exact path="/" >

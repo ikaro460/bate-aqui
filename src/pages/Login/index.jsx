@@ -1,4 +1,4 @@
-import { FormControlLabel, TextField, useMediaQuery } from "@mui/material";
+import { Checkbox, FormControlLabel, FormGroup, TextField, Typography, useMediaQuery } from "@mui/material";
 import {
   BoxForm,
   BoxPadlock,
@@ -22,7 +22,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import LoginBackground from "../../imgs/Asset 1.png";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
-import api from "../../services/api";
+import { api } from "../../services/api";
 
 const useStyles = makeStyles((themes) => ({
   img: {
@@ -91,9 +91,9 @@ export default function Login() {
       <BoxSingup>
         <BoxSingupPadlock>
           <BoxPadlock>
-            <LockOutlinedIcon />
+            <LockOutlinedIcon sx={{color: "#fff"}} />
           </BoxPadlock>
-          <h2>Login</h2>
+          <Typography variant="h4" >Login</Typography>
         </BoxSingupPadlock>
         <BoxForm onSubmit={handleSubmit(onSubmitFunction)}>
           <TextField
@@ -102,7 +102,6 @@ export default function Login() {
             inputProps={register("email")}
             error={!!errors.name}
             helperText={errors.name?.message}
-            placeholder="E-mail"
             size="small"
           />
           <TextField
@@ -111,16 +110,12 @@ export default function Login() {
             inputProps={register("password")}
             error={!!errors.password}
             helperText={errors.password?.message}
-            placeholder="Senha"
             size="small"
             type="password"
           />
-          <DivCheckBox>
-            <FormControlLabel
-              control={<CheckboxGroup color="primary" defaultChecked />}
-              label="Manter conectado"
-            />
-          </DivCheckBox>
+          <FormGroup>
+            <FormControlLabel control={<Checkbox defaultChecked />} label={<Typography variant="h5" >Mantenha-me conectado</Typography> } />
+          </FormGroup>
           <ButtonSubmit variant="contained" type="submit">
             Entrar
           </ButtonSubmit>
