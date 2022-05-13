@@ -1,19 +1,16 @@
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  useMediaQuery,
-} from "@mui/material";
+import { FormControlLabel, TextField, useMediaQuery } from "@mui/material";
 import {
   BoxForm,
   BoxPadlock,
   BoxSingup,
   BoxSingupPadlock,
   ButtonSubmit,
+  CheckboxGroup,
+  DivCheckBox,
   ImputPassword,
   InputName,
   LinkToLogin,
-  SingupScream,
+  LoginScreen,
 } from "./styles.jsx";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import React, { useEffect } from "react";
@@ -25,6 +22,8 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import LoginBackground from "../../imgs/Asset 1.png";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
+import api from "../../services/api";
+
 const useStyles = makeStyles((themes) => ({
   img: {
     height: "300px",
@@ -62,25 +61,26 @@ export default function Login() {
     console.log("oi");
     console.log(formData);
 
-    //   api
-    //     .post("/", formData)
-    //     .then((res) => {
-    //       console.log(res);
-    //       const { accessToken } = res;
-    //       const { id } = res.user;
-    //       localStorage.clear();
-    //       localStorage.setItem("accessToken", accessToken);
-    //       localStorage.setItem("userId", id);
-    //       setAuthenticated(true)
-    //       toast.success("O login foi um sucesso");
-    //     })
-    //     .catch((err) => toast.error("Email ou senha inválidos"));
+    api
+      .post("/", formData)
+      .then((res) => {
+        const { accessToken } = res;
+        const { id } = res.user;
+
+        localStorage.clear();
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("userId", id);
+
+        setAuthenticated(true);
+        toast.success("O login foi um sucesso");
+      })
+      .catch((err) => toast.error("Email ou senha inválidos"));
   };
 
   const isActive = useMediaQuery(`(min-width:800px)`);
 
   return (
-    <SingupScream>
+    <LoginScreen>
       {isActive && (
         <img
           className={classes.img}
@@ -96,7 +96,8 @@ export default function Login() {
           <h2>Login</h2>
         </BoxSingupPadlock>
         <BoxForm onSubmit={handleSubmit(onSubmitFunction)}>
-          <InputName
+          <TextField
+            variant="outlined"
             label="E-mail"
             inputProps={register("email")}
             error={!!errors.name}
@@ -104,7 +105,8 @@ export default function Login() {
             placeholder="E-mail"
             size="small"
           />
-          <ImputPassword
+          <TextField
+            variant="outlined"
             label="Senha"
             inputProps={register("password")}
             error={!!errors.password}
@@ -113,12 +115,12 @@ export default function Login() {
             size="small"
             type="password"
           />
-          <FormGroup>
+          <DivCheckBox>
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
+              control={<CheckboxGroup color="primary" defaultChecked />}
               label="Manter conectado"
             />
-          </FormGroup>
+          </DivCheckBox>
           <ButtonSubmit variant="contained" type="submit">
             Entrar
           </ButtonSubmit>
@@ -130,6 +132,6 @@ export default function Login() {
           </Link>
         </BoxForm>
       </BoxSingup>
-    </SingupScream>
+    </LoginScreen>
   );
 }
