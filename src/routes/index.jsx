@@ -5,10 +5,10 @@ import LandingPage from "../pages/LandingPage";
 import SideBar from "../components/SideBar";
 import Turma from "../pages/Turma";
 
+import Login from "../pages/Login";
 
 export default function Routes() {
-
-  return(
+  return (
     <Switch>
 
       <Route exact path="/home" >
@@ -23,12 +23,19 @@ export default function Routes() {
         <Turma />
       </Route>
 
+      <Route exact path="/login">
+        <SideBar />
+        <Header />
+        <Login />
+      </Route>
+
+
       <Route exact path="/" >
+        <SideBar />
         <Header />
         <LandingPage />
       </Route>
 
     </Switch>
-  )
-
+  );
 }
