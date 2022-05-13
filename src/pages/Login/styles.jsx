@@ -1,46 +1,85 @@
+import { Box, Button, Link, Paper, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-export const BoxLogin = styled("Stack")(({ theme }) => ({
-  //   color: theme.palette.primary.contrastText,
-  //   backgroundColor: theme.palette.primary.main,
-  //   padding: theme.spacing(1),
-  //   borderRadius: theme.shape.borderRadius,
+export const SingupScream = styled(Box)(({ theme }) => ({
+  width: "100vw",
+  height: "90vh",
+  display: "flex",
+  justifyContent: "space-around",
+  alignItems: "center",
+}));
 
+export const BoxSingup = styled(Paper)(({ theme }) => ({
+  width: "max-content",
+  height: "max-content",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  width: "100&",
+  flexDirection: "column",
+  paddingTop: "20px",
 }));
 
-export const BoxForm = styled("Stack")(({ theme }) => ({
-  //   color: theme.palette.primary.contrastText,
-  //   backgroundColor: theme.palette.primary.main,
-  //   padding: theme.spacing(1),
-  //   borderRadius: theme.shape.borderRadius,
-
-  justifyContent: "center",
+export const BoxSingupPadlock = styled(Box)(({ theme }) => ({
+  width: "max-content",
+  display: "flex",
+  flexDirection: "column",
   alignItems: "center",
-  margin: "25px",
-  h1: { fontSize: "20px" },
-  Typography: { color: "blue" },
 }));
 
-export const IconBox = styled("div")(({ theme }) => ({
-  //   color: theme.palette.primary.contrastText,
-  //   backgroundColor: theme.palette.primary.main,
-  //   padding: theme.spacing(1),
-  //   borderRadius: theme.shape.borderRadius,
-
+export const BoxPadlock = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  color: "#fff",
+  padding: "5px",
+  width: "max-content",
+  backgroundColor: "#01579B",
+  borderRadius: "50%",
 }));
 
-export const TypographyBox = styled("Stack")(({ theme }) => ({
-  //   color: theme.palette.primary.contrastText,
-  //   backgroundColor: theme.palette.primary.main,
-  //   padding: theme.spacing(1),
-  //   borderRadius: theme.shape.borderRadius,
+export const BoxForm = styled("form")(({ theme }) => ({
+  elevation: "2",
+  width: "300px",
+  padding: "20px",
+  marginTop: "15px",
+  display: "flex",
+  justifyContent: "center",
+  flexDirection: "column",
+  rowGap: "15px",
+}));
 
-  color: "blue",
+export const DivName = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  columnGap: "20px",
+}));
+
+export const InputName = styled(TextField)(({ theme }) => ({
+  variant: "outlined",
+}));
+
+export const InputSurname = styled(TextField)(({ theme }) => ({
+  variant: "outlined",
+}));
+
+export const ImputEmail = styled(TextField)(({ theme }) => ({
+  variant: "outlined",
+}));
+
+export const ImputPassword = styled(TextField)(({ tehme }) => ({
+  variant: "outlined",
+}));
+
+export const DivCheckBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+}));
+
+export const ButtonSubmit = styled(Button)(({ theme }) => ({
+  backgroundColor: "#0288D1",
+}));
+
+export const LinkToLogin = styled(Link)(({ theme }) => ({
+  color: "#0288D1",
+  textDecoration: "none",
 }));

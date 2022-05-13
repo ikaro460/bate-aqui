@@ -7,6 +7,7 @@ import {
   Stack,
   TextField,
   Typography,
+  useMediaQuery,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import React, { useEffect } from "react";
@@ -15,9 +16,27 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { BoxForm, BoxLogin, IconBox, TypographyBox } from "./styles.jsx";
+import {
+  BoxForm,
+  BoxLogin,
+  BoxPadlock,
+  BoxSingup,
+  BoxSingupPadlock,
+  ButtonSubmit,
+  DivCheckBox,
+  DivName,
+  IconBox,
+  ImputEmail,
+  ImputPassword,
+  InputName,
+  InputSurname,
+  LinkToLogin,
+  SingupScream,
+  TypographyBox,
+} from "./styles.jsx";
 
 import { makeStyles } from "@mui/styles";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((themes) => ({
   img: {
     width: "200px",
@@ -27,7 +46,7 @@ const useStyles = makeStyles((themes) => ({
 export default function Login() {
   const history = useHistory();
   const schema = yup.object().shape({
-    username: yup.string().required("Campo Obrigatório"),
+    email: yup.string().required("Campo obrigatorio").email("Email invalido"),
     password: yup.string().required("Campo obrigatório"),
   });
 
@@ -52,65 +71,69 @@ export default function Login() {
     console.log("oi");
     console.log(formData);
 
-    // LÓGICA DA REQUISIÇAO NA API
-    // api
-    //   .post("/", formData)
-    //   .then((res) => {
-    //     console.log(res);
-    //     const { token } = res.data;
-    //     const { id } = res.data.user;
-    //     localStorage.clear();
-    //     localStorage.setItem("authToken", token);
-    //     localStorage.setItem("userId", id);
-    //     toast.success("O login foi um sucesso");
-    //   })
-    //   .catch((err) => toast.error("Email ou senha inválidos"));
+    //   api
+    //     .post("/", formData)
+    //     .then((res) => {
+    //       console.log(res);
+    //       const { accessToken } = res;
+    //       const { id } = res.user;
+    //       localStorage.clear();
+    //       localStorage.setItem("accessToken", accessToken);
+    //       localStorage.setItem("userId", id);
+    //       toast.success("O login foi um sucesso");
+    //     })
+    //     .catch((err) => toast.error("Email ou senha inválidos"));
   };
 
+  const isActive = useMediaQuery(`(min-width:800px)`);
+
   return (
-    <BoxLogin direction="column">
-      {/* <Container>
-        <img className={classes.img} src={LoginImagem} alt="background-img" />
-      </Container> */}
-      <BoxForm maxWidth="xs">
-        <IconBox>
-          <LockOutlinedIcon />
-        </IconBox>
-        <h1>Login</h1>
-        <form onSubmit={handleSubmit(onSubmitFunction)}>
-          <Stack spacing={4}>
-            <TextField
-              label="Nome de usuário *"
-              inputProps={register("username")}
-              error={!!errors.username}
-              helperText={errors.username?.message}
-            ></TextField>
-            <TextField
-              label="Senha *"
-              inputProps={register("password")}
-              error={!!errors.password}
-              helperText={errors.password?.message}
-            ></TextField>
-          </Stack>
+    <SingupScream>
+      <BoxSingup>
+        <BoxSingupPadlock>
+          <BoxPadlock>
+            <LockOutlinedIcon />
+          </BoxPadlock>
+          <h2>Login</h2>
+        </BoxSingupPadlock>
+        <BoxForm onSubmit={handleSubmit(onSubmitFunction)}>
+          <InputName
+            label="E-mail"
+            inputProps={register("email")}
+            error={!!errors.name}
+            helperText={errors.name?.message}
+            placeholder="E-mail"
+            size="small"
+          />
+          <ImputPassword
+            label="Senha"
+            inputProps={register("password")}
+            error={errors.password}
+            helperText={errors.password?.message}
+            placeholder="Senha"
+            size="small"
+            type="password"
+          />
           <FormGroup>
             <FormControlLabel
               control={<Checkbox defaultChecked />}
               label="Manter conectado"
             />
           </FormGroup>
-          <Button type="submit" variant="contained">
+          <ButtonSubmit variant="contained" type="submit">
             Entrar
-          </Button>
-          <TypographyBox>
-            <Typography onClick={() => history.push("/")}>
-              Esqueceu a senha?
-            </Typography>
-            <Typography onClick={() => history.push("/signup")}>
+          </ButtonSubmit>
+          <Link to="/">
+            <LinkToLogin>Esqueceu a senha?</LinkToLogin>
+          </Link>
+          <Link to="/signup">
+            <LinkToLogin onClick={() => history.push("/signup")}>
               Não tem uma conta? Cadastre-se!
-            </Typography>
-          </TypographyBox>
-        </form>
-      </BoxForm>
-    </BoxLogin>
+            </LinkToLogin>
+          </Link>
+        </BoxForm>
+      </BoxSingup>
+      {/* {isActive && <Vetor />} */}
+    </SingupScream>
   );
 }
