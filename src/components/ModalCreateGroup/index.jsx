@@ -28,7 +28,7 @@ export default function ModalCreateGroup() {
 
   const [value2, setValue2] = useState(null)
 
-  // console.log(value1)
+  console.log(value1)
 
   // console.log(value2)
 

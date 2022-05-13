@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import { makeStyles } from "@mui/styles"
 import TurmaCard from "../../components/TurmaCard";
 import ProfilePhoto from "../../imgs/foto.png"
-import CreateGroup from "../../components/CreateGroup";
+import CreateGroupButton from "../../components/CreateGroupButton";
 import { useOpenModalCreateGroup } from "../../provider/OpenModalCreateGroup"
 import ModalCreateGroup from "../../components/ModalCreateGroup";
 
@@ -105,7 +105,7 @@ export default function Home() {
         </Grid>
 
         <Grid item >
-          <CreateGroup />
+          <CreateGroupButton />
         </Grid>
 
       </StyledGrid>

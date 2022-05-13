@@ -5,7 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useOpenModalCreateGroup } from "../../provider/OpenModalCreateGroup"
 
 
-export default function CreateGroup() {
+export default function CreateGroupButton() {
 
   const { toggleModalCreateGroup} = useOpenModalCreateGroup()
 
