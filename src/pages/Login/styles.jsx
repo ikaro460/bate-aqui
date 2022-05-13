@@ -24,6 +24,7 @@ export const BoxSingupPadlock = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
+  fontSize: "13px",
 }));
 
 export const BoxPadlock = styled(Box)(({ theme }) => ({
@@ -41,38 +42,18 @@ export const BoxForm = styled("form")(({ theme }) => ({
   elevation: "2",
   width: "300px",
   padding: "20px",
-  marginTop: "15px",
   display: "flex",
   justifyContent: "center",
   flexDirection: "column",
   rowGap: "15px",
 }));
 
-export const DivName = styled(Box)(({ theme }) => ({
-  display: "flex",
-  justifyContent: "center",
-  columnGap: "20px",
-}));
-
 export const InputName = styled(TextField)(({ theme }) => ({
-  variant: "outlined",
-}));
-
-export const InputSurname = styled(TextField)(({ theme }) => ({
-  variant: "outlined",
-}));
-
-export const ImputEmail = styled(TextField)(({ theme }) => ({
   variant: "outlined",
 }));
 
 export const ImputPassword = styled(TextField)(({ tehme }) => ({
   variant: "outlined",
-}));
-
-export const DivCheckBox = styled(Box)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
 }));
 
 export const ButtonSubmit = styled(Button)(({ theme }) => ({

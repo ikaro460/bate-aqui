@@ -1,14 +1,20 @@
 import {
-  Button,
   Checkbox,
-  Container,
   FormControlLabel,
   FormGroup,
-  Stack,
-  TextField,
-  Typography,
   useMediaQuery,
 } from "@mui/material";
+import {
+  BoxForm,
+  BoxPadlock,
+  BoxSingup,
+  BoxSingupPadlock,
+  ButtonSubmit,
+  ImputPassword,
+  InputName,
+  LinkToLogin,
+  SingupScream,
+} from "./styles.jsx";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -16,41 +22,28 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import {
-  BoxForm,
-  BoxLogin,
-  BoxPadlock,
-  BoxSingup,
-  BoxSingupPadlock,
-  ButtonSubmit,
-  DivCheckBox,
-  DivName,
-  IconBox,
-  ImputEmail,
-  ImputPassword,
-  InputName,
-  InputSurname,
-  LinkToLogin,
-  SingupScream,
-  TypographyBox,
-} from "./styles.jsx";
-
+import LoginBackground from "../../imgs/Asset 1.png";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 const useStyles = makeStyles((themes) => ({
   img: {
-    width: "200px",
+    height: "300px",
   },
 }));
 
 export default function Login() {
   const history = useHistory();
+
+  const [authenticated, setAuthenticated] =
+    localStorage.getItem("accessToken") || [];
+
   const schema = yup.object().shape({
     email: yup.string().required("Campo obrigatorio").email("Email invalido"),
     password: yup.string().required("Campo obrigatório"),
   });
 
   const classes = useStyles();
+
   const {
     register,
     handleSubmit,
@@ -59,13 +52,11 @@ export default function Login() {
     resolver: yupResolver(schema),
   });
 
-  // LÓGICA PARA REDIRECIONAR CASO JÁ ESTEJA LOGADO
-  //
-  //   useEffect(() => {
-  //     if (authenticated) {
-  //       return history.push("/home");
-  //     }
-  //   }, []);
+  useEffect(() => {
+    if (!!authenticated) {
+      return history.push("/home");
+    }
+  }, [authenticated]);
 
   const onSubmitFunction = (formData) => {
     console.log("oi");
@@ -80,6 +71,7 @@ export default function Login() {
     //       localStorage.clear();
     //       localStorage.setItem("accessToken", accessToken);
     //       localStorage.setItem("userId", id);
+    //       setAuthenticated(true)
     //       toast.success("O login foi um sucesso");
     //     })
     //     .catch((err) => toast.error("Email ou senha inválidos"));
@@ -89,6 +81,13 @@ export default function Login() {
 
   return (
     <SingupScream>
+      {isActive && (
+        <img
+          className={classes.img}
+          src={LoginBackground}
+          alt="login-background"
+        />
+      )}
       <BoxSingup>
         <BoxSingupPadlock>
           <BoxPadlock>
@@ -108,7 +107,7 @@ export default function Login() {
           <ImputPassword
             label="Senha"
             inputProps={register("password")}
-            error={errors.password}
+            error={!!errors.password}
             helperText={errors.password?.message}
             placeholder="Senha"
             size="small"
@@ -127,13 +126,10 @@ export default function Login() {
             <LinkToLogin>Esqueceu a senha?</LinkToLogin>
           </Link>
           <Link to="/signup">
-            <LinkToLogin onClick={() => history.push("/signup")}>
-              Não tem uma conta? Cadastre-se!
-            </LinkToLogin>
+            <LinkToLogin>Não tem uma conta? Cadastre-se!</LinkToLogin>
           </Link>
         </BoxForm>
       </BoxSingup>
-      {/* {isActive && <Vetor />} */}
     </SingupScream>
   );
 }
