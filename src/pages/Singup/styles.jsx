@@ -1,15 +1,7 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  FormGroup,
-  Link,
-  Paper,
-  TextField,
-} from "@mui/material";
+import { Box, Button, Link, Paper, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-export const LoginScreen = styled(Box)(({ theme }) => ({
+export const SingupScream = styled(Box)(({ theme }) => ({
   width: "100vw",
   height: "90vh",
   display: "flex",
@@ -29,17 +21,13 @@ export const BoxSingup = styled(Paper)(({ theme }) => ({
 
 export const BoxSingupPadlock = styled(Box)(({ theme }) => ({
   width: "max-content",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  fontSize: "13px",
-  color: "#000",
 }));
 
 export const BoxPadlock = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  color: "#fff",
   padding: "5px",
   width: "max-content",
   backgroundColor: "#01579B",
@@ -50,10 +38,38 @@ export const BoxForm = styled("form")(({ theme }) => ({
   elevation: "2",
   width: "300px",
   padding: "20px",
+  marginTop: "15px",
   display: "flex",
   justifyContent: "center",
   flexDirection: "column",
   rowGap: "15px",
+}));
+
+export const DivName = styled(Box)(({ theme }) => ({
+  display: "flex",
+  justifyContent: "center",
+  columnGap: "20px",
+}));
+
+export const InputName = styled(TextField)(({ theme }) => ({
+  variant: "outlined",
+}));
+
+export const InputSurname = styled(TextField)(({ theme }) => ({
+  variant: "outlined",
+}));
+
+export const ImputEmail = styled(TextField)(({ theme }) => ({
+  variant: "outlined",
+}));
+
+export const ImputPassword = styled(TextField)(({ tehme }) => ({
+  variant: "outlined",
+}));
+
+export const DivCheckBox = styled(Box)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
 }));
 
 export const ButtonSubmit = styled(Button)(({ theme }) => ({
@@ -63,15 +79,4 @@ export const ButtonSubmit = styled(Button)(({ theme }) => ({
 export const LinkToLogin = styled(Link)(({ theme }) => ({
   color: "#0288D1",
   textDecoration: "none",
-}));
-
-export const DivCheckBox = styled(FormGroup)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  color: "#000",
-  opacity: 100,
-}));
-
-export const CheckboxGroup = styled(Checkbox)(({ theme }) => ({
-  opacity: 100,
 }));
