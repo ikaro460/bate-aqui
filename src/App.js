@@ -5,6 +5,9 @@ import './App.css';
 import { useDarkMode } from './provider/DarkMode';
 import Routes from "./routes"
 
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
+
 function App() {
 
   const { darkMode } = useDarkMode()
@@ -184,6 +187,7 @@ function App() {
           <Routes />
         </LocalizationProvider>
       </ThemeProvider>
+      <ToastContainer />
     </div>
   );
 }
