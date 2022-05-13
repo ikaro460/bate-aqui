@@ -37,7 +37,7 @@ export default function SideBar() {
   return(
     <Drawer
       anchor="left"
-      hideBackdrop={true}
+      // hideBackdrop={true}
       open={sideBar}
     >
       <StyledAppBar elevation={0} >
