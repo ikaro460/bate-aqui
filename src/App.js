@@ -1,46 +1,51 @@
-import { createTheme, ThemeProvider } from '@mui/material';
-import './App.css';
-import { useDarkMode } from './provider/DarkMode';
-import Routes from "./routes"
+import { createTheme, ThemeProvider } from "@mui/material";
+import "./App.css";
+import { useDarkMode } from "./provider/DarkMode";
+import Routes from "./routes";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 function App() {
-
-  const {darkMode} = useDarkMode()
+  const { darkMode } = useDarkMode();
 
   const theme = createTheme({
     palette: {
-      ...(darkMode ? {
-        mode: "dark",
-        // primary: {
-        //   main: "#fff",
-        //   contrastText: '#000',
-        // },
-        // secondary: {
-        //   main: "#000",
-        // }
-      }:{
-        mode: "light",
-        primary: {
-          main: "#0288D1",
-          light: '#03A9F4',
-          dark: "#01579B",
-          contrastText: '#fff',
-        },
-        secondary: {
-          main: "#E64A19",
-          light: '#FF5722',
-          dark: "#BF360C",
-          contrastText: '#fff',
-        },
-      })
+      ...(darkMode
+        ? {
+            mode: "dark",
+            // primary: {
+            //   main: "#fff",
+            //   contrastText: '#000',
+            // },
+            // secondary: {
+            //   main: "#000",
+            // }
+          }
+        : {
+            mode: "light",
+            primary: {
+              main: "#0288D1",
+              light: "#03A9F4",
+              dark: "#01579B",
+              contrastText: "#fff",
+            },
+            secondary: {
+              main: "#E64A19",
+              light: "#FF5722",
+              dark: "#BF360C",
+              contrastText: "#fff",
+            },
+          }),
     },
-  })
+  });
 
   return (
     <div className="App">
-      <ThemeProvider theme={theme} >
+      <ThemeProvider theme={theme}>
         <Routes />
       </ThemeProvider>
+      <ToastContainer />
     </div>
   );
 }
