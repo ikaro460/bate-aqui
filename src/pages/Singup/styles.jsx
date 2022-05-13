@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 
 export const SingupScream = styled(Box)(({ theme }) => ({
   width: "100vw",
-  height: "max-content",
+  height: "90vh",
   display: "flex",
   justifyContent: "space-around",
   alignItems: "center",
@@ -11,7 +11,7 @@ export const SingupScream = styled(Box)(({ theme }) => ({
 
 export const BoxSingup = styled(Paper)(({ theme }) => ({
   width: "max-content",
-  height: "100%",
+  height: "max-content",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -80,4 +80,3 @@ export const LinkToLogin = styled(Link)(({ theme }) => ({
   color: "#0288D1",
   textDecoration: "none",
 }));
-
