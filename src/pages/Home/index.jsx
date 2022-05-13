@@ -4,6 +4,7 @@ import { makeStyles } from "@mui/styles"
 import { maxHeight } from "@mui/system";
 import TurmaCard from "../../components/TurmaCard";
 
+
 const useStyles = makeStyles( (themes) => ({
 
   profile: {
@@ -47,9 +48,8 @@ export default function Home() {
           Perfil
         </Typography>
 
-        <CardMedia
+        <ProfileImg
           component="img"
-          image="/imgs/Avatar-Maker.svg"
         />
 
         <Typography>
