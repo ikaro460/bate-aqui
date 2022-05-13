@@ -49,12 +49,12 @@ function App() {
         "Montserrat",
         "Sans-serif",
       ].join(","),
-      h1: {
+      titulo: {
         fontFamily: "Roboto",
         fontWeight: "400",
         fontSize: "48px",
         '@media (max-width:600px)': {
-          fontSize: "38px",
+          fontSize: "20px",
         },
       },
       h2: {

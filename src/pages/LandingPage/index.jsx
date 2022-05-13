@@ -1,31 +1,55 @@
-import { Box, Button, Card, CardMedia, Typography } from "@mui/material"
+import { Box, Button, Card, CardMedia, Typography, Stack } from "@mui/material"
 import { styled } from '@mui/material/styles';
 import { makeStyles } from "@mui/styles"
 import { maxHeight } from "@mui/system";
 import TurmaCard from "../../components/TurmaCard";
+import asset from "../../imgs/Asset 1.png"
 
 const useStyles = makeStyles( (themes) => ({
 
+  img: {
+    maxWidth: "800px",
 
+    objectFit: "contain",
+  }
 
 }))
 
 const ContainerBox = styled(Box)(({theme}) => ({
-  minHeight: "100vh - 56px",
+  height: "100vh - 56px",
+  // paddingTop: "150px",
+  padding: "150px 15px 0px 15px",
 
-  margin: "25px 12px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "row",
+  flexWrap: "wrap",
+
 }))
 
 export default function LandingPage() {
 
+  const classes = useStyles()
+
   return(
     <ContainerBox>
 
-      <Typography>Diga "PRESENTE" de um jeito novo</Typography>
+      <CardMedia 
+        className={classes.img}
+        component="img"
+        image={asset}
+      />
 
-      <Typography>Seja bem vindo a lista de presença escolar do futuro</Typography>
+      <Stack spacing={{xs: 2, sm: 2, md: 5}} alignItems="center" >
 
-      <Button>cadastre-se</Button>
+        <Typography variant="titulo" >Diga "Presente" de um jeito novo</Typography>
+
+        <Typography variant="h5" >Seja bem vindo a lista de presença escolar do futuro</Typography>
+
+        <Button variant="contained" >cadastre-se</Button>
+
+      </Stack>
 
     </ContainerBox>
   )
