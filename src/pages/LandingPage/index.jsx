@@ -9,6 +9,7 @@ const useStyles = makeStyles( (themes) => ({
 
   img: {
     maxWidth: "800px",
+    marginBottom: "25px",
 
     objectFit: "contain",
   }

@@ -1,16 +1,19 @@
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { createTheme, ThemeProvider } from '@mui/material';
+import { createTheme, SpeedDial, ThemeProvider } from '@mui/material';
 import './App.css';
 import { useDarkMode } from './provider/DarkMode';
 import Routes from "./routes"
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 function App() {
 
-  const { darkMode } = useDarkMode()
+  const { darkMode, toggleDarkMode } = useDarkMode()
 
   const theme = createTheme({
     palette: {
@@ -176,8 +179,7 @@ function App() {
   //   }
   // }
 
-
-
+  
   // console.log(theme)
 
   return (
@@ -185,6 +187,16 @@ function App() {
       <ThemeProvider theme={theme} >
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Routes />
+          <SpeedDial
+            ariaLabel="SpeedDial basic example"
+            sx={{ position: 'fixed', bottom: 16, right: 16 }}
+            icon={ darkMode ? (
+              <DarkModeIcon />
+            ):(
+              <LightModeIcon />
+            )}
+            onClick={toggleDarkMode}
+          />
         </LocalizationProvider>
       </ThemeProvider>
       <ToastContainer />

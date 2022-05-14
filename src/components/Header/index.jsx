@@ -3,6 +3,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
 import { useState } from "react";
 import { useSideBar } from "../../provider/SideBar";
+import { useHistory } from "react-router-dom";
 
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
@@ -24,14 +25,16 @@ export default function Header() {
 
   const { toggleSideBar } = useSideBar()
 
+  const history = useHistory()
+
   return(
     <StyledAppBar elevation={0} >
 
       <IconButton onClick={toggleSideBar}  >
-        <MenuIcon />
+        <MenuIcon sx={{color: "#fff"}} />
       </IconButton>
 
-      <Typography>BateAqui</Typography>
+      <Typography onClick={ () => history.push("/")} >BateAqui</Typography>
 
       {logged ? (
         <Typography>est</Typography>

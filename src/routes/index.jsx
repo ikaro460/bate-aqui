@@ -24,20 +24,20 @@ export default function Routes() {
       </Route>
 
       <Route exact path="/login">
-        <SideBar />
-        <Header />
+        {/* <SideBar />
+        <Header /> */}
         <Login />
       </Route>
 
       <Route exact path="/signup">
-        <SideBar />
-        <Header />
+        {/* <SideBar />
+        <Header /> */}
         <Singup />
       </Route>
 
       <Route exact path="/" >
-        <SideBar />
-        <Header />
+        {/* <SideBar />
+        <Header /> */}
         <LandingPage />
       </Route>
 
