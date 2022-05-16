@@ -1,14 +1,17 @@
-import { Checkbox, FormControlLabel, FormGroup, TextField, Typography, useMediaQuery } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  TextField,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import {
   BoxForm,
   BoxPadlock,
   BoxSingup,
   BoxSingupPadlock,
   ButtonSubmit,
-  CheckboxGroup,
-  DivCheckBox,
-  ImputPassword,
-  InputName,
   LinkToLogin,
   LoginScreen,
 } from "./styles.jsx";
@@ -23,6 +26,7 @@ import LoginBackground from "../../imgs/Asset 1.png";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import { api } from "../../services/api";
+import { ToastError, ToastSuccess } from "../../components/Toasts/Index.jsx";
 
 const useStyles = makeStyles((themes) => ({
   img: {
@@ -62,7 +66,7 @@ export default function Login() {
     console.log(formData);
 
     api
-      .post("/", formData)
+      .post("/login", formData)
       .then((res) => {
         const { accessToken } = res;
         const { id } = res.user;
@@ -72,9 +76,9 @@ export default function Login() {
         localStorage.setItem("userId", id);
 
         setAuthenticated(true);
-        toast.success("O login foi um sucesso");
+        ToastSuccess("O login foi um sucesso");
       })
-      .catch((err) => toast.error("Email ou senha inválidos"));
+      .catch((err) => ToastError("Email ou senha inválidos"));
   };
 
   const isActive = useMediaQuery(`(min-width:800px)`);
@@ -91,9 +95,11 @@ export default function Login() {
       <BoxSingup>
         <BoxSingupPadlock>
           <BoxPadlock>
-            <LockOutlinedIcon sx={{color: "text.secondary"}} />
+            <LockOutlinedIcon sx={{ color: "text.secondary" }} />
           </BoxPadlock>
-          <Typography variant="h4" color="text.primary" >Login</Typography>
+          <Typography variant="h4" color="text.primary">
+            Login
+          </Typography>
         </BoxSingupPadlock>
         <BoxForm onSubmit={handleSubmit(onSubmitFunction)}>
           <TextField
@@ -114,14 +120,16 @@ export default function Login() {
             type="password"
           />
           <FormGroup>
-            <FormControlLabel control={<Checkbox defaultChecked />} label={<Typography variant="h5" >Mantenha-me conectado</Typography> } />
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              label={
+                <Typography variant="h5">Mantenha-me conectado</Typography>
+              }
+            />
           </FormGroup>
           <ButtonSubmit variant="contained" type="submit">
             Entrar
           </ButtonSubmit>
-          <Link to="/">
-            <LinkToLogin>Esqueceu a senha?</LinkToLogin>
-          </Link>
           <Link to="/signup">
             <LinkToLogin>Não tem uma conta? Cadastre-se!</LinkToLogin>
           </Link>
