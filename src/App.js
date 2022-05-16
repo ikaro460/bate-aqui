@@ -20,7 +20,7 @@ function App() {
       ...(darkMode ? {
         mode: "dark",
         primary: {
-          main: "#3B3B3B",
+          main: "#444",
           light: '#E6E6E6',
           dark: "#3B3B3B",
           contrastText: '#fff',
@@ -192,7 +192,7 @@ function App() {
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color: theme.palette.text.primary
+          color: "#A4A9AF"
         }
       }
     },

@@ -13,7 +13,7 @@ const StyledBox = styled(Box)(({theme}) => ({
   padding: "35px 0px",
   position: "relative",
 
-  backgroundColor: "#fff", 
+  backgroundColor: theme.palette.background.primary,
 
   [theme.breakpoints.down('sm')]: {
     width: "260px"
@@ -36,10 +36,10 @@ export default function ModalCreateGroup() {
     <StyledBox component="form" >
 
       <IconButton onClick={toggleModalCreateGroup} sx={{position: "absolute", top: 0, right: 0}} >
-        <CloseIcon sx={{color: "#000"}} />
+        <CloseIcon sx={{color: "text.primary"}} />
       </IconButton>
 
-      <Typography variant="h4" mb="35px" >Nova turma</Typography>
+      <Typography variant="h4" mb="35px" color="text.primary" >Nova turma</Typography>
 
       <Stack spacing={2} alignItems="center" >
 
