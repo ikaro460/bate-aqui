@@ -2,7 +2,7 @@ import { DarkModeProvider } from "./DarkMode"
 import { SideBarProvider } from "./SideBar"
 import { OpenModalCreateGroupProvider } from "./OpenModalCreateGroup"
 import { UsersProvider } from "./Users"
-import { GroupsProvider } from "./Groups"
+import { OwnerGroupsProvider } from "./OwnerGroups"
 export const Providers = ({children}) => {
 
   return(
@@ -10,9 +10,9 @@ export const Providers = ({children}) => {
       <SideBarProvider>
         <OpenModalCreateGroupProvider>
           <UsersProvider>
-            <GroupsProvider>
+            <OwnerGroupsProvider>
               {children}
-            </GroupsProvider>      
+            </OwnerGroupsProvider>      
           </UsersProvider>   
         </OpenModalCreateGroupProvider>     
       </SideBarProvider>
