@@ -12,7 +12,7 @@ export const OwnerGroupsProvider = ({children}) => {
             headers: {
                 "Authorization": `Bearer ${token}`
             }            
-        }).then((response) => setOwnerGroups(response.data)).catch((error) => console.log(error))    
+        }).then((response) => setOwnerGroups(response.data.groups)).catch((error) => console.log(error))    
     }
     
     return (
