@@ -6,6 +6,7 @@ export const StyledCard = styled(Card)(({theme}) => ({
     width: "320px",
     height: "290px",
     padding: "0px",
+    backgroundColor: theme.palette.background.primary,
 
     [theme.breakpoints.down('sm')]: {
       width: "260px"
@@ -23,6 +24,7 @@ export const ColorCard = styled(CardContent)(({theme}) => ({
 export const InfosCard = styled(Stack)(({theme}) => ({
   // height: "100%",
   padding: "10px",
+  backgroundColor: theme.palette.background.primary,
 
   // display: "flex",
   // flexDirection: "column",

@@ -65,7 +65,7 @@ export default function Singup() {
       <BoxSingup>
         <BoxSingupPadlock>
           <BoxPadlock>
-            <LockOutlinedIcon sx={{color: "#fff"}} />
+            <LockOutlinedIcon sx={{color: "text.secondary"}} />
           </BoxPadlock>
         </BoxSingupPadlock>
         <BoxForm onSubmit={handleSubmit(handleOnSubmit)}>

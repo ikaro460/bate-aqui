@@ -19,49 +19,49 @@ export default function StyledTableRow({row, index}) {
       <TableCell
         component="th"
         scope="row"
-        sx={{color: "text.secondary", textAlign: "center"}}
+        sx={{color: "text.primary", textAlign: "center"}}
       >
         <Typography variant="tableSubTitle" >{id}</Typography>
       </TableCell>
       <TableCell
         component="th"
         scope="row"
-        sx={{color: "text.secondary"}}
+        sx={{color: "text.primary"}}
       >
         <Typography variant="tableSubTitle" >{name}</Typography>
       </TableCell>
       <TableCell
         component="th"
         scope="row"
-        sx={{color: "text.secondary"}}
+        sx={{color: "text.primary"}}
       >
         <Typography variant="tableSubTitle" >{data}</Typography>
       </TableCell>
       <TableCell
         component="th"
         scope="row"
-        sx={{color: "text.secondary"}}
+        sx={{color: "text.primary"}}
       >
         <Typography variant="tableSubTitle" >{checkin}</Typography>
       </TableCell>
       <TableCell
         component="th"
         scope="row"
-        sx={{color: "text.secondary"}}
+        sx={{color: "text.primary"}}
       >
         <Typography variant="tableSubTitle" >{checkout}</Typography>
       </TableCell>
       <TableCell
         component="th"
         scope="row"
-        sx={{color: "text.secondary"}}
+        sx={{color: "text.primary"}}
       >
         <Typography variant="tableSubTitle" >{status}</Typography>
       </TableCell>
       <TableCell
         component="th"
         scope="row"
-        sx={{color: "text.secondary", textAlign: "center", width: "140px"}}
+        sx={{color: "text.primary", textAlign: "center", width: "140px"}}
       >
         <ButtonGroup>
           <IconButton>

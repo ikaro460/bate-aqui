@@ -31,14 +31,14 @@ export default function Header() {
     <StyledAppBar elevation={0} >
 
       <IconButton onClick={toggleSideBar}  >
-        <MenuIcon sx={{color: "#fff"}} />
+        <MenuIcon sx={{color: "text.secondary"}} />
       </IconButton>
 
       <Typography onClick={ () => history.push("/")} >BateAqui</Typography>
 
       {logged ? (
         <Typography>est</Typography>
-      ):(<Button sx={{color: "#fff"}} >Login</Button>)}
+      ):(<Button sx={{color: "text.secondary"}} >Login</Button>)}
 
     </StyledAppBar>
   )

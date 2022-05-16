@@ -45,7 +45,7 @@ export default function SideBar() {
       <StyledAppBar elevation={0} >
 
         <IconButton onClick={toggleSideBar}  >
-          <MenuIcon sx={{color: "#fff"}} />
+          <MenuIcon sx={{color: "text.secondary"}} />
         </IconButton>
 
       </StyledAppBar>
@@ -57,11 +57,11 @@ export default function SideBar() {
           <MenuItem>
 
             <ListItemIcon>
-              <TagFacesIcon sx={{color: "#fff"}} />
+              <TagFacesIcon sx={{color: "text.secondary"}} />
             </ListItemIcon>
 
             <ListItemText onClick={() => history.push("/perfil")} >
-              <Typography>Perfil</Typography>
+              <Typography sx={{color: "text.secondary"}} >Perfil</Typography>
             </ListItemText>
 
           </MenuItem>
@@ -69,11 +69,11 @@ export default function SideBar() {
           <MenuItem>
 
             <ListItemIcon>
-              <WorkOutlineSharpIcon sx={{color: "#fff"}} />
+              <WorkOutlineSharpIcon sx={{color: "text.secondary"}} />
             </ListItemIcon>
 
             <ListItemText>
-              <Typography>Configurações</Typography>
+              <Typography sx={{color: "text.secondary"}} >Configurações</Typography>
             </ListItemText>
 
           </MenuItem>
@@ -81,11 +81,11 @@ export default function SideBar() {
           <MenuItem>
 
             <ListItemIcon>
-              <PaymentSharpIcon sx={{color: "#fff"}} />
+              <PaymentSharpIcon sx={{color: "text.secondary"}} />
             </ListItemIcon>
 
             <ListItemText>
-              <Typography>Turmas</Typography>
+              <Typography sx={{color: "text.secondary"}} >Turmas</Typography>
             </ListItemText>
 
           </MenuItem>
@@ -93,11 +93,11 @@ export default function SideBar() {
           <MenuItem>
 
             <ListItemIcon>
-              <CheckCircleOutlineSharpIcon sx={{color: "#fff"}} />
+              <CheckCircleOutlineSharpIcon sx={{color: "text.secondary"}} />
             </ListItemIcon>
 
             <ListItemText>
-              <Typography>Presenças</Typography>
+              <Typography sx={{color: "text.secondary"}} >Presenças</Typography>
             </ListItemText>
 
           </MenuItem>
@@ -105,11 +105,11 @@ export default function SideBar() {
           <MenuItem>
 
             <ListItemIcon>
-              <PeopleOutlineSharpIcon sx={{color: "#fff"}} />
+              <PeopleOutlineSharpIcon sx={{color: "text.secondary"}} />
             </ListItemIcon>
 
             <ListItemText>
-              <Typography>Notificações</Typography>
+              <Typography sx={{color: "text.secondary"}} >Notificações</Typography>
             </ListItemText>
 
           </MenuItem>          

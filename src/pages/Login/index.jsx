@@ -91,9 +91,9 @@ export default function Login() {
       <BoxSingup>
         <BoxSingupPadlock>
           <BoxPadlock>
-            <LockOutlinedIcon sx={{color: "#fff"}} />
+            <LockOutlinedIcon sx={{color: "text.secondary"}} />
           </BoxPadlock>
-          <Typography variant="h4" >Login</Typography>
+          <Typography variant="h4" color="text.primary" >Login</Typography>
         </BoxSingupPadlock>
         <BoxForm onSubmit={handleSubmit(onSubmitFunction)}>
           <TextField

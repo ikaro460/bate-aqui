@@ -17,9 +17,9 @@ const useStyles = makeStyles( (themes) => ({
 }))
 
 const ContainerBox = styled(Box)(({theme}) => ({
-  height: "100vh - 56px",
+  height: "100vh",
   // paddingTop: "150px",
-  padding: "150px 15px 0px 15px",
+  padding: "150px 15px 35px 15px",
 
   display: "flex",
   justifyContent: "center",
@@ -27,6 +27,7 @@ const ContainerBox = styled(Box)(({theme}) => ({
   flexDirection: "row",
   flexWrap: "wrap",
 
+  backgroundColor: theme.palette.background.primary,
 }))
 
 export default function LandingPage() {
@@ -44,9 +45,9 @@ export default function LandingPage() {
 
       <Stack spacing={{xs: 2, sm: 2, md: 5}} alignItems="center" >
 
-        <Typography variant="titulo" >Diga "Presente" de um jeito novo</Typography>
+        <Typography variant="titulo" color="text.primary" >Diga "Presente" de um jeito novo</Typography>
 
-        <Typography variant="h5" >Seja bem vindo a lista de presença escolar do futuro</Typography>
+        <Typography variant="h5" color="text.primary" >Seja bem vindo a lista de presença escolar do futuro</Typography>
 
         <Button variant="contained" >cadastre-se</Button>
 

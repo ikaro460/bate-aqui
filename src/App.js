@@ -19,13 +19,29 @@ function App() {
     palette: {
       ...(darkMode ? {
         mode: "dark",
-        // primary: {
-        //   main: "#fff",
-        //   contrastText: '#000',
-        // },
-        // secondary: {
-        //   main: "#000",
-        // }
+        primary: {
+          main: "#3B3B3B",
+          light: '#E6E6E6',
+          dark: "#3B3B3B",
+          contrastText: '#fff',
+        }, 
+        // #E6E6E6 text
+        secondary: {
+          main: "##E6E6E6",
+          light: '#3B3B3B',
+          dark: "#3B3B3B",
+          contrastText: '#fff',
+        },
+        text: {
+          primary: "#E6E6E6",
+          secondary: "#E6E6E6",
+          subtitle: "#ccc"
+        },
+        background: {
+          primary: "#1A1A1A",
+          secondary: "#000"
+        },
+        tableRowContrast: "#1A1A1A"
       }:{
         mode: "light",
         primary: {
@@ -42,6 +58,12 @@ function App() {
         },
         text: {
           primary: "#000",
+          secondary: "#fff",
+          subtitle: "#4B4B4B"
+        },
+        background: {
+          primary: "#fff",
+          secondary: "#000"
         },
         tableRowContrast: "#F7F6FE"
       })
@@ -159,15 +181,29 @@ function App() {
     font-size 12
   */}
 
-  // theme.components = {
-  //   MuiSvgIcon: {
-  //     styleOverrides: {
-  //       root: {
-  //         color: "#fff",
-  //       }
-  //     }
-  //   }
-  // }
+  theme.components = {
+    // MuiSvgIcon: {
+    //   styleOverrides: {
+    //     root: {
+    //       color: "#fff",
+    //     }
+    //   }
+    // }
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.text.primary
+        }
+      }
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          color: theme.palette.text.primary
+        }
+      }
+    }
+  }
   
   // theme.typography = {
   //   h1: {

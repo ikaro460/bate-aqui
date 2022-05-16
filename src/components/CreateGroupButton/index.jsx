@@ -13,8 +13,8 @@ export default function CreateGroupButton() {
     <StyledCard>
 
       <Box sx={{borderRadius: "50px", height: "56px", width: "56px", backgroundColor: "primary.main", "&:hover": {backgroundColor: "primary.dark"} }} >
-        <IconButton variant="contained" onClick={toggleModalCreateGroup} sx={{height: "56px"}} >
-          <AddIcon sx={{color: "#fff"}} size="large" />
+        <IconButton variant="contained" onClick={toggleModalCreateGroup} sx={{width: "56px", height: "56px"}} >
+          <AddIcon sx={{color: "text.primary"}} size="large" />
         </IconButton>
       </Box>
 

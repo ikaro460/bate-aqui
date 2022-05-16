@@ -19,9 +19,10 @@ const useStyles = makeStyles( (themes) => ({
 }))
 
 const ContainerBox = styled(Box)(({theme}) => ({
-  minHeight: "100vh - 56px",
+  minHeight: "100vh",
+  backgroundColor: theme.palette.background.primary,
 
-  margin: "25px 40px",
+  padding: "25px 40px",
   
   [theme.breakpoints.down('sm')]: {
     margin: "25px 20px",
@@ -41,6 +42,7 @@ const StyledCard = styled(Card)(({theme}) => ({
   display: "flex",
   flexDirection: "column",
   position: "relative",
+  backgroundColor: theme.palette.background.primary,
 
   [theme.breakpoints.down('sm')]: {
     width: "260px"
@@ -72,7 +74,7 @@ export default function Home() {
 
       <StyledCard elevation={2} >
 
-        <Typography variant="h5" sx={{alignSelf: "flex-start", color: "#000"}} >
+        <Typography variant="h5" sx={{alignSelf: "flex-start", color: "text.primary"}} >
           Perfil
         </Typography>
 
@@ -83,11 +85,11 @@ export default function Home() {
 
         <Stack direction="column" justifyContent="center" alignItems="center" spacing={1} sx={{height: "100%"}} >
 
-          <Typography variant="h5" sx={{color: "#000"}} >
+          <Typography variant="h5" sx={{color: "text.primary"}} >
             Nome Sobrenome
           </Typography>
 
-          <Typography variant="subtitle2" sx={{color: "#000"}} >
+          <Typography variant="subtitle2" sx={{color: "text.primary"}} >
             Instituição
           </Typography>
 

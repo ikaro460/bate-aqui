@@ -9,6 +9,7 @@ export const StyledCard = styled(Card)(({theme}) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: theme.palette.background.primary,
 
     [theme.breakpoints.down('sm')]: {
       width: "260px"
