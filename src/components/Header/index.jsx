@@ -36,9 +36,7 @@ export default function Header() {
 
       <Typography onClick={ () => history.push("/")} >BateAqui</Typography>
 
-      {logged ? (
-        <Typography>est</Typography>
-      ):(<Button sx={{color: "text.secondary"}} >Login</Button>)}
+      <Button sx={{color: "text.secondary"}} >Sair</Button>
 
     </StyledAppBar>
   )

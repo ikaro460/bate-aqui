@@ -20,7 +20,7 @@ function App() {
       ...(darkMode ? {
         mode: "dark",
         primary: {
-          main: "#3B3B3B",
+          main: "#444",
           light: '#E6E6E6',
           dark: "#3B3B3B",
           contrastText: '#fff',
@@ -35,7 +35,8 @@ function App() {
         text: {
           primary: "#E6E6E6",
           secondary: "#E6E6E6",
-          subtitle: "#ccc"
+          subtitle: "#ccc",
+          button: "#E6E6E6",
         },
         background: {
           primary: "#1A1A1A",
@@ -59,7 +60,8 @@ function App() {
         text: {
           primary: "#000",
           secondary: "#fff",
-          subtitle: "#4B4B4B"
+          subtitle: "#4B4B4B",
+          button: "#0288D1",
         },
         background: {
           primary: "#fff",
@@ -192,7 +194,7 @@ function App() {
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color: theme.palette.text.primary
+          color: "#A4A9AF"
         }
       }
     },

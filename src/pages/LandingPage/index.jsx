@@ -19,7 +19,8 @@ const useStyles = makeStyles( (themes) => ({
 const ContainerBox = styled(Box)(({theme}) => ({
   height: "100vh",
   // paddingTop: "150px",
-  padding: "150px 15px 35px 15px",
+  // padding: "150px 15px 35px 15px",
+  padding: "auto 15px",
 
   display: "flex",
   justifyContent: "center",
@@ -49,7 +50,13 @@ export default function LandingPage() {
 
         <Typography variant="h5" color="text.primary" >Seja bem vindo a lista de presença escolar do futuro</Typography>
 
-        <Button variant="contained" >cadastre-se</Button>
+        <Stack spacing={5} direction="row" >
+
+          <Button sx={{color: "text.button"}} >cadastre-se</Button>
+
+          <Button variant="contained" sx={{color: "text.secondary"}} >logar</Button>
+
+        </Stack>
 
       </Stack>
 

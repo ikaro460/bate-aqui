@@ -14,7 +14,7 @@ export default function CreateGroupButton() {
 
       <Box sx={{borderRadius: "50px", height: "56px", width: "56px", backgroundColor: "primary.main", "&:hover": {backgroundColor: "primary.dark"} }} >
         <IconButton variant="contained" onClick={toggleModalCreateGroup} sx={{width: "56px", height: "56px"}} >
-          <AddIcon sx={{color: "text.primary"}} size="large" />
+          <AddIcon sx={{color: "text.secondary"}} size="large" />
         </IconButton>
       </Box>
 
