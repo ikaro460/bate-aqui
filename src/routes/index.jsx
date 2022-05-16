@@ -10,14 +10,13 @@ import Singup from "../pages/Singup";
 export default function Routes() {
   return (
     <Switch>
-
-      <Route exact path="/home" >
+      <Route exact path="/home">
         <SideBar />
         <Header />
         <Home />
       </Route>
 
-      <Route exact path="/turma" >
+      <Route exact path="/turma">
         <SideBar />
         <Header />
         <Turma />
@@ -29,18 +28,17 @@ export default function Routes() {
         <Login />
       </Route>
 
-      <Route exact path="/signup">
+      <Route path="/signup">
         {/* <SideBar />
         <Header /> */}
         <Singup />
       </Route>
 
-      <Route exact path="/" >
+      <Route exact path="/">
         {/* <SideBar />
         <Header /> */}
         <LandingPage />
       </Route>
-
     </Switch>
   );
 }
