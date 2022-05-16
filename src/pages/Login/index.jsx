@@ -124,9 +124,6 @@ export default function Login() {
           <ButtonSubmit variant="contained" type="submit">
             Entrar
           </ButtonSubmit>
-          <Link to="/">
-            <LinkToLogin>Esqueceu a senha?</LinkToLogin>
-          </Link>
           <Link to="/signup">
             <LinkToLogin>Não tem uma conta? Cadastre-se!</LinkToLogin>
           </Link>
