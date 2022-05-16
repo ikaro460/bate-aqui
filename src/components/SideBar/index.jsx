@@ -7,6 +7,7 @@ import WorkOutlineSharpIcon from '@mui/icons-material/WorkOutlineSharp';
 import PaymentSharpIcon from '@mui/icons-material/PaymentSharp';
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import PeopleOutlineSharpIcon from '@mui/icons-material/PeopleOutlineSharp';
+import { Link, useHistory } from "react-router-dom";
 
 
 const StyledPaper = styled(Paper)(({theme}) => ({
@@ -33,6 +34,7 @@ export default function SideBar() {
 
   const { sideBar, toggleSideBar } = useSideBar()
 
+  const history = useHistory()
 
   return(
     <Drawer
@@ -43,7 +45,7 @@ export default function SideBar() {
       <StyledAppBar elevation={0} >
 
         <IconButton onClick={toggleSideBar}  >
-          <MenuIcon />
+          <MenuIcon sx={{color: "text.secondary"}} />
         </IconButton>
 
       </StyledAppBar>
@@ -55,11 +57,11 @@ export default function SideBar() {
           <MenuItem>
 
             <ListItemIcon>
-              <TagFacesIcon />
+              <TagFacesIcon sx={{color: "text.secondary"}} />
             </ListItemIcon>
 
-            <ListItemText>
-              <Typography>Perfil</Typography>
+            <ListItemText onClick={() => history.push("/perfil")} >
+              <Typography sx={{color: "text.secondary"}} >Perfil</Typography>
             </ListItemText>
 
           </MenuItem>
@@ -67,11 +69,11 @@ export default function SideBar() {
           <MenuItem>
 
             <ListItemIcon>
-              <WorkOutlineSharpIcon />
+              <WorkOutlineSharpIcon sx={{color: "text.secondary"}} />
             </ListItemIcon>
 
             <ListItemText>
-              <Typography>Configurações</Typography>
+              <Typography sx={{color: "text.secondary"}} >Configurações</Typography>
             </ListItemText>
 
           </MenuItem>
@@ -79,11 +81,11 @@ export default function SideBar() {
           <MenuItem>
 
             <ListItemIcon>
-              <PaymentSharpIcon />
+              <PaymentSharpIcon sx={{color: "text.secondary"}} />
             </ListItemIcon>
 
             <ListItemText>
-              <Typography>Turmas</Typography>
+              <Typography sx={{color: "text.secondary"}} >Turmas</Typography>
             </ListItemText>
 
           </MenuItem>
@@ -91,11 +93,11 @@ export default function SideBar() {
           <MenuItem>
 
             <ListItemIcon>
-              <CheckCircleOutlineSharpIcon />
+              <CheckCircleOutlineSharpIcon sx={{color: "text.secondary"}} />
             </ListItemIcon>
 
             <ListItemText>
-              <Typography>Presenças</Typography>
+              <Typography sx={{color: "text.secondary"}} >Presenças</Typography>
             </ListItemText>
 
           </MenuItem>
@@ -103,11 +105,11 @@ export default function SideBar() {
           <MenuItem>
 
             <ListItemIcon>
-              <PeopleOutlineSharpIcon />
+              <PeopleOutlineSharpIcon sx={{color: "text.secondary"}} />
             </ListItemIcon>
 
             <ListItemText>
-              <Typography>Notificações</Typography>
+              <Typography sx={{color: "text.secondary"}} >Notificações</Typography>
             </ListItemText>
 
           </MenuItem>          

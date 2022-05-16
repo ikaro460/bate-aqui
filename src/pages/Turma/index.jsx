@@ -16,12 +16,13 @@ const useStyles = makeStyles( (themes) => ({
 
 const ContainerBox = styled(Box)(({theme}) => ({
   minWidth: "max-content", 
-  minHeight: "100vh - 56px",
+  minHeight: "100vh",
 
   textAlign: "left",
   position: "relative",
 
-  margin: "25px 30px",
+  padding: "25px 30px",
+  backgroundColor: theme.palette.background.primary,
 }))
 
 
@@ -46,11 +47,11 @@ export default function Turma() {
     <ContainerBox>
 
       <Stack direction="row" alignItems="baseline" justifyContent="space-between" >
-        <Typography variant="h3" >Turma 01</Typography>
+        <Typography color="text.primary" variant="h3" >Turma 01</Typography>
         <Button variant="contained" startIcon={<AddSharpIcon />} >Adicionar *Aluno*</Button>
       </Stack>
         
-      <Typography variant="subtitle1" ml="5px" color="#4B4B4B" mb="50px" >Coach</Typography>
+      <Typography variant="subtitle1" ml="5px" color="text.subtitle" mb="50px" >Coach</Typography>
 
       <TableContainer 
         component={Paper} 
@@ -59,25 +60,25 @@ export default function Turma() {
         <Table sx={{overflowX: "scroll", minWidth: "max-content"}} >
           <TableHead >
             <TableRow >
-              <TableCell sx={{color: "text.secondary", textAlign: "center"}} >
+              <TableCell sx={{color: "text.primary", textAlign: "center"}} >
                 <Typography variant="tableTitle" >ID Aluno</Typography>
               </TableCell>
-              <TableCell sx={{color: "text.secondary"}} >
+              <TableCell sx={{color: "text.primary"}} >
                 <Typography variant="tableTitle" >Nome</Typography>
               </TableCell>
-              <TableCell sx={{color: "text.secondary"}} >
+              <TableCell sx={{color: "text.primary"}} >
                 <Typography variant="tableTitle" >Data</Typography>
               </TableCell>
-              <TableCell sx={{color: "text.secondary"}} >
+              <TableCell sx={{color: "text.primary"}} >
                 <Typography variant="tableTitle" >Check-in</Typography>
               </TableCell>
-              <TableCell sx={{color: "text.secondary"}} >
+              <TableCell sx={{color: "text.primary"}} >
                 <Typography variant="tableTitle" >Check-out</Typography>
               </TableCell>
-              <TableCell sx={{color: "text.secondary"}} >
+              <TableCell sx={{color: "text.primary"}} >
                 <Typography variant="tableTitle" >Status</Typography>
               </TableCell>
-              <TableCell sx={{color: "text.secondary", textAlign: "center"}} >
+              <TableCell sx={{color: "text.primary", textAlign: "center"}} >
                 <Typography variant="tableTitle" >Ações</Typography>
               </TableCell>
             </TableRow>

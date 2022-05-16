@@ -3,10 +3,12 @@ import { styled } from "@mui/material/styles";
 
 export const SingupScream = styled(Box)(({ theme }) => ({
   width: "100vw",
-  height: "90vh",
+  height: "100vh",
   display: "flex",
   justifyContent: "space-around",
   alignItems: "center",
+
+  backgroundColor: theme.palette.background.primary,
 }));
 
 export const BoxSingup = styled(Paper)(({ theme }) => ({
@@ -27,10 +29,9 @@ export const BoxPadlock = styled(Box)(({ theme }) => ({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  color: "#fff",
   padding: "5px",
   width: "max-content",
-  backgroundColor: "#01579B",
+  backgroundColor: theme.palette.primary.main,
   borderRadius: "50%",
 }));
 
@@ -73,7 +74,6 @@ export const DivCheckBox = styled(Box)(({ theme }) => ({
 }));
 
 export const ButtonSubmit = styled(Button)(({ theme }) => ({
-  backgroundColor: "#0288D1",
 }));
 
 export const LinkToLogin = styled(Link)(({ theme }) => ({

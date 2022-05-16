@@ -11,10 +11,12 @@ import { styled } from "@mui/material/styles";
 
 export const LoginScreen = styled(Box)(({ theme }) => ({
   width: "100vw",
-  height: "90vh",
+  height: "100vh",
   display: "flex",
   justifyContent: "space-around",
   alignItems: "center",
+
+  backgroundColor: theme.palette.background.primary,
 }));
 
 export const BoxSingup = styled(Paper)(({ theme }) => ({
@@ -33,7 +35,6 @@ export const BoxSingupPadlock = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   alignItems: "center",
   fontSize: "13px",
-  color: "#000",
 }));
 
 export const BoxPadlock = styled(Box)(({ theme }) => ({
@@ -42,7 +43,7 @@ export const BoxPadlock = styled(Box)(({ theme }) => ({
   alignItems: "center",
   padding: "5px",
   width: "max-content",
-  backgroundColor: "#01579B",
+  backgroundColor: theme.palette.primary.main,
   borderRadius: "50%",
 }));
 
@@ -54,10 +55,10 @@ export const BoxForm = styled("form")(({ theme }) => ({
   justifyContent: "center",
   flexDirection: "column",
   rowGap: "15px",
+  color: theme.palette.text.primary
 }));
 
 export const ButtonSubmit = styled(Button)(({ theme }) => ({
-  backgroundColor: "#0288D1",
 }));
 
 export const LinkToLogin = styled(Link)(({ theme }) => ({
