@@ -49,12 +49,6 @@ export default function LandingPage() {
 
         <Typography variant="h5" color="text.primary" >Seja bem vindo a lista de presença escolar do futuro</Typography>
 
-        <Stack spacing={5} direction="row" >
-
-          <Button sx={{color: "text.button"}} onClick={() => history.push('/signup')}>cadastre-se</Button>
-
-          <Button variant="contained" sx={{color: "text.secondary"}} onClick={() => history.push('/login')} >logar</Button>
-
         <Stack spacing={5} direction="row">
           
           <Link to="/singup">
@@ -68,7 +62,7 @@ export default function LandingPage() {
           </Link>
 
         </Stack>
-
+        
       </Stack>
 
     </ContainerBox>
