@@ -7,8 +7,6 @@ import {
   ButtonSubmit,
   CheckboxGroup,
   DivCheckBox,
-  ImputPassword,
-  InputName,
   LinkToLogin,
   LoginScreen,
 } from "./styles.jsx";
@@ -62,7 +60,7 @@ export default function Login() {
     console.log(formData);
 
     api
-      .post("/", formData)
+      .post("/login", formData)
       .then((res) => {
         const { accessToken } = res;
         const { id } = res.user;
