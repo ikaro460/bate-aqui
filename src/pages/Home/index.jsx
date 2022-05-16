@@ -83,8 +83,8 @@ export default function Home() {
       <StyledGrid container spacing={5} >
 
         {groups &&
-          groups.map( (each) => 
-            <Grid item >
+          groups.map( (each, index) => 
+            <Grid item key={index} >
               <TurmaCard group={each} />
             </Grid>
           )
