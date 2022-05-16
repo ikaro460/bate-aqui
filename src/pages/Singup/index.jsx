@@ -19,7 +19,6 @@ import {
   InputSurname,
   ImputEmail,
   ImputPassword,
-  DivCheckBox,
   ButtonSubmit,
   LinkToLogin,
 } from "./styles";
