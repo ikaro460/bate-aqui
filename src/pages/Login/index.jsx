@@ -16,11 +16,10 @@ import {
   LoginScreen,
 } from "./styles.jsx";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import LoginBackground from "../../imgs/Asset 1.png";
 import { makeStyles } from "@mui/styles";
@@ -38,8 +37,9 @@ export default function Login() {
   
   const history = useHistory();
 
-  const [authenticated, setAuthenticated] =
-    localStorage.getItem("accessToken") || [];
+  const [authenticated, setAuthenticated] = useState(
+    localStorage.getItem("accessToken") || false
+  );
 
   const schema = yup.object().shape({
     email: yup.string().required("Campo obrigatorio").email("Email invalido"),
@@ -69,17 +69,17 @@ export default function Login() {
     api
       .post("/login", formData)
       .then((res) => {
-        const { accessToken } = res;
-        const { id } = res.user;
+        const { accessToken } = res.data;
+        const { user } = res.data;
 
         localStorage.clear();
         localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("userId", id);
+        localStorage.setItem("userId", user.id);
 
-        setAuthenticated(true);
         ToastSuccess("O login foi um sucesso");
+        setAuthenticated(true);
       })
-      .catch((err) => ToastError("Email ou senha inválidos"));
+      .catch((err) => () => ToastError("Email ou senha inválidos"));
   };
 
   const isActive = useMediaQuery(`(min-width:800px)`);
