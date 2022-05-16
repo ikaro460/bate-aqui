@@ -4,10 +4,13 @@ import { ColorCard, InfosCard, StyledCard } from "./styles";
 import { useState } from "react";
 
 
-export default function TurmaCard() {
+export default function TurmaCard({group}) {
 
   const [ openMore, setOpenMore ] = useState(false)
+
   const [anchorEl, setAnchorEl]   = useState(null);
+
+  const { name, checkin, checkout, userId, type } = group
 
   const toggleMore = (event) => {
     setOpenMore(!openMore)
@@ -41,9 +44,9 @@ export default function TurmaCard() {
 
       <Stack justifyContent="space-around" alignItems="center" height="150px" padding="15px 0px" mt="-9.5px" >
 
-        <Typography variant="h5" color="text.primary" >Turma 1</Typography>
+        <Typography variant="h5" color="text.primary" >{name}</Typography>
 
-        <Typography variant="caption" color="text.primary" mt="-15px" >cargo</Typography>
+        <Typography variant="caption" color="text.primary" mt="-15px" >{type}</Typography>
 
           {/* <Button variant="contained" >entrar</Button> */}
 

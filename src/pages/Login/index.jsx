@@ -58,12 +58,11 @@ export default function Login() {
 
   useEffect(() => {
     if (!!authenticated) {
-      return history.push("/home");
+      return history.push(`/home/${localStorage.getItem("userId")}`);
     }
   }, [authenticated]);
 
   const onSubmitFunction = (formData) => {
-    console.log("oi");
     console.log(formData);
 
     api

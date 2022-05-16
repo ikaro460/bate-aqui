@@ -1,73 +1,47 @@
-import { Modal, Box, Button, Card, CardMedia, Grid, Stack, TextField, Typography, SpeedDial } from "@mui/material"
-import { styled } from '@mui/material/styles';
-import { makeStyles } from "@mui/styles"
+import { Modal, Box, Button, Card, CardMedia, Grid, Stack, TextField, Typography, Skeleton } from "@mui/material"
 import TurmaCard from "../../components/TurmaCard";
 import ProfilePhoto from "../../imgs/foto.png"
 import CreateGroupButton from "../../components/CreateGroupButton";
 import { useOpenModalCreateGroup } from "../../provider/OpenModalCreateGroup"
 import ModalCreateGroup from "../../components/ModalCreateGroup";
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import { ContainerBox, StyledCard, ProfileImg, StyledGrid } from "./styles";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
+import { useParams } from "react-router-dom";
 
-
-const useStyles = makeStyles( (themes) => ({
-
-  profile: {
-    position: "absolute",
-    top: "0px",
-  }
-
-}))
-
-const ContainerBox = styled(Box)(({theme}) => ({
-  minHeight: "100vh",
-  backgroundColor: theme.palette.background.primary,
-
-  padding: "25px 40px",
-  
-  [theme.breakpoints.down('sm')]: {
-    margin: "25px 20px",
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column"
-  }
-}))
-
-const StyledCard = styled(Card)(({theme}) => ({
-  maxWidth: "320px",
-  height: "290px",
-  maxHeight: "290px",
-  padding: "10px 12px",
-  marginBottom: "40px",
-
-  display: "flex",
-  flexDirection: "column",
-  position: "relative",
-  backgroundColor: theme.palette.background.primary,
-
-  [theme.breakpoints.down('sm')]: {
-    width: "260px"
-  }
-}))
-
-const ProfileImg = styled(CardMedia)(({theme}) => ({
-  // minHeight: "100px",
-  width: "134px",
-  height: "130px",
-  margin: "0px auto",
-  objectFit: "contain"
-}))
-
-const StyledGrid = styled(Grid)(({theme}) => ({
-  [theme.breakpoints.down('sm')]: {
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "column"
-  }
-}))
 
 export default function Home() {
 
   const { modalCreateGroup, toggleModalCreateGroup} = useOpenModalCreateGroup()
+
+  const [ user, setUser ] = useState(false)
+
+  const [ groups, setGroups ] = useState(false)
+
+  const { email, name, surname } = user
+
+  const { id } = useParams()
+
+  useEffect( () => {
+
+    api.get(`/users/${id}`, {headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
+      .then( (res) => {
+        setUser(res.data)
+      })
+      .catch( (err) =>{
+        console.log(err)
+      })
+      .then( () => {
+        api.get(`/users/${id}?_embed=groups`, {headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
+          .then( (res) => {
+            setGroups(res.data.groups)
+          })
+          .catch( (err) =>{
+            console.log(err)
+          })
+      })
+
+  },[])
 
   return(
     <ContainerBox>
@@ -85,9 +59,14 @@ export default function Home() {
 
         <Stack direction="column" justifyContent="center" alignItems="center" spacing={1} sx={{height: "100%"}} >
 
-          <Typography variant="h5" sx={{color: "text.primary"}} >
-            Nome Sobrenome
-          </Typography>
+          {user ? (
+            <Typography variant="h5" sx={{color: "text.primary"}} >
+              {name} {surname}
+            </Typography>
+          ):(
+            <Skeleton variant="rectangular" height={21.34} width={110} />
+          )}
+
 
           <Typography variant="subtitle2" sx={{color: "text.primary"}} >
             Instituição
@@ -103,9 +82,13 @@ export default function Home() {
 
       <StyledGrid container spacing={5} >
 
-        <Grid item >
-          <TurmaCard />
-        </Grid>
+        {groups &&
+          groups.map( (each) => 
+            <Grid item >
+              <TurmaCard group={each} />
+            </Grid>
+          )
+        }
 
         <Grid item >
           <CreateGroupButton />

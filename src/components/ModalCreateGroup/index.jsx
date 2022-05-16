@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "../../services/api";
+import { useParams } from "react-router-dom";
+
 
 const StyledBox = styled(Box)(({theme}) => ({
   minWidth: "300px", 
@@ -28,6 +30,8 @@ export default function ModalCreateGroup() {
 
   const { toggleModalCreateGroup } = useOpenModalCreateGroup()
 
+  const { id } = useParams()
+
   const [value1, setValue1] = useState(null)
 
   const [value2, setValue2] = useState(null)
@@ -46,17 +50,19 @@ export default function ModalCreateGroup() {
 
   const onSubmit = (formData) => {
 
-    formData.checkin = `${value1.getHours()}:${value1.getMinutes()} `
+    formData.checkin  = `${value1.getHours()}:${value1.getMinutes()} `
     formData.checkout = `${value2.getHours()}:${value2.getMinutes()} `
-    console.log(formData)
+    formData.userId   = parseInt(id)
+    formData.type     = "coach"
     
-    api.post("/groups_admin", formData, {headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}`}} )
-    .then( (res) => {
-      console.log(res)
-    })
-    .catch( (err) =>{
-      console.log(err)
-    })
+    api.post("/groups", formData, {headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}`}} )
+      .then( (res) => {
+        console.log(res)
+        toggleModalCreateGroup()
+      })
+      .catch( (err) =>{
+        console.log(err)
+      })
 
   }
 
