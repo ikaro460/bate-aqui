@@ -4,6 +4,7 @@ import { makeStyles } from "@mui/styles"
 import { maxHeight } from "@mui/system";
 import TurmaCard from "../../components/TurmaCard";
 import asset from "../../imgs/Asset 1.png"
+import {useHistory} from 'react-router-dom'
 
 const useStyles = makeStyles( (themes) => ({
 
@@ -35,6 +36,8 @@ export default function LandingPage() {
 
   const classes = useStyles()
 
+  const history = useHistory();
+
   return(
     <ContainerBox>
 
@@ -52,9 +55,9 @@ export default function LandingPage() {
 
         <Stack spacing={5} direction="row" >
 
-          <Button sx={{color: "text.button"}} >cadastre-se</Button>
+          <Button sx={{color: "text.button"}} onClick={() => history.push('/signup')}>cadastre-se</Button>
 
-          <Button variant="contained" sx={{color: "text.secondary"}} >logar</Button>
+          <Button variant="contained" sx={{color: "text.secondary"}} onClick={() => history.push('/login')} >logar</Button>
 
         </Stack>
 
