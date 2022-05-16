@@ -27,6 +27,11 @@ export default function Header() {
 
   const history = useHistory()
 
+  const logout = () => {
+    localStorage.clear();
+    history.push('/')
+  }
+
   return(
     <StyledAppBar elevation={0} >
 
@@ -36,7 +41,7 @@ export default function Header() {
 
       <Typography onClick={ () => history.push("/")} >BateAqui</Typography>
 
-      <Button sx={{color: "text.secondary"}} >Sair</Button>
+      <Button sx={{color: "text.secondary"}}  onClick={logout}>Sair</Button>
 
     </StyledAppBar>
   )
