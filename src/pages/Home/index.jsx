@@ -6,6 +6,11 @@ import ProfilePhoto from "../../imgs/foto.png"
 import CreateGroupButton from "../../components/CreateGroupButton";
 import { useOpenModalCreateGroup } from "../../provider/OpenModalCreateGroup"
 import ModalCreateGroup from "../../components/ModalCreateGroup";
+import { ContainerBox, StyledCard, ProfileImg, StyledGrid } from "./styles";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
+import { useParams } from "react-router-dom";
+import moment from "moment"
 
 
 const useStyles = makeStyles( (themes) => ({
@@ -65,6 +70,42 @@ const StyledGrid = styled(Grid)(({theme}) => ({
 export default function Home() {
 
   const { modalCreateGroup, toggleModalCreateGroup} = useOpenModalCreateGroup()
+
+  const [ user, setUser ] = useState(false)
+
+  const [ groups, setGroups ] = useState(false)
+
+  const { email, name, surname } = user
+
+  const { id } = useParams()
+
+  // console.log(moment("10:15", "h:mm").fromNow())
+
+  console.log(moment().locale())
+
+  useEffect( () => {
+
+    api.get(`/users/${id}`, {headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
+      .then( (res) => {
+        setUser(res.data)
+      })
+      .catch( (err) =>{
+        console.log(err)
+      })
+
+  },[])
+
+  useEffect( () => {
+    
+    api.get(`/users/${id}?_embed=groups`, {headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
+    .then( (res) => {
+      setGroups(res.data.groups)
+    })
+    .catch( (err) =>{
+      console.log(err)
+    })
+    
+  },[modalCreateGroup])
 
   return(
     <ContainerBox>
