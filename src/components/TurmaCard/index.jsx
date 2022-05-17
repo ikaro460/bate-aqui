@@ -1,39 +1,73 @@
-import { Box, Button, IconButton, Menu, MenuItem, Stack, Typography } from "@mui/material"
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import {
+  Box,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+} from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { ColorCard, InfosCard, StyledCard } from "./styles";
 import { useState } from "react";
-import moment from "moment"
+import moment from "moment";
+import { useHistory } from "react-router-dom";
 
+export default function TurmaCard({ group }) {
+  const [openMore, setOpenMore] = useState(false);
 
-export default function TurmaCard({group}) {
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const [ openMore, setOpenMore ] = useState(false)
+  const { name, checkin, checkout, userId, type, id } = group;
 
-  const [anchorEl, setAnchorEl]   = useState(null);
-
-  const { name, checkin, checkout, userId, type } = group
+  const history = useHistory();
 
   const toggleMore = (event) => {
-    setOpenMore(!openMore)
-    setAnchorEl(event.currentTarget)
-  }
+    setOpenMore(!openMore);
+    setAnchorEl(event.currentTarget);
+  };
 
-  const tempoRestantepCheckin = moment(checkin, "h:mm").fromNow()
-  const tempoRestantepCheckout = moment(checkout, "h:mm").fromNow()
+  const tempoRestantepCheckin = moment(checkin, "h:mm").fromNow();
+  const tempoRestantepCheckout = moment(checkout, "h:mm").fromNow();
 
-  console.log(tempoRestantepCheckin, name)
-  
-  console.log(tempoRestantepCheckout, name)
+  console.log(tempoRestantepCheckin, name);
 
-  const regexDePobre = ["1 minutes ago", "2 minutes ago", "3 minutes ago", "4 minutes ago", "5 minutes ago", "6 minutes ago", "7 minutes ago", "8 minutes ago", "9 minutes ago", "10 minutes ago", "11 minutes ago", "12 minutes ago", "13 minutes ago", "14 minutes ago", "15 minutes ago",]
+  console.log(tempoRestantepCheckout, name);
 
-  return(
-    <StyledCard >
+  const regexDePobre = [
+    "1 minutes ago",
+    "2 minutes ago",
+    "3 minutes ago",
+    "4 minutes ago",
+    "5 minutes ago",
+    "6 minutes ago",
+    "7 minutes ago",
+    "8 minutes ago",
+    "9 minutes ago",
+    "10 minutes ago",
+    "11 minutes ago",
+    "12 minutes ago",
+    "13 minutes ago",
+    "14 minutes ago",
+    "15 minutes ago",
+  ];
 
+  const handleGroupClick = () => {
+    return history.push(`/turma/${id}`);
+  };
+
+  return (
+    <StyledCard>
       <ColorCard>
-
-        <IconButton id="basic-button" onClick={toggleMore} aria-controls={openMore ? 'basic-menu' : undefined} aria-haspopup="true" aria-expanded={openMore ? 'true' : undefined} sx={{position: "absolute", top: "0", right: "0"}} >
-          <MoreVertIcon sx={{color: "background.primary"}} />
+        <IconButton
+          id="basic-button"
+          onClick={toggleMore}
+          aria-controls={openMore ? "basic-menu" : undefined}
+          aria-haspopup="true"
+          aria-expanded={openMore ? "true" : undefined}
+          sx={{ position: "absolute", top: "0", right: "0" }}
+        >
+          <MoreVertIcon sx={{ color: "background.primary" }} />
         </IconButton>
 
         <Menu
@@ -42,43 +76,56 @@ export default function TurmaCard({group}) {
           open={openMore}
           onClose={toggleMore}
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
+            vertical: "bottom",
+            horizontal: "left",
           }}
         >
-          <MenuItem>Editar</MenuItem>
+          <MenuItem onClick={() => handleGroupClick()}>Editar</MenuItem>
           <MenuItem>Excluir</MenuItem>
         </Menu>
-
       </ColorCard>
 
-      <Stack justifyContent="space-around" alignItems="center" height="150px" padding="15px 0px" mt="-9.5px" >
+      <Stack
+        justifyContent="space-around"
+        alignItems="center"
+        height="150px"
+        padding="15px 0px"
+        mt="-9.5px"
+      >
+        <Typography variant="h5" color="text.primary">
+          {name}
+        </Typography>
 
-        <Typography variant="h5" color="text.primary" >{name}</Typography>
+        <Typography variant="caption" color="text.primary" mt="-15px">
+          {type}
+        </Typography>
 
-        <Typography variant="caption" color="text.primary" mt="-15px" >{type}</Typography>
-
-        
-        <Stack direction="row" spacing={3} alignItems="center" >
-        
-          {regexDePobre.find( (each) => {return each === tempoRestantepCheckin}) ? (
-            <Button color="success" variant="contained" >checkin</Button>
-          ):(
-            <Button color="error" variant="contained" >checkin</Button>
+        <Stack direction="row" spacing={3} alignItems="center">
+          {regexDePobre.find((each) => {
+            return each === tempoRestantepCheckin;
+          }) ? (
+            <Button color="success" variant="contained">
+              checkin
+            </Button>
+          ) : (
+            <Button color="error" variant="contained">
+              checkin
+            </Button>
           )}
 
-          {regexDePobre.find( (each) => {return each === tempoRestantepCheckout}) ? (
-            <Button color="success" variant="contained" >checkout</Button>
-          ):(
-            <Button color="error" variant="contained" >checkout</Button>
+          {regexDePobre.find((each) => {
+            return each === tempoRestantepCheckout;
+          }) ? (
+            <Button color="success" variant="contained">
+              checkout
+            </Button>
+          ) : (
+            <Button color="error" variant="contained">
+              checkout
+            </Button>
           )}
-
         </Stack>
-
-
       </Stack>
-
     </StyledCard>
-  )
-
+  );
 }
