@@ -51,7 +51,7 @@ export default function LandingPage() {
 
         <Stack spacing={5} direction="row">
           
-          <Link to="/singup">
+          <Link to="/signup">
             <Button sx={{ color: "text.button" }}>cadastre-se</Button>
           </Link>
 

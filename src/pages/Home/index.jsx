@@ -31,17 +31,20 @@ export default function Home() {
       .catch( (err) =>{
         console.log(err)
       })
-      .then( () => {
-        api.get(`/users/${id}?_embed=groups`, {headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
-          .then( (res) => {
-            setGroups(res.data.groups)
-          })
-          .catch( (err) =>{
-            console.log(err)
-          })
-      })
 
   },[])
+
+  useEffect( () => {
+    
+    api.get(`/users/${id}?_embed=groups`, {headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
+    .then( (res) => {
+      setGroups(res.data.groups)
+    })
+    .catch( (err) =>{
+      console.log(err)
+    })
+    
+  },[modalCreateGroup])
 
   return(
     <ContainerBox>
