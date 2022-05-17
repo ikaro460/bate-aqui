@@ -23,11 +23,11 @@ const ContainerBox = styled(Box)(({ theme }) => ({
   padding: "auto 15px",
 
   display: "flex",
-  // justifyContent: "space-around",
+  justifyContent: "center",
   alignItems: "center",
   // flexDirection: "row",
   // flexWrap: "wrap",
-  width: "60vw",
+  width: "100vw",
 
   backgroundColor: theme.palette.background.primary,
 }));
