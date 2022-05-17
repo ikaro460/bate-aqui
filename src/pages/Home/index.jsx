@@ -2,8 +2,10 @@ import { Modal, Box, Button, Card, CardMedia, Grid, Stack, TextField, Typography
 import TurmaCard from "../../components/TurmaCard";
 import ProfilePhoto from "../../imgs/foto.png"
 import CreateGroupButton from "../../components/CreateGroupButton";
-import { useOpenModalCreateGroup } from "../../provider/OpenModalCreateGroup"
+import { useOpenModalCreateGroup } from "../../provider/OpenModalCreateGroup";
+import { useOpenModalNotification } from '../../provider/OpenModalNotification';
 import ModalCreateGroup from "../../components/ModalCreateGroup";
+import ModalNotification from "../../components/ModalNotification";
 import { ContainerBox, StyledCard, ProfileImg, StyledGrid } from "./styles";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
@@ -14,6 +16,10 @@ export default function Home() {
 
   const { modalCreateGroup, toggleModalCreateGroup} = useOpenModalCreateGroup()
 
+  const {modalNotification, toggleModalNotification} = useOpenModalNotification()
+
+  const [notification, setNotification] = useState([])
+  
   const [ user, setUser ] = useState(false)
 
   const [ groups, setGroups ] = useState(false)
@@ -46,6 +52,17 @@ export default function Home() {
     
   },[modalCreateGroup])
 
+  useEffect(() => {
+    api.get(`/users/${id}?_embed=coach`, {headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
+    .then((res) => setNotification(res.data.coach))
+  }, [])
+
+  const checkNotification = () => {
+    const notify = notification.filter((coach) => coach.status_aceito === 0)
+
+    return notify
+  }
+ 
   return(
     <ContainerBox>
 
@@ -106,6 +123,15 @@ export default function Home() {
       >
 
         <ModalCreateGroup />
+
+      </Modal>
+
+      <Modal
+        open={modalNotification}
+        onClose={toggleModalNotification}
+        sx={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}
+      >
+        <ModalNotification checkNotification={checkNotification}></ModalNotification>
 
       </Modal>
 

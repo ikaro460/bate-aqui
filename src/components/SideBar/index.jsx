@@ -8,7 +8,7 @@ import PaymentSharpIcon from '@mui/icons-material/PaymentSharp';
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import PeopleOutlineSharpIcon from '@mui/icons-material/PeopleOutlineSharp';
 import { Link, useHistory } from "react-router-dom";
-
+import {useOpenModalNotification} from '../../provider/OpenModalNotification';
 
 const StyledPaper = styled(Paper)(({theme}) => ({
   minWidth: "200px",
@@ -32,9 +32,11 @@ const StyledAppBar = styled(AppBar)(({theme}) => ({
 
 export default function SideBar() {
 
-  const { sideBar, toggleSideBar } = useSideBar()
+  const { sideBar, toggleSideBar } = useSideBar();
 
-  const history = useHistory()
+  const history = useHistory();
+
+  const { toggleModalNotification } = useOpenModalNotification();
 
   return(
     <Drawer
@@ -109,7 +111,7 @@ export default function SideBar() {
             </ListItemIcon>
 
             <ListItemText>
-              <Typography sx={{color: "text.secondary"}} >Notificações</Typography>
+              <Typography sx={{color: "text.secondary"}} onClick={toggleModalNotification}>Notificações</Typography>
             </ListItemText>
 
           </MenuItem>          
