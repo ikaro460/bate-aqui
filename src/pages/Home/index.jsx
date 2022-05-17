@@ -8,6 +8,7 @@ import { ContainerBox, StyledCard, ProfileImg, StyledGrid } from "./styles";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useParams } from "react-router-dom";
+import moment from "moment"
 
 
 export default function Home() {
@@ -21,6 +22,10 @@ export default function Home() {
   const { email, name, surname } = user
 
   const { id } = useParams()
+
+  // console.log(moment("10:15", "h:mm").fromNow())
+
+  console.log(moment().locale())
 
   useEffect( () => {
 
