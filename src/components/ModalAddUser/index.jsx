@@ -4,6 +4,9 @@ import {
   Button,
   Card,
   CardMedia,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
   Grid,
   IconButton,
   Stack,
@@ -15,8 +18,10 @@ import { useUsers } from "../../provider/Users";
 import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
 import { styled } from "@mui/material/styles";
 import { makeStyles } from "@mui/styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
+import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -37,55 +42,99 @@ const StyledBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-export default function ModalAddUser() {
+const StyledList = styled(Box)(({ theme }) => ({
+  minWidth: "300px",
+  maxWidth: "360px",
+  width: "80%",
+  height: "300px",
+  overflow: "scroll",
+  padding: "35px 0px",
+  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+
+  backgroundColor: theme.palette.tableRowContrast,
+  borderRadius: "5px",
+  boxShadow: "5px",
+
+  [theme.breakpoints.down("sm")]: {
+    width: "260px",
+  },
+}));
+
+const CoachCard = styled(Card)(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  width: "80%",
+  padding: "5px",
+  margin: "3px",
+}));
+
+export default function ModalAddUser({ token }) {
   const { toggleModalAddUser } = useOpenModalAddUser();
-  const { users, getUsers } = useUsers();
-  const token = localStorage.getItem("accessToken");
-  getUsers(token);
+  const { users } = useUsers();
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [usersToAdd, setUsersToAdd] = useState([]);
 
   //PEGANDO ID DO GRUPO
-  const { id } = useParams();
+  const { groupsId } = useParams();
 
-  //DECLARANDO OPTION DO AUTOCOMPLETE
-  const options = users.map((user, index) => {
-    return {
-      label: `${user.name} ${user.surname}`,
-      id: index,
-    };
-  });
+  //CHAMANDO USERS DO GRUPO
+  const getGroupUsers = () => {
+    api
+      .get(`/coach?groupsId=:${groupsId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
-  const schema = yup.object().shape({
-    name: yup.string().required("Campo obrigatorio"),
-  });
+  useEffect(() => {
+    getGroupUsers();
+    console.log(usersToAdd);
+  }, [usersToAdd]);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  const onSubmit = () => {
+    console.log(usersToAdd);
+    console.log(searchValue);
 
-  const onSubmit = (formData) => {
-    console.log(formData);
+    usersToAdd.map((user) => {
+      console.log(groupsId);
+      const groupsIdNumber = Number(groupsId);
+      const { id, name, surname } = user;
+      const postData = {
+        userId: id,
+        name,
+        surname,
+        groupsId: groupsIdNumber,
+        status_aceito: 0,
+        status_ativo: 1,
+      };
 
-    // api
-    //   .post("/groups", formData, {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     console.log(res);
-    //     toggleModalAddUser();
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+      console.log(postData);
+
+      api
+        .post(`/coach`, postData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    });
   };
 
   return (
-    <StyledBox onSubmit={handleSubmit(onSubmit)} component="form">
+    <StyledBox component="form">
       <IconButton
         onClick={toggleModalAddUser}
         sx={{ position: "absolute", top: 0, right: 0 }}
@@ -98,17 +147,70 @@ export default function ModalAddUser() {
       </Typography>
 
       <Stack spacing={2} alignItems="center">
-        <Autocomplete
-          disablePortal
-          id="combo-box-demo"
-          options={options}
-          sx={{ width: 300 }}
-          isOptionEqualToValue={(option, value) => option.id === value.id}
-          inputProps={register("name")}
-          renderInput={(params) => <TextField {...params} label="Movie" />}
+        <TextField
+          onChange={(a) => {
+            setSearchValue(a.target.value);
+            setFilteredUsers(
+              users.filter((user) =>
+                user.name
+                  .normalize("NFD")
+                  .replace(/[\u0300-\u036f]/g, "")
+                  .toLowerCase()
+                  .includes(
+                    searchValue
+                      .normalize("NFD")
+                      .replace(/[\u0300-\u036f]/g, "")
+                      .toLowerCase()
+                  )
+              )
+            );
+          }}
         />
+        <StyledList>
+          {!!searchValue &&
+            filteredUsers.map((user, index) => {
+              if (
+                users.filter((user) =>
+                  user.name
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .toLowerCase()
+                    .includes(
+                      searchValue
+                        .normalize("NFD")
+                        .replace(/[\u0300-\u036f]/g, "")
+                        .toLowerCase()
+                    )
+                )
+              ) {
+                return (
+                  <CoachCard key={index}>
+                    {usersToAdd.find((a) => a.id === user.id) ? (
+                      <CheckOutlinedIcon
+                        onClick={() =>
+                          setUsersToAdd(
+                            usersToAdd.filter((a) => a.id != user.id)
+                          )
+                        }
+                        cursor="pointer"
+                      />
+                    ) : (
+                      <PersonAddAltOutlinedIcon
+                        cursor="pointer"
+                        onClick={() => setUsersToAdd([...usersToAdd, user])}
+                      />
+                    )}
 
-        <Button type="submit" variant="contained">
+                    <Typography marginX="10px">
+                      {user.name} {user.surname}
+                    </Typography>
+                  </CoachCard>
+                );
+              }
+            })}
+        </StyledList>
+
+        <Button onClick={() => onSubmit()} variant="contained">
           Adicionar
         </Button>
       </Stack>

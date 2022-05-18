@@ -21,6 +21,7 @@ import AddSharpIcon from "@mui/icons-material/AddSharp";
 import { useParams } from "react-router-dom";
 import ModalAddUser from "../../components/ModalAddUser";
 import { useOpenModalAddUser } from "../../provider/OpenModalAddUser";
+import { useUsers } from "../../provider/Users";
 
 const useStyles = makeStyles((themes) => ({
   profile: {
@@ -57,6 +58,12 @@ export default function Turma() {
   const classes = useStyles();
   const { id } = useParams();
   const { modalAddUser, toggleModalAddUser } = useOpenModalAddUser();
+  const { users, getUsers } = useUsers();
+  const token = localStorage.getItem("accessToken");
+
+  if (!users.length) {
+    getUsers(token);
+  }
 
   return (
     <ContainerBox>
@@ -126,7 +133,7 @@ export default function Turma() {
           textAlign: "center",
         }}
       >
-        <ModalAddUser />
+        <ModalAddUser users={users} token={token} />
       </Modal>
     </ContainerBox>
   );

@@ -16,7 +16,7 @@ export default function Routes() {
         <Home />
       </Route>
 
-      <Route exact path="/turma/:id">
+      <Route exact path="/turma/:groupsId">
         <SideBar />
         <Header />
         <Turma />
