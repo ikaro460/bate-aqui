@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { api } from "../../services/api";
 
 const CoachGroupsContext = createContext([]);
@@ -10,14 +10,28 @@ export const CoachGroupsProvider = ({children}) => {
     const [notify, setNotify] = useState([]);
 
     const getCoachGroups = (token, id) => {
+
         api.get(`/users/${id}/?_embed=coach`, {
-            headers: {
-                "Authorization": `Bearer ${token}`
-            }            
-        }).then((response) => setCoachGroups([...response.data.coach])).catch((error) => console.log(error))
-        
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }            
+        })
+          .then((response) => {
+            setCoachGroups(response.data.coach)
+          })
+
+          .catch((error) => console.log(error))
+
         
     }
+
+    useEffect( () => {
+
+      setNotify(coachGroups.filter( (each) => {
+        return each.status_aceito === 0
+      }))
+
+    },[coachGroups])
     
     return (
         <CoachGroupsContext.Provider value={{coachGroups, setCoachGroups, getCoachGroups, notify, setNotify}}>

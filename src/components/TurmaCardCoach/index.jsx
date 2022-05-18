@@ -28,11 +28,11 @@ export default function TurmaCardCoach({group, type}) {
 
   const tempoRestantepCheckout = moment(checkout, "h:mm").fromNow();
 
-  console.log(tempoRestantepCheckin, name);
+  // console.log(tempoRestantepCheckin, name);
 
   const regexDePobre = ["a few seconds ago", "a minute ago", "2 minutes ago", "3 minutes ago", "4 minutes ago", "5 minutes ago", "6 minutes ago", "7 minutes ago", "8 minutes ago", "9 minutes ago", "10 minutes ago", "11 minutes ago", "12 minutes ago", "13 minutes ago", "14 minutes ago", "15 minutes ago",]
   
-  console.log(tempoRestantepCheckout, name);
+  // console.log(tempoRestantepCheckout, name);
 
   const handleGroupClick = () => {
     return history.push(`/turma/${id}`);
