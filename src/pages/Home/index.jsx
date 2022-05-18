@@ -7,10 +7,11 @@ import { useOpenModalNotification } from '../../provider/OpenModalNotification';
 import ModalCreateGroup from "../../components/ModalCreateGroup";
 import ModalNotification from "../../components/ModalNotification";
 import { ContainerBox, StyledCard, ProfileImg, StyledGrid } from "./styles";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useParams, useHistory } from "react-router-dom";
 import moment from "moment"
+import {useCoachGroups} from '../../provider/CoachGroups'
 import ModalCheckout from "../../components/ModalCheckout";
 import TurmaCardCoach from "../../components/TurmaCardCoach"
 
@@ -19,15 +20,19 @@ export default function Home() {
 
   const { modalCreateGroup, toggleModalCreateGroup } = useOpenModalCreateGroup();
 
-  const [user, setUser] = useState(false);
-
   const {modalNotification, toggleModalNotification} = useOpenModalNotification()
 
   const [notification, setNotification] = useState([])
+  
+  const { getCoachGroups, notify, setNotify, coachGroups } = useCoachGroups()
+
+  // console.log(coachGroups)
+  
+  const [ user, setUser ] = useState(false)
 
   const [groups, setGroups] = useState(false);
 
-  const [coachGroups, setCoachGroups] = useState(false);
+  // const [coachGroups, setCoachGroups] = useState(false);
 
   const { email, name, surname } = user;
 
@@ -35,7 +40,7 @@ export default function Home() {
 
   const history = useHistory();
 
-  console.log(moment().locale());
+  // console.log(moment().locale());
 
   const axiosGetUser = () => {
     api
@@ -73,32 +78,28 @@ export default function Home() {
         .catch((err) => {
           console.log(err);
         });
-    api.get(`/users/${localStorage.getItem("userId")}?_embed=coach`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      },
-    })
-      .then((res) => {
+        
+    // api.get(`/users/${localStorage.getItem("userId")}?_embed=coach`, {
+    //   headers: {
+    //     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    //   },
+    // })
+    //   .then((res) => {
 
-        setCoachGroups(res.data.coach.filter( (each) => {
-          return each.status_aceito === 1 && each.status_ativo === 1
-        }))
+    //     // setCoachGroups(res.data.coach.filter( (each) => {
+    //     //   return each.status_aceito === 1 && each.status_ativo === 1
+    //     // }))
 
-      })
+    //   })
 
   }, [modalCreateGroup]);
 
   useEffect(() => {
-    api.get(`/users/${id}?_embed=coach`, {headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
-    .then((res) => setNotification(res.data.coach))
+    getCoachGroups(localStorage.getItem("accessToken"), id)
   }, [])
-
-  const checkNotification = () => {
-    const notify = notification.filter((coach) => coach.status_aceito === 0)
-
-    return notify
-  }
+  
  
+
   return(
     <ContainerBox>
       <StyledCard elevation={2}>
@@ -177,7 +178,7 @@ export default function Home() {
         sx={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}
       >
 
-        <ModalNotification checkNotification={checkNotification}></ModalNotification>
+        {/* <ModalNotification checkNotification={checkNotification}></ModalNotification> */}
         
       </Modal>
 

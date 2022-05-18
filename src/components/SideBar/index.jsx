@@ -1,4 +1,4 @@
-import { AppBar, Drawer, Paper, IconButton, Stack, Typography, MenuList, MenuItem, ListItemIcon, ListItemText } from "@mui/material"
+import { AppBar, Drawer, Paper, IconButton, Stack, Typography, MenuList, MenuItem, ListItemIcon, ListItemText, Badge } from "@mui/material"
 import { useSideBar } from "../../provider/SideBar"
 import { styled } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -9,7 +9,7 @@ import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineS
 import PeopleOutlineSharpIcon from '@mui/icons-material/PeopleOutlineSharp';
 import { Link, useHistory } from "react-router-dom";
 import {useOpenModalNotification} from '../../provider/OpenModalNotification';
-
+import { useCoachGroups } from "../../provider/CoachGroups";
 const StyledPaper = styled(Paper)(({theme}) => ({
   minWidth: "200px",
   height: "100%",
@@ -38,6 +38,8 @@ export default function SideBar() {
 
   const { toggleModalNotification } = useOpenModalNotification();
 
+  const {notify} = useCoachGroups()
+ 
   return(
     <Drawer
       anchor="left"
@@ -107,11 +109,15 @@ export default function SideBar() {
           <MenuItem>
 
             <ListItemIcon>
-              <PeopleOutlineSharpIcon sx={{color: "text.secondary"}} />
+              <Badge badgeContent={notify && notify.length} color="secondary">
+                <PeopleOutlineSharpIcon sx={{color: "text.secondary"}} />
+              </Badge>
             </ListItemIcon>
 
-            <ListItemText>
-              <Typography sx={{color: "text.secondary"}} onClick={toggleModalNotification}>Notificações</Typography>
+            <ListItemText>             
+              <Typography sx={{color: "text.secondary"}} onClick={toggleModalNotification}>Notificações</Typography> 
+           
+              
             </ListItemText>
 
           </MenuItem>          
