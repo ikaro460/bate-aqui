@@ -70,7 +70,7 @@ export default function TurmaCard({group, type}) {
             horizontal: "left",
           }}
         >
-          <MenuItem onClick={() => handleGroupClick()}>Editar</MenuItem>
+          <MenuItem>Editar</MenuItem>
           <MenuItem>Excluir</MenuItem>
         </Menu>
       </ColorCard>
@@ -92,17 +92,8 @@ export default function TurmaCard({group, type}) {
 
         <Stack direction="row" spacing={3} alignItems="center" >
         
-          {regexDePobre.find( (each) => {return each === tempoRestantepCheckin}) ? (
-            <Button color="success" variant="contained" >checkin</Button>
-          ):(
-            <Button color="error" variant="contained" >checkin</Button>
-          )}
+          <Button variant="contained" onClick={() => handleGroupClick()} >Entrar</Button>
 
-          {regexDePobre.find( (each) => {return each === tempoRestantepCheckout}) ? (
-            <Button color="success" variant="contained" onClick={ () => toggleModalCheckout(group)} >checkout</Button>
-          ):(
-            <Button color="error" variant="contained" >checkout</Button>
-          )}
         </Stack>
 
       </Stack>
