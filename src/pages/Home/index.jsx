@@ -14,7 +14,7 @@ import moment from "moment"
 import {useCoachGroups} from '../../provider/CoachGroups'
 import ModalCheckout from "../../components/ModalCheckout";
 import TurmaCardCoach from "../../components/TurmaCardCoach"
-
+import axios from 'axios'
 
 export default function Home() {
 
@@ -37,6 +37,7 @@ export default function Home() {
   const { email, name, surname } = user;
 
   const { id } = useParams();
+   
 
   const history = useHistory();
 
@@ -110,7 +111,7 @@ export default function Home() {
           Perfil
         </Typography>
 
-        <ProfileImg component="img" image={ProfilePhoto} />
+        <ProfileImg component="img" image={`https://robohash.org/${id}`} />
 
         <Stack
           direction="column"
