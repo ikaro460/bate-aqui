@@ -78,7 +78,7 @@ export default function Login() {
         ToastSuccess("O login foi um sucesso");
         setAuthenticated(true);
       })
-      .catch((err) => () => ToastError("Email ou senha inválidos"));
+      .catch((err) => ToastError("Email ou senha inválidos"));
   };
 
   const isActive = useMediaQuery(`(min-width:800px)`);
