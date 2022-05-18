@@ -5,6 +5,7 @@ import { useState } from "react";
 import moment from "moment"
 import { useOpenModalCheckout } from "../../provider/OpenModalCheckout";
 import { useHistory } from "react-router-dom";
+import { api } from "../../services/api"
 
 
 export default function TurmaCardCoach({group, type}) {
@@ -19,6 +20,17 @@ export default function TurmaCardCoach({group, type}) {
 
   const history = useHistory();
 
+  const excluirGrupo = (grupo) => {
+    api.patch(`/groups/${grupo.groupsId}`, { status_ativo: 0 }, {headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+    console.log(grupo)
+  }
+
   const toggleMore = (event) => {
     setOpenMore(!openMore)
     setAnchorEl(event.currentTarget)
@@ -27,6 +39,8 @@ export default function TurmaCardCoach({group, type}) {
   const tempoRestantepCheckin = moment(checkin, "h:mm").fromNow();
 
   const tempoRestantepCheckout = moment(checkout, "h:mm").fromNow();
+
+  // console.log(tempoRestantepCheckout)
 
   // console.log(tempoRestantepCheckin, name);
 
@@ -58,7 +72,7 @@ export default function TurmaCardCoach({group, type}) {
           }}
         >
           <MenuItem>Editar</MenuItem>
-          <MenuItem>Excluir</MenuItem>
+          <MenuItem onClick={ () => excluirGrupo(group)}>Excluir</MenuItem>
         </Menu>
 
       </ColorCard>
@@ -80,7 +94,7 @@ export default function TurmaCardCoach({group, type}) {
           {regexDePobre.find( (each) => {return each === tempoRestantepCheckout}) ? (
             <Button color="success" variant="contained" onClick={ () => toggleModalCheckout(group)} >checkout</Button>
           ):(
-            <Button color="error" variant="contained" >checkout</Button>
+            <Button color="error" variant="contained" onClick={ () => toggleModalCheckout(group)}  >checkout</Button>
           )}
 
         </Stack>

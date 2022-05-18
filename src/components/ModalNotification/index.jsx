@@ -72,7 +72,6 @@ export default function ModalNotification() {
                         </Box>
                     )
                 })}
-                
             </Stack>
         </StyledBox>
     )

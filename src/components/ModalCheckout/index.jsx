@@ -2,7 +2,7 @@ import { Box, Button, FormControl, FormLabel, IconButton, Menu, MenuItem, Modal,
 import { useOpenModalCheckout } from "../../provider/OpenModalCheckout";
 import CloseIcon from "@mui/icons-material/Close";
 import { styled } from "@mui/material/styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -24,11 +24,23 @@ const StyledBox = styled(Box)(({ theme }) => ({
 }));
 
 
-export default function ModalCheckout({userId, name}) {
+export default function ModalCheckout({ name }) {
 
   const { modalCheckout, toggleModalCheckout, group } = useOpenModalCheckout()
 
-  const { name: groupName , checkin, checkout, type, id } = group
+  const [ infos, setInfos ] = useState("")
+
+  // {group && console.log(group)}
+
+  useEffect( () => {
+    setInfos({
+      groupsId: group.groupsId,
+      userId: group.userId,
+      id: group.id
+    })
+  },[])
+
+  // console.log(infos)
 
   const schema = yup.object().shape({
     students: yup.string().required("Campo obrigatorio"),
@@ -43,10 +55,22 @@ export default function ModalCheckout({userId, name}) {
   const onSubmit = (formData) => {
     console.log(formData);
 
-    formData.userId = userId
+    // {
+    //   "userId": 3, // -> usuário que está fazendo checkin
+    //   "groupsId": 1, // -> qual grupo pertence
+    //   "coachId": 1, // -> id de coach cadastrado no grupo
+    //   "type": "checkout",
+    //   "date": "16/05/2022",
+    //   "hour": "15:00",
+    //   "students": "Roberto",
+    //   "works": "Grading",
+    //   "problems": "Roberto continua com dificuldades"
+    // }
+
+    formData.userId = infos.userId  // usuario q ta fazendo checkin
+    formData.groupsId = infos.groupsId // -> qual grupo pertence
+    formData.coachId = infos.id
     formData.name = name
-    formData.groupsId = id
-    formData.coachId = ""
   
 
     api.post("/checkin", formData, {headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },})
@@ -56,7 +80,7 @@ export default function ModalCheckout({userId, name}) {
       })
       .catch((err) => {
         console.log(err);
-      });
+    });
   };
 
   return(

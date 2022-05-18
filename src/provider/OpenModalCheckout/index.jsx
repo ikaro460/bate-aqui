@@ -5,9 +5,9 @@ const OpenModalCheckoutContext = createContext()
 
 export const OpenModalCheckoutProvider = ({children}) => {
 
-  const [modalCheckout, setModalCheckout] = useState(false)
+  const [ modalCheckout, setModalCheckout ] = useState(false)
 
-  const [ group, setGroup ] = useState("")
+  const [ group, setGroup ]                 = useState("")
 
   const toggleModalCheckout = (comingGroup) => {
     setModalCheckout(!modalCheckout)
