@@ -21,6 +21,7 @@ import AddSharpIcon from "@mui/icons-material/AddSharp";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles((themes) => ({
     profile: {
@@ -56,7 +57,7 @@ export default function Turma() {
     const token = localStorage.getItem("accessToken");
     const idUserLogged = localStorage.getItem("userId");
 
-    const groupsId = 1;
+    const {groupsId} = useParams();
 
     useEffect(() => {
         api.get(`groups/${groupsId}`, {
