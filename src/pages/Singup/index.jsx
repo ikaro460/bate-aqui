@@ -12,7 +12,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
+import {ToastError, ToastSuccess} from '../../components/Toasts/Index.jsx'
 import {
   SingupScream,
   BoxPadlock,
@@ -51,6 +51,7 @@ export default function Singup() {
     return (
       localStorage.clear(),
       localStorage.setItem("@bateAqui/userToken", data),
+      ToastSuccess("Sua conta foi criada com sucesso!"),
       history.push("/login")
     );
   };
@@ -60,7 +61,7 @@ export default function Singup() {
     axios
       .post("https://bateaqui-api.herokuapp.com/register", data)
       .then((response) => redirection(response.data.accessToken))
-      .catch((err) => console.log(err));
+      .catch((err) => ToastError("E-mail já cadastrado!"));
   };
 
   const isActive = useMediaQuery(`(min-width:800px)`);
