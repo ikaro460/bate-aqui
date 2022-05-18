@@ -35,7 +35,7 @@ export default function StyledTableRow({ row, index }) {
             >
                 <Typography variant="tableSubTitle">{id}</Typography>
             </TableCell> */}
-            <TableCell component="th" scope="row" sx={{ color: "text.primary", maxWidth: 100 }}>
+            <TableCell component="th" scope="row" sx={{ color: "text.primary", maxWidth: 180 }}>
                 <Typography variant="tableSubTitle">{name + " " + surname}</Typography>
             </TableCell>
             <TableCell component="th" scope="row" sx={{ color: "text.primary" }}>
@@ -47,13 +47,13 @@ export default function StyledTableRow({ row, index }) {
             <TableCell component="th" scope="row" sx={{ color: "text.primary" }}>
                 <Typography variant="tableSubTitle">{checkout}</Typography>
             </TableCell>
-            <TableCell component="th" scope="row" sx={{ color: "text.primary", maxWidth: 100 }}>
+            <TableCell component="th" scope="row" sx={{ color: "text.primary", maxWidth: 180 }}>
                 <Typography variant="tableSubTitle">{students}</Typography>
             </TableCell>
-            <TableCell component="th" scope="row" sx={{ color: "text.primary", maxWidth: 100 }}>
+            <TableCell component="th" scope="row" sx={{ color: "text.primary", maxWidth: 180 }}>
                 <Typography variant="tableSubTitle">{works}</Typography>
             </TableCell>
-            <TableCell component="th" scope="row" sx={{ color: "text.primary", maxWidth: 100 }}>
+            <TableCell component="th" scope="row" sx={{ color: "text.primary", maxWidth: 180 }}>
                 <Typography variant="tableSubTitle">{problems}</Typography>
             </TableCell>
             {/* <TableCell

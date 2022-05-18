@@ -23,6 +23,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 
+import "./styles.css";
+
 const useStyles = makeStyles((themes) => ({
     profile: {
         position: "absolute",
@@ -31,11 +33,11 @@ const useStyles = makeStyles((themes) => ({
 }));
 
 const ContainerBox = styled(Box)(({ theme }) => ({
-    minWidth: "max-content",
+    // minWidth: "max-content",
     minHeight: "100vh",
 
     textAlign: "left",
-    position: "relative",
+    // position: "relative",
 
     padding: "25px 30px",
     backgroundColor: theme.palette.background.primary,
@@ -185,33 +187,53 @@ export default function Turma() {
 
     return (
         <ContainerBox>
-            <Stack direction="row" alignItems="baseline" justifyContent="space-between">
-                <Typography color="text.primary" variant="h3">
-                    {groupInfo.name}
-                </Typography>
-                {groupInfo.userId == idUserLogged && (
-                    <Button variant="contained" startIcon={<AddSharpIcon />}>
-                        Adicionar *Aluno*
-                    </Button>
-                )}
-            </Stack>
-            <Stack direction="row" alignItems="baseline" justifyContent="space-between">
-                {groupCreatorName && (
-                    <Typography variant="subtitle1" ml="5px" color="text.subtitle" mb="50px">
-                        Facilitador: {groupCreatorName}
-                    </Typography>
-                )}
-                <Link to="/login">
-                    <Button variant="contained">Voltar</Button>
-                </Link>
-            </Stack>
-            <Typography color="text.subtitle">Horário checkin: {groupInfo.checkin}</Typography>
-            <Typography color="text.subtitle">Horário checkout: {groupInfo.checkout}</Typography>
-
-            <TableContainer
-                component={Paper}
-                sx={{ width: "100%", minWidth: 720, overflowX: "auto" }}
+            <Stack
+                direction={{ md: "row", xs: "column" }}
+                alignItems="baseline"
+                justifyContent="space-between"
             >
+                <Stack direction="column">
+                    <Typography color="text.primary" variant="h3">
+                        {groupInfo.name}
+                    </Typography>
+
+                    {groupCreatorName && (
+                        <Typography
+                            variant="subtitle1"
+                            ml="5px"
+                            color="text.subtitle"
+                            mb={{ md: "50px", xs: "10px" }}
+                        >
+                            Facilitador: {groupCreatorName}
+                        </Typography>
+                    )}
+                </Stack>
+
+                <Stack
+                    direction="column"
+                    spacing={1}
+                    alignItems="end"
+                    width={{ md: "30%", xs: "100%" }}
+                    mb={{ md: "0", xs: "15px" }}
+                >
+                    <Link to="/login" sx={{ my: 10 }}>
+                        <Button variant="contained">Voltar</Button>
+                    </Link>
+
+                    {groupInfo.userId == idUserLogged && (
+                        <Button variant="contained" startIcon={<AddSharpIcon />}>
+                            Adicionar coach
+                        </Button>
+                    )}
+                </Stack>
+            </Stack>
+            <Stack direction="row" alignItems="baseline" justifyContent="space-between"></Stack>
+            <Typography color="text.subtitle">Horário checkin: {groupInfo.checkin}</Typography>
+            <Typography color="text.subtitle" mb="10px">
+                Horário checkout: {groupInfo.checkout}
+            </Typography>
+
+            <TableContainer component={Paper} sx={{ width: "100%", overflowX: "auto" }}>
                 <Table sx={{ overflowX: "scroll", minWidth: "max-content" }}>
                     <TableHead>
                         <TableRow>
