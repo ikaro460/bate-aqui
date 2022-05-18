@@ -7,10 +7,10 @@ import { useOpenModalNotification } from '../../provider/OpenModalNotification';
 import ModalCreateGroup from "../../components/ModalCreateGroup";
 import ModalNotification from "../../components/ModalNotification";
 import { ContainerBox, StyledCard, ProfileImg, StyledGrid } from "./styles";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useParams } from "react-router-dom";
-
+import {useCoachGroups} from '../../provider/CoachGroups'
 
 export default function Home() {
 
@@ -18,7 +18,7 @@ export default function Home() {
 
   const {modalNotification, toggleModalNotification} = useOpenModalNotification()
 
-  const [notification, setNotification] = useState([])
+  const { getCoachGroups, notify, setNotify, coachGroups } = useCoachGroups()
   
   const [ user, setUser ] = useState(false)
 
@@ -53,16 +53,11 @@ export default function Home() {
   },[modalCreateGroup])
 
   useEffect(() => {
-    api.get(`/users/${id}?_embed=coach`, {headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
-    .then((res) => setNotification(res.data.coach))
-  }, [])
-
-  const checkNotification = () => {
-    const notify = notification.filter((coach) => coach.status_aceito === 0)
-
-    return notify
-  }
+    getCoachGroups(localStorage.getItem("accessToken"), id)
+  }, [getCoachGroups]) 
+  
  
+
   return(
     <ContainerBox>
 
@@ -131,7 +126,7 @@ export default function Home() {
         onClose={toggleModalNotification}
         sx={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}
       >
-        <ModalNotification checkNotification={checkNotification}></ModalNotification>
+        <ModalNotification></ModalNotification>
 
       </Modal>
 

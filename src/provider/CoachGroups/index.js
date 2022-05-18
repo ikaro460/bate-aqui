@@ -7,16 +7,20 @@ export const CoachGroupsProvider = ({children}) => {
 
     const [coachGroups, setCoachGroups] = useState([]);
 
+    const [notify, setNotify] = useState([]);
+
     const getCoachGroups = (token, id) => {
         api.get(`/users/${id}/?_embed=coach`, {
             headers: {
                 "Authorization": `Bearer ${token}`
             }            
-        }).then((response) => setCoachGroups(response.data.coach)).catch((error) => console.log(error))    
+        }).then((response) => setCoachGroups([...response.data.coach])).catch((error) => console.log(error))
+        
+        
     }
     
     return (
-        <CoachGroupsContext.Provider value={{coachGroups, setCoachGroups, getCoachGroups}}>
+        <CoachGroupsContext.Provider value={{coachGroups, setCoachGroups, getCoachGroups, notify, setNotify}}>
             {children}
         </CoachGroupsContext.Provider>
     )

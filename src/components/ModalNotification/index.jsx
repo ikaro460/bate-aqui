@@ -14,7 +14,7 @@ import { makeStyles } from "@mui/styles";
 import CloseIcon from "@mui/icons-material/Close";
 import { api } from "../../services/api";
 import { useOpenModalNotification } from "../../provider/OpenModalNotification";
-
+import {useCoachGroups} from '../../provider/CoachGroups'
 
 const StyledBox = styled(Box)(({ theme }) => ({
     minWidth: "300px",
@@ -30,11 +30,12 @@ const StyledBox = styled(Box)(({ theme }) => ({
     },
 }));
 
-export default function ModalNotification({checkNotification}) {
-    const {toggleModalNotification} = useOpenModalNotification();
+export default function ModalNotification() {
 
-    const notify = checkNotification()
+    const {toggleModalNotification} = useOpenModalNotification();    
 
+    const { notify } = useCoachGroups();
+   
     const changeStatus = (id, value) => {
         const data = { "status_aceito": value }
 
