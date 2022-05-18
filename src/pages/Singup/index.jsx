@@ -1,5 +1,10 @@
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Checkbox, FormGroup, FormControlLabel, Typography } from "@mui/material";
+import {
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
+  Typography,
+} from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Vetor from "../../components/Vetor";
 import { useForm } from "react-hook-form";
@@ -40,15 +45,15 @@ export default function Singup() {
     resolver: yupResolver(schema),
   });
 
-  const history = useHistory()
+  const history = useHistory();
 
   const redirection = (data) => {
-    return(
+    return (
       localStorage.clear(),
-      localStorage.setItem("@bateAqui/userToken" , data),
-      history.push("/home")
-    )
-  }
+      localStorage.setItem("@bateAqui/userToken", data),
+      history.push("/login")
+    );
+  };
 
   const handleOnSubmit = (data) => {
     console.log(data);
@@ -64,7 +69,7 @@ export default function Singup() {
       <BoxSingup>
         <BoxSingupPadlock>
           <BoxPadlock>
-            <LockOutlinedIcon sx={{color: "text.secondary"}} />
+            <LockOutlinedIcon sx={{ color: "text.secondary" }} />
           </BoxPadlock>
         </BoxSingupPadlock>
         <BoxForm onSubmit={handleSubmit(handleOnSubmit)}>
@@ -101,7 +106,12 @@ export default function Singup() {
             type="password"
           />
           <FormGroup>
-            <FormControlLabel control={<Checkbox defaultChecked />} label={<Typography variant="h5" >Mantenha-me conectado</Typography> } />
+            <FormControlLabel
+              control={<Checkbox defaultChecked />}
+              label={
+                <Typography variant="h5">Mantenha-me conectado</Typography>
+              }
+            />
           </FormGroup>
           <ButtonSubmit variant="contained" type="submit">
             Cadastrar-se
