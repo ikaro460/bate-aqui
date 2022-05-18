@@ -5,6 +5,7 @@ import { OpenModalNotificationProvider } from "../provider/OpenModalNotification
 import { UsersProvider } from "./Users";
 import { OwnerGroupsProvider } from "./OwnerGroups";
 import { HourProvider } from "./Hour";
+import { OpenModalAddUserProvider } from "./OpenModalAddUser";
 import { OpenModalCheckoutProvider } from "./OpenModalCheckout";
 
 
@@ -18,7 +19,9 @@ export const Providers = ({ children }) => {
                             <OpenModalCheckoutProvider>
                                 <HourProvider>
                                     <OpenModalNotificationProvider>     
+                                      <OpenModalAddUserProvider>
                                         {children}
+                                      </OpenModalAddUserProvider>
                                     </OpenModalNotificationProvider>     
                                 </HourProvider>
                             </OpenModalCheckoutProvider>
