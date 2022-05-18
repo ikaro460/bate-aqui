@@ -19,6 +19,7 @@ import StyledTableRow from "../../components/StyledTableRow";
 import AddSharpIcon from "@mui/icons-material/AddSharp";
 import { api } from "../../services/api";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((themes) => ({
     profile: {
@@ -41,17 +42,6 @@ const ContainerBox = styled(Box)(({ theme }) => ({
 function createData(id, name, data, checkin, checkout, students, works, problems) {
     return { id, name, data, checkin, checkout, students, works, problems };
 }
-
-// const rows = [
-//     createData(5, "Jorge", "12/02/2022", "11:00", "14:00", "verdin"),
-//     createData(6, "Yuri", "12/02/2022", "11:05", "14:11", "verdin"),
-//     createData(7, "Icaro", "12/02/2022", "11:20", "14:00", "atrasado"),
-//     createData(8, "Alex", "12/02/2022", "11:00", "14:00", "verdin"),
-//     createData(9, "Igor", "12/02/2022", "11:00", "14:00", "verdin"),
-//     createData(10, "Lucas", "12/02/2022", "11:00", "14:00", "verdin"),
-// ];
-
-// console.log(rows);
 
 export default function Turma() {
     const classes = useStyles();
@@ -201,7 +191,9 @@ export default function Turma() {
                         Grupo criado por {groupCreatorName}!
                     </Typography>
                 )}
-                <Button variant="contained">Voltar</Button>
+                <Link to="/login">
+                    <Button variant="contained">Voltar</Button>
+                </Link>
             </Stack>
 
             <TableContainer
