@@ -178,7 +178,7 @@ export default function Home() {
         sx={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}
       >
 
-        {/* <ModalNotification checkNotification={checkNotification}></ModalNotification> */}
+        <ModalNotification></ModalNotification>
         
       </Modal>
 
