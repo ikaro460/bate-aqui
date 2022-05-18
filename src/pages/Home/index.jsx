@@ -12,6 +12,7 @@ import { api } from "../../services/api";
 import { useParams, useHistory } from "react-router-dom";
 import moment from "moment"
 import ModalCheckout from "../../components/ModalCheckout";
+import TurmaCardCoach from "../../components/TurmaCardCoach"
 
 
 export default function Home() {
@@ -26,13 +27,13 @@ export default function Home() {
 
   const [groups, setGroups] = useState(false);
 
+  const [coachGroups, setCoachGroups] = useState(false);
+
   const { email, name, surname } = user;
 
   const { id } = useParams();
 
   const history = useHistory();
-
-  // console.log(moment("10:15", "h:mm").fromNow())
 
   console.log(moment().locale());
 
@@ -66,12 +67,25 @@ export default function Home() {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       })
+        .then((res) => {
+          setGroups(res.data.groups);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    api.get(`/users/${localStorage.getItem("userId")}?_embed=coach`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    })
       .then((res) => {
-        setGroups(res.data.groups);
+
+        setCoachGroups(res.data.coach.filter( (each) => {
+          return each.status_aceito === 1 && each.status_ativo === 1
+        }))
+
       })
-      .catch((err) => {
-        console.log(err);
-      });
+
   }, [modalCreateGroup]);
 
   useEffect(() => {
@@ -121,16 +135,25 @@ export default function Home() {
       </StyledCard>
 
       <StyledGrid container spacing={5}>
+
         {groups &&
           groups.map((each, index) => (
             <Grid item key={index}>
-              <TurmaCard group={each} />
+              <TurmaCard group={each} type={"Facilitador"} />
+            </Grid>
+          ))}
+
+        {coachGroups &&
+          coachGroups.map((each, index) => (
+            <Grid item key={index}>
+              <TurmaCardCoach group={each} type={"Coach"} />
             </Grid>
           ))}
 
         <Grid item>
           <CreateGroupButton />
         </Grid>
+
       </StyledGrid>
 
       <Modal

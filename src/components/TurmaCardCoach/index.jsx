@@ -6,7 +6,7 @@ import moment from "moment"
 import { useOpenModalCheckout } from "../../provider/OpenModalCheckout";
 
 
-export default function TurmaCard({group, type}) {
+export default function TurmaCardCoach({group, type}) {
 
   const { toggleModalCheckout }   = useOpenModalCheckout()
 
@@ -20,15 +20,6 @@ export default function TurmaCard({group, type}) {
     setOpenMore(!openMore)
     setAnchorEl(event.currentTarget)
   }
-
-  const tempoRestantepCheckin = moment(checkin, "h:mm").fromNow()
-  const tempoRestantepCheckout = moment(checkout, "h:mm").fromNow()
-
-  console.log(tempoRestantepCheckin, name)
-  
-  console.log(tempoRestantepCheckout, name)
-
-  const regexDePobre = ["a few seconds ago", "a minute ago", "2 minutes ago", "3 minutes ago", "4 minutes ago", "5 minutes ago", "6 minutes ago", "7 minutes ago", "8 minutes ago", "9 minutes ago", "10 minutes ago", "11 minutes ago", "12 minutes ago", "13 minutes ago", "14 minutes ago", "15 minutes ago",]
 
   return(
     <StyledCard >
@@ -62,21 +53,10 @@ export default function TurmaCard({group, type}) {
         <Typography variant="caption" color="text.primary" mt="-15px" >{type}</Typography>
 
         <Stack direction="row" spacing={3} alignItems="center" >
-        
-          {regexDePobre.find( (each) => {return each === tempoRestantepCheckin}) ? (
-            <Button color="success" variant="contained" >checkin</Button>
-          ):(
-            <Button color="error" variant="contained" >checkin</Button>
-          )}
 
-          {regexDePobre.find( (each) => {return each === tempoRestantepCheckout}) ? (
-            <Button color="success" variant="contained" onClick={ () => toggleModalCheckout(group)} >checkout</Button>
-          ):(
-            <Button color="error" variant="contained" >checkout</Button>
-          )}
+          <Button variant="contained" >Entrar</Button>
 
         </Stack>
-
 
       </Stack>
 
