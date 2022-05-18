@@ -27,6 +27,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "../../services/api";
 import { useParams } from "react-router-dom";
+import { ToastSuccess } from "../Toasts/Index";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   minWidth: "300px",
@@ -148,6 +149,8 @@ export default function ModalAddUser({ token }) {
         })
         .then((res) => {
           console.log(res);
+          ToastSuccess("Usuário adicionados com suscesso");
+          toggleModalAddUser();
         })
         .catch((err) => {
           console.log(err);
