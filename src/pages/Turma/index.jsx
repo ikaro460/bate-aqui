@@ -41,8 +41,8 @@ const ContainerBox = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.background.primary,
 }));
 
-function createData(id, name, data, checkin, checkout, students, works, problems) {
-    return { id, name, data, checkin, checkout, students, works, problems };
+function createData(id, name, surname, data, checkin, checkout, students, works, problems) {
+    return { id, name, surname, data, checkin, checkout, students, works, problems };
 }
 
 export default function Turma() {
@@ -57,7 +57,9 @@ export default function Turma() {
     const token = localStorage.getItem("accessToken");
     const idUserLogged = localStorage.getItem("userId");
 
-    const {groupsId} = useParams();
+    const { groupsId } = useParams();
+
+    console.log(groupInfo);
 
     useEffect(() => {
         api.get(`groups/${groupsId}`, {
@@ -124,6 +126,7 @@ export default function Turma() {
                     createData(
                         checkin.userId,
                         checkin.name,
+                        checkin.surname,
                         checkin.date,
                         checkin.hour,
                         "",
@@ -137,6 +140,7 @@ export default function Turma() {
                     createData(
                         checkin.userId,
                         checkin.name,
+                        checkin.surname,
                         checkin.date,
                         "",
                         checkin.hour,
@@ -153,6 +157,7 @@ export default function Turma() {
                     createData(
                         checkin.userId,
                         checkin.name,
+                        checkin.surname,
                         checkin.date,
                         checkin.hour,
                         "",
@@ -166,6 +171,7 @@ export default function Turma() {
                     createData(
                         checkin.userId,
                         checkin.name,
+                        checkin.surname,
                         checkin.date,
                         "",
                         checkin.hour,
@@ -183,20 +189,24 @@ export default function Turma() {
                 <Typography color="text.primary" variant="h3">
                     {groupInfo.name}
                 </Typography>
-                <Button variant="contained" startIcon={<AddSharpIcon />}>
-                    Adicionar *Aluno*
-                </Button>
+                {groupInfo.userId == idUserLogged && (
+                    <Button variant="contained" startIcon={<AddSharpIcon />}>
+                        Adicionar *Aluno*
+                    </Button>
+                )}
             </Stack>
             <Stack direction="row" alignItems="baseline" justifyContent="space-between">
                 {groupCreatorName && (
                     <Typography variant="subtitle1" ml="5px" color="text.subtitle" mb="50px">
-                        Grupo criado por {groupCreatorName}!
+                        Facilitador: {groupCreatorName}
                     </Typography>
                 )}
                 <Link to="/login">
                     <Button variant="contained">Voltar</Button>
                 </Link>
             </Stack>
+            <Typography color="text.subtitle">Horário checkin: {groupInfo.checkin}</Typography>
+            <Typography color="text.subtitle">Horário checkout: {groupInfo.checkout}</Typography>
 
             <TableContainer
                 component={Paper}
@@ -205,9 +215,9 @@ export default function Turma() {
                 <Table sx={{ overflowX: "scroll", minWidth: "max-content" }}>
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ color: "text.primary", textAlign: "center" }}>
+                            {/* <TableCell sx={{ color: "text.primary", textAlign: "center" }}>
                                 <Typography variant="tableTitle">ID Aluno</Typography>
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell sx={{ color: "text.primary" }}>
                                 <Typography variant="tableTitle">Nome</Typography>
                             </TableCell>
