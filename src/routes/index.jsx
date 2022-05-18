@@ -10,14 +10,13 @@ import Singup from "../pages/Singup";
 export default function Routes() {
   return (
     <Switch>
-
-      <Route exact path="/home/:id" >
+      <Route exact path="/home/:id">
         <SideBar />
         <Header />
         <Home />
       </Route>
 
-      <Route exact path="/turma">
+      <Route exact path="/turma/:id">
         <SideBar />
         <Header />
         <Turma />
