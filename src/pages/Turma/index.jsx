@@ -57,7 +57,9 @@ export default function Turma() {
     const token = localStorage.getItem("accessToken");
     const idUserLogged = localStorage.getItem("userId");
 
-    const {groupsId} = useParams();
+    const { groupsId } = useParams();
+
+    console.log(groupInfo);
 
     useEffect(() => {
         api.get(`groups/${groupsId}`, {
@@ -183,20 +185,24 @@ export default function Turma() {
                 <Typography color="text.primary" variant="h3">
                     {groupInfo.name}
                 </Typography>
-                <Button variant="contained" startIcon={<AddSharpIcon />}>
-                    Adicionar *Aluno*
-                </Button>
+                {groupInfo.userId == idUserLogged && (
+                    <Button variant="contained" startIcon={<AddSharpIcon />}>
+                        Adicionar *Aluno*
+                    </Button>
+                )}
             </Stack>
             <Stack direction="row" alignItems="baseline" justifyContent="space-between">
                 {groupCreatorName && (
                     <Typography variant="subtitle1" ml="5px" color="text.subtitle" mb="50px">
-                        Grupo criado por {groupCreatorName}!
+                        Facilitador: {groupCreatorName}
                     </Typography>
                 )}
                 <Link to="/login">
                     <Button variant="contained">Voltar</Button>
                 </Link>
             </Stack>
+            <Typography color="text.subtitle">Horário checkin: {groupInfo.checkin}</Typography>
+            <Typography color="text.subtitle">Horário checkout: {groupInfo.checkout}</Typography>
 
             <TableContainer
                 component={Paper}
