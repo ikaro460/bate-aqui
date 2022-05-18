@@ -1,15 +1,4 @@
-import {
-  Modal,
-  Box,
-  Button,
-  Card,
-  CardMedia,
-  Grid,
-  Stack,
-  TextField,
-  Typography,
-  Skeleton,
-} from "@mui/material";
+import { Modal, Box, Button, Card, CardMedia, Grid, Stack, TextField, Typography, Skeleton } from "@mui/material";
 import TurmaCard from "../../components/TurmaCard";
 import ProfilePhoto from "../../imgs/foto.png";
 import CreateGroupButton from "../../components/CreateGroupButton";
