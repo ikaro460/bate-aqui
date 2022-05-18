@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useParams } from "react-router-dom";
 import moment from "moment"
+import ModalCheckout from "../../components/ModalCheckout";
 
 
 export default function Home() {
@@ -113,6 +114,8 @@ export default function Home() {
         <ModalCreateGroup />
 
       </Modal>
+
+      <ModalCheckout useId={id} name={name} /> 
 
     </ContainerBox>
   )

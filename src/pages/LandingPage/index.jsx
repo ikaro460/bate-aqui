@@ -44,6 +44,7 @@ export default function LandingPage() {
   const classes = useStyles();
 
   const isActive = useMediaQuery(`(min-width:800px)`);
+  
   return (
     <ContainerBox>
       {isActive && (

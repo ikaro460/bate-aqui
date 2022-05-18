@@ -4,6 +4,9 @@ import { OpenModalCreateGroupProvider } from "./OpenModalCreateGroup";
 import { UsersProvider } from "./Users";
 import { OwnerGroupsProvider } from "./OwnerGroups";
 import { HourProvider } from "./Hour";
+import { OpenModalCheckoutProvider } from "./OpenModalCheckout";
+
+
 export const Providers = ({ children }) => {
     return (
         <DarkModeProvider>
@@ -11,7 +14,11 @@ export const Providers = ({ children }) => {
                 <OpenModalCreateGroupProvider>
                     <UsersProvider>
                         <OwnerGroupsProvider>
-                            <HourProvider>{children}</HourProvider>
+                            <OpenModalCheckoutProvider>
+                                <HourProvider>
+                                    {children}
+                                </HourProvider>
+                            </OpenModalCheckoutProvider>
                         </OwnerGroupsProvider>
                     </UsersProvider>
                 </OpenModalCreateGroupProvider>
