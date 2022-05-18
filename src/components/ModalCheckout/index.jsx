@@ -28,8 +28,6 @@ export default function ModalCheckout({userId, name}) {
 
   const { modalCheckout, toggleModalCheckout, group } = useOpenModalCheckout()
 
-  console.log(group)
-
   const { name: groupName , checkin, checkout, type, id } = group
 
   const schema = yup.object().shape({

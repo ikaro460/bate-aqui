@@ -1,7 +1,7 @@
 import { useState, useContext, createContext } from "react";
 
 
-const OpenModalNotificationContext = createContext([])
+const OpenModalNotificationContext = createContext()
 
 export const OpenModalNotificationProvider = ({children}) => {
 

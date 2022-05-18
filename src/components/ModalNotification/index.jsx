@@ -59,13 +59,13 @@ export default function ModalNotification() {
                     return (
                         <Box key={item.id}>
                             <Typography color="text.primary">
-                                {`Você foi convidado a entrar na Turma M2 2022`}
+                                Você foi convidado a entrar na Turma M2 2022
                             </Typography>
-                            <Stack  spacing={2} justifyContent="center" direction='row'>
-                            <Button  variant="contained" onClick={() => changeStatus(item.id, 1)}>
+                            <Stack spacing={2} justifyContent="center" direction='row'>
+                            <Button variant="contained" onClick={() => changeStatus(item.id, 1)}>
                                 Aceitar
                             </Button>
-                            <Button  variant="contained" onClick={() => changeStatus(item.id, 2)}>
+                            <Button variant="contained" onClick={() => changeStatus(item.id, 2)}>
                                 Recusar
                             </Button>
                             </Stack>                            

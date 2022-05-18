@@ -10,6 +10,8 @@ import PeopleOutlineSharpIcon from '@mui/icons-material/PeopleOutlineSharp';
 import { Link, useHistory } from "react-router-dom";
 import {useOpenModalNotification} from '../../provider/OpenModalNotification';
 import { useCoachGroups } from "../../provider/CoachGroups";
+
+
 const StyledPaper = styled(Paper)(({theme}) => ({
   minWidth: "200px",
   height: "100%",
@@ -116,8 +118,6 @@ export default function SideBar() {
 
             <ListItemText>             
               <Typography sx={{color: "text.secondary"}} onClick={toggleModalNotification}>Notificações</Typography> 
-           
-              
             </ListItemText>
 
           </MenuItem>          
