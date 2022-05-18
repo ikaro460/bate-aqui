@@ -18,7 +18,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 
 export default function StyledTableRow({ row, index }) {
-    const { id, name, data, checkin, checkout, students, works, problems } = row;
+    const { id, name, surname, data, checkin, checkout, students, works, problems } = row;
 
     return (
         <TableRow
@@ -28,15 +28,15 @@ export default function StyledTableRow({ row, index }) {
                 },
             ]}
         >
-            <TableCell
+            {/* <TableCell
                 component="th"
                 scope="row"
                 sx={{ color: "text.primary", textAlign: "center" }}
             >
                 <Typography variant="tableSubTitle">{id}</Typography>
-            </TableCell>
-            <TableCell component="th" scope="row" sx={{ color: "text.primary" }}>
-                <Typography variant="tableSubTitle">{name}</Typography>
+            </TableCell> */}
+            <TableCell component="th" scope="row" sx={{ color: "text.primary", maxWidth: 100 }}>
+                <Typography variant="tableSubTitle">{name + " " + surname}</Typography>
             </TableCell>
             <TableCell component="th" scope="row" sx={{ color: "text.primary" }}>
                 <Typography variant="tableSubTitle">{data}</Typography>

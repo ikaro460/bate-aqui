@@ -41,8 +41,8 @@ const ContainerBox = styled(Box)(({ theme }) => ({
     backgroundColor: theme.palette.background.primary,
 }));
 
-function createData(id, name, data, checkin, checkout, students, works, problems) {
-    return { id, name, data, checkin, checkout, students, works, problems };
+function createData(id, name, surname, data, checkin, checkout, students, works, problems) {
+    return { id, name, surname, data, checkin, checkout, students, works, problems };
 }
 
 export default function Turma() {
@@ -126,6 +126,7 @@ export default function Turma() {
                     createData(
                         checkin.userId,
                         checkin.name,
+                        checkin.surname,
                         checkin.date,
                         checkin.hour,
                         "",
@@ -139,6 +140,7 @@ export default function Turma() {
                     createData(
                         checkin.userId,
                         checkin.name,
+                        checkin.surname,
                         checkin.date,
                         "",
                         checkin.hour,
@@ -155,6 +157,7 @@ export default function Turma() {
                     createData(
                         checkin.userId,
                         checkin.name,
+                        checkin.surname,
                         checkin.date,
                         checkin.hour,
                         "",
@@ -168,6 +171,7 @@ export default function Turma() {
                     createData(
                         checkin.userId,
                         checkin.name,
+                        checkin.surname,
                         checkin.date,
                         "",
                         checkin.hour,
@@ -211,9 +215,9 @@ export default function Turma() {
                 <Table sx={{ overflowX: "scroll", minWidth: "max-content" }}>
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ color: "text.primary", textAlign: "center" }}>
+                            {/* <TableCell sx={{ color: "text.primary", textAlign: "center" }}>
                                 <Typography variant="tableTitle">ID Aluno</Typography>
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell sx={{ color: "text.primary" }}>
                                 <Typography variant="tableTitle">Nome</Typography>
                             </TableCell>
