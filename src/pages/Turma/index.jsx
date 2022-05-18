@@ -22,6 +22,9 @@ import { api } from "../../services/api";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import ModalAddUser from "../../components/ModalAddUser";
+import { useOpenModalAddUser } from "../../provider/OpenModalAddUser";
+import { useUsers } from "../../provider/Users";
 
 const useStyles = makeStyles((themes) => ({
     profile: {
@@ -46,7 +49,16 @@ function createData(id, name, surname, data, checkin, checkout, students, works,
 }
 
 export default function Turma() {
+
     const classes = useStyles();
+    const { id } = useParams();
+    const { modalAddUser, toggleModalAddUser } = useOpenModalAddUser();
+    const { users, getUsers } = useUsers();
+    const token = localStorage.getItem("accessToken");
+
+    if (!users.length) {
+        getUsers(token);
+    }
 
     const [groupCoachs, setGroupCoachs] = useState([]);
     const [groupInfo, setGroupInfo] = useState([]);
@@ -54,7 +66,6 @@ export default function Turma() {
     const [infoCheckinAdmin, setInfoCheckinAdmin] = useState([]);
     const [infoCheckinCoach, setInfoCheckinCoach] = useState([]);
 
-    const token = localStorage.getItem("accessToken");
     const idUserLogged = localStorage.getItem("userId");
 
     const { groupsId } = useParams();
@@ -251,6 +262,20 @@ export default function Turma() {
                     </TableBody>
                 </Table>
             </TableContainer>
+
+            <Modal
+                open={modalAddUser}
+                onClose={toggleModalAddUser}
+                sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+                }}
+            >
+                <ModalAddUser users={users} token={token} />
+            </Modal>                    
+
         </ContainerBox>
     );
 }
