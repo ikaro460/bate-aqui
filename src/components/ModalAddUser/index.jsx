@@ -78,6 +78,7 @@ export default function ModalAddUser({ token }) {
   const [searchValue, setSearchValue] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [usersToAdd, setUsersToAdd] = useState([]);
+  const [groupCheckin, setGroupCheckin] = useState({});
 
   //PEGANDO ID DO GRUPO
   const { groupsId } = useParams();
@@ -94,8 +95,27 @@ export default function ModalAddUser({ token }) {
       .catch((err) => console.log(err));
   };
 
+  //GET INFOS DO GRUPO
+  const getGroupData = () => {
+    api
+      .get(`/groups/${groupsId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setGroupCheckin({
+          checkin: res.data.checkin,
+          checkout: res.data.checkout,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     getGroupUsers();
+    getGroupData();
     console.log(usersToAdd);
   }, [usersToAdd]);
 
@@ -114,6 +134,8 @@ export default function ModalAddUser({ token }) {
         groupsId: groupsIdNumber,
         status_aceito: 0,
         status_ativo: 1,
+        checkin: groupCheckin.checkin,
+        checkout: groupCheckin.checkout,
       };
 
       console.log(postData);
