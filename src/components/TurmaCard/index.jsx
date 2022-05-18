@@ -33,6 +33,7 @@ export default function TurmaCard({group, type}) {
   };
 
   const tempoRestantepCheckin = moment(checkin, "h:mm").fromNow();
+
   const tempoRestantepCheckout = moment(checkout, "h:mm").fromNow();
 
   console.log(tempoRestantepCheckin, name);
@@ -88,8 +89,6 @@ export default function TurmaCard({group, type}) {
         <Typography variant="caption" color="text.primary" mt="-15px">
           {type}
         </Typography>
-
-        <Typography variant="caption" color="text.primary" mt="-15px" >{type}</Typography>
 
         <Stack direction="row" spacing={3} alignItems="center" >
         
