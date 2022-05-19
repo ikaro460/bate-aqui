@@ -4,12 +4,13 @@ import { api } from "../../services/api";
 const CoachGroupsContext = createContext([]);
 
 export const CoachGroupsProvider = ({ children }) => {
-
     const [coachGroups, setCoachGroups] = useState([]);
 
-    const [coachsToSeparate, setCoachsToSeparate] = useState([])
+    const [coachsToSeparate, setCoachsToSeparate] = useState([]);
 
     const [notify, setNotify] = useState([]);
+
+    const [verifyNotify, setVerifyNotify] = useState(false);
 
     const getCoachGroups = (token, id) => {
         api.get(`/users/${id}/?_embed=coach`, {
@@ -31,11 +32,11 @@ export const CoachGroupsProvider = ({ children }) => {
                 return each.status_aceito === 0;
             })
         );
-        setCoachGroups( 
+        setCoachGroups(
             coachsToSeparate.filter((each) => {
                 return each.status_aceito === 1 && each.status_ativo === 1;
             })
-        )
+        );
     }, [coachsToSeparate]);
 
     return (
@@ -46,9 +47,11 @@ export const CoachGroupsProvider = ({ children }) => {
                 getCoachGroups,
                 notify,
                 setNotify,
+                verifyNotify,
+                setVerifyNotify,
             }}
         >
-            {children}{" "}
+            {children}
         </CoachGroupsContext.Provider>
     );
 };

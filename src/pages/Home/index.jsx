@@ -34,7 +34,8 @@ export default function Home() {
 
     const [notification, setNotification] = useState([]);
 
-    const { getCoachGroups, notify, setNotify, coachGroups } = useCoachGroups();
+    const { getCoachGroups, notify, setNotify, coachGroups, verifyNotify, setVerifyNotify } =
+        useCoachGroups();
 
     // console.log(coachGroups)
 
@@ -100,12 +101,12 @@ export default function Home() {
 
         //   })
     }, [modalCreateGroup]);
-    
-    console.log(coachGroups)
+
+    console.log(coachGroups);
 
     useEffect(() => {
         getCoachGroups(localStorage.getItem("accessToken"), id);
-    }, []);
+    }, [verifyNotify]);
 
     return (
         <ContainerBox>
