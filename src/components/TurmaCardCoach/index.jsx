@@ -25,6 +25,7 @@ export default function TurmaCardCoach({group, type}) {
     api.patch(`/coach/${grupo.id}`, { status_ativo: 2 }, {headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
     .then((res) => {
       console.log(res);
+      window.location.reload()
     })
     .catch((err) => {
       console.log(err);
@@ -40,8 +41,6 @@ export default function TurmaCardCoach({group, type}) {
   const tempoRestantepCheckin = moment(checkin, "h:mm").fromNow();
 
   const tempoRestantepCheckout = moment(checkout, "h:mm").fromNow();
-
-  // console.log(tempoRestantepCheckout)
 
   // console.log(tempoRestantepCheckin, name);
 
