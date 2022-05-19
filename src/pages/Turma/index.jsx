@@ -24,9 +24,11 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import ModalAddUser from "../../components/ModalAddUser";
 import { useOpenModalAddUser } from "../../provider/OpenModalAddUser";
+import { useOpenModalDeleteUser } from "../../provider/OpenModalDeleteUser";
 import { useUsers } from "../../provider/Users";
 
 import "./styles.css";
+import { ModalDeleteUser } from "../../components/ModalDeleteUser";
 
 const useStyles = makeStyles((themes) => ({
     profile: {
@@ -54,6 +56,7 @@ export default function Turma() {
     const classes = useStyles();
     const { id } = useParams();
     const { modalAddUser, toggleModalAddUser } = useOpenModalAddUser();
+    const { modalDeleteUser, toggleModalDeleteUser } = useOpenModalDeleteUser();
     const { users, getUsers } = useUsers();
     const token = localStorage.getItem("accessToken");
 
@@ -229,13 +232,27 @@ export default function Turma() {
                     </Link>
 
                     {groupInfo.userId == idUserLogged && (
-                        <Button
-                            onClick={toggleModalAddUser}
-                            variant="contained"
-                            startIcon={<AddSharpIcon />}
-                        >
-                            Adicionar coach
-                        </Button>
+                        <div>
+                            <Button
+                                onClick={toggleModalAddUser}
+                                variant="contained"
+                                startIcon={<AddSharpIcon />}
+                            >
+                                Adicionar coach
+                            </Button>
+                        </div>
+                    )}
+
+                    {groupInfo.userId == idUserLogged && (
+                        <div>
+                            <Button
+                                onClick={toggleModalDeleteUser}
+                                variant="contained"
+                                startIcon={<AddSharpIcon />}
+                            >
+                                Deletar coach
+                            </Button>
+                        </div>
                     )}
                 </Stack>
             </Stack>
@@ -245,8 +262,26 @@ export default function Turma() {
                 Horário checkout: {groupInfo.checkout}
             </Typography>
 
-            <TableContainer component={Paper} sx={{ width: "100%", overflowX: "auto" }}>
+            <TableContainer
+                component={Paper}
+                sx={{ width: "100%", minWidth: 720, overflowX: "auto" }}
+            >
                 <Table sx={{ overflowX: "scroll", minWidth: "max-content" }}>
+                    <TableHead>
+                        <TableRow>
+                            {/* <TableCell sx={{ color: "text.primary", textAlign: "center" }}>
+            <TableContainer
+                component={Paper}
+                sx={{ width: "100%", overflowX: "auto", overflowY: "auto", maxHeight: "600px" }}
+            >
+                <Table
+                    sx={{
+                        overflowX: "scroll",
+                        minWidth: "max-content",
+                        overflowY: "auto",
+                        minHeight: "100px",
+                    }}
+                >
                     <TableHead>
                         <TableRow>
                             {/* <TableCell sx={{ color: "text.primary", textAlign: "center" }}>
@@ -297,6 +332,18 @@ export default function Turma() {
                 }}
             >
                 <ModalAddUser users={users} token={token} />
+            </Modal>
+            <Modal
+                open={modalDeleteUser}
+                onClose={toggleModalDeleteUser}
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                }}
+            >
+                <ModalDeleteUser users={users} token={token} />
             </Modal>
         </ContainerBox>
     );
