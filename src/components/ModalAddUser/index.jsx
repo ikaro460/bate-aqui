@@ -27,6 +27,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "../../services/api";
 import { useParams } from "react-router-dom";
+import { ToastSuccess } from "../Toasts/Index";
 
 const StyledBox = styled(Box)(({ theme }) => ({
   minWidth: "300px",
@@ -78,6 +79,7 @@ export default function ModalAddUser({ token }) {
   const [searchValue, setSearchValue] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [usersToAdd, setUsersToAdd] = useState([]);
+  const [groupCheckin, setGroupCheckin] = useState({});
 
   //PEGANDO ID DO GRUPO
   const { groupsId } = useParams();
@@ -94,8 +96,27 @@ export default function ModalAddUser({ token }) {
       .catch((err) => console.log(err));
   };
 
+  //GET INFOS DO GRUPO
+  const getGroupData = () => {
+    api
+      .get(`/groups/${groupsId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setGroupCheckin({
+          checkin: res.data.checkin,
+          checkout: res.data.checkout,
+        });
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     getGroupUsers();
+    getGroupData();
     console.log(usersToAdd);
   }, [usersToAdd]);
 
@@ -114,6 +135,8 @@ export default function ModalAddUser({ token }) {
         groupsId: groupsIdNumber,
         status_aceito: 0,
         status_ativo: 1,
+        checkin: groupCheckin.checkin,
+        checkout: groupCheckin.checkout,
       };
 
       console.log(postData);
@@ -126,6 +149,8 @@ export default function ModalAddUser({ token }) {
         })
         .then((res) => {
           console.log(res);
+          ToastSuccess("Usuário adicionados com suscesso");
+          toggleModalAddUser();
         })
         .catch((err) => {
           console.log(err);
