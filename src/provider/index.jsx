@@ -9,6 +9,7 @@ import { OpenModalAddUserProvider } from "./OpenModalAddUser";
 import { OpenModalCheckoutProvider } from "./OpenModalCheckout";
 import { CoachGroupsProvider } from "./CoachGroups";
 import { OpenModalDeleteUserProvider } from "./OpenModalDeleteUser";
+import { GroupUsersProvider } from "./GroupUsers";
 
 export const Providers = ({ children }) => {
   return (
@@ -16,21 +17,23 @@ export const Providers = ({ children }) => {
       <SideBarProvider>
         <OpenModalCreateGroupProvider>
           <UsersProvider>
-            <OwnerGroupsProvider>
-              <OpenModalCheckoutProvider>
-                <HourProvider>
-                  <OpenModalNotificationProvider>
-                    <OpenModalAddUserProvider>
-                      <CoachGroupsProvider>
-                        <OpenModalDeleteUserProvider>
-                          {children}
-                        </OpenModalDeleteUserProvider>
-                      </CoachGroupsProvider>
-                    </OpenModalAddUserProvider>
-                  </OpenModalNotificationProvider>
-                </HourProvider>
-              </OpenModalCheckoutProvider>
-            </OwnerGroupsProvider>
+            <GroupUsersProvider>
+              <OwnerGroupsProvider>
+                <OpenModalCheckoutProvider>
+                  <HourProvider>
+                    <OpenModalNotificationProvider>
+                      <OpenModalAddUserProvider>
+                        <CoachGroupsProvider>
+                          <OpenModalDeleteUserProvider>
+                            {children}
+                          </OpenModalDeleteUserProvider>
+                        </CoachGroupsProvider>
+                      </OpenModalAddUserProvider>
+                    </OpenModalNotificationProvider>
+                  </HourProvider>
+                </OpenModalCheckoutProvider>
+              </OwnerGroupsProvider>
+            </GroupUsersProvider>
           </UsersProvider>
         </OpenModalCreateGroupProvider>
       </SideBarProvider>
