@@ -4,6 +4,8 @@ import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 import asset from "../../imgs/Asset 1.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((themes) => ({
     img: {
@@ -35,6 +37,19 @@ const TypographyStyle = styled(Typography)(({ theme }) => ({
 }));
 
 export default function LandingPage() {
+    const token = localStorage.getItem("accessToken");
+    const idUserLogged = localStorage.getItem("userId");
+
+    const history = useHistory();
+
+    if (token) {
+        history.push(`/home/${idUserLogged}`);
+    }
+
+    // useEffect(() => {
+    //     localStorage.clear();
+    // }, []);
+
     const classes = useStyles();
 
     const isActive = useMediaQuery(`(min-width:800px)`);

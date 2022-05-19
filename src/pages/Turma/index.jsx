@@ -29,6 +29,7 @@ import { useUsers } from "../../provider/Users";
 
 import "./styles.css";
 import { ModalDeleteUser } from "../../components/ModalDeleteUser";
+import { useGroupUsers } from "../../provider/GroupUsers";
 
 const ContainerBox = styled(Box)(({ theme }) => ({
     minHeight: "100vh",
@@ -38,20 +39,30 @@ const ContainerBox = styled(Box)(({ theme }) => ({
 }));
 
 function createData(id, name, surname, data, checkin, checkout, students, works, problems) {
-    return { id, name, surname, data, checkin, checkout, students, works, problems };
+    return {
+        id,
+        name,
+        surname,
+        data,
+        checkin,
+        checkout,
+        students,
+        works,
+        problems,
+    };
 }
 
 export default function Turma() {
     const { modalAddUser, toggleModalAddUser } = useOpenModalAddUser();
     const { modalDeleteUser, toggleModalDeleteUser } = useOpenModalDeleteUser();
     const { users, getUsers } = useUsers();
+    const { groupUsers, getGroupUsers } = useGroupUsers();
     const token = localStorage.getItem("accessToken");
 
     if (!users.length) {
         getUsers(token);
     }
 
-    const [groupCoachs, setGroupCoachs] = useState([]);
     const [groupInfo, setGroupInfo] = useState([]);
     const [groupCreatorName, setGroupCreatorName] = useState("");
     const [infoCheckinAdmin, setInfoCheckinAdmin] = useState([]);
@@ -72,11 +83,7 @@ export default function Turma() {
                 console.log(err);
             });
 
-        api.get(`/coach?groupsId=${groupsId}`)
-            .then((res) => setGroupCoachs(res.data))
-            .catch((err) => {
-                console.log(err);
-            });
+        getGroupUsers(token, groupsId);
 
         api.get(`/checkin?groupsId=${groupsId}`, {
             headers: {
@@ -90,7 +97,7 @@ export default function Turma() {
     }, []);
 
     useEffect(() => {
-        const coachIdFind = groupCoachs.find((coach) => coach.userId == idUserLogged)?.id;
+        const coachIdFind = groupUsers.find((coach) => coach.userId == idUserLogged)?.id;
 
         api.get(`/checkin?coachId=${coachIdFind}`, {
             headers: {
@@ -101,7 +108,7 @@ export default function Turma() {
             .catch((err) => {
                 console.log(err);
             });
-    }, [groupCoachs]);
+    }, [groupUsers]);
 
     useEffect(() => {
         groupInfo.userId &&
@@ -251,14 +258,6 @@ export default function Turma() {
 
             <TableContainer
                 component={Paper}
-                sx={{ width: "100%", minWidth: 720, overflowX: "auto" }}
-            >
-                <Table sx={{ overflowX: "scroll", minWidth: "max-content" }}>
-                    <TableHead>
-                        <TableRow>
-                            {/* <TableCell sx={{ color: "text.primary", textAlign: "center" }}>
-            <TableContainer
-                component={Paper}
                 sx={{ width: "100%", overflowX: "auto", overflowY: "auto", maxHeight: "600px" }}
             >
                 <Table
@@ -271,9 +270,6 @@ export default function Turma() {
                 >
                     <TableHead>
                         <TableRow>
-                            {/* <TableCell sx={{ color: "text.primary", textAlign: "center" }}>
-                                <Typography variant="tableTitle">ID Aluno</Typography>
-                            </TableCell> */}
                             <TableCell sx={{ color: "text.primary" }}>
                                 <Typography variant="tableTitle">Nome</Typography>
                             </TableCell>
@@ -295,9 +291,6 @@ export default function Turma() {
                             <TableCell sx={{ color: "text.primary" }}>
                                 <Typography variant="tableTitle">Pendências</Typography>
                             </TableCell>
-                            {/* <TableCell sx={{ color: "text.primary", textAlign: "center" }}>
-                                <Typography variant="tableTitle">Ações</Typography>
-                            </TableCell> */}
                         </TableRow>
                     </TableHead>
                     <TableBody>
