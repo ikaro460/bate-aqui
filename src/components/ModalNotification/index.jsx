@@ -22,7 +22,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
     width: "100%",
     padding: "35px 35px",
     position: "relative",
-    
+    minHeight: "300px",
     backgroundColor: theme.palette.background.primary,
 
     [theme.breakpoints.down("sm")]: {
@@ -34,12 +34,14 @@ export default function ModalNotification() {
 
     const {toggleModalNotification} = useOpenModalNotification();    
 
-    const { notify } = useCoachGroups();
+    const { notify, verifyNotify, setVerifyNotify } = useCoachGroups();
    
     const changeStatus = (id, value) => {
         const data = { "status_aceito": value }
 
         api.patch(`/coach/${id}`, data)
+
+        setVerifyNotify(!verifyNotify)
     }
   
     return (
@@ -55,7 +57,7 @@ export default function ModalNotification() {
                 Notificações
             </Typography>
             <Stack spacing={2} justifyContent="center" direction="column">
-                {notify && notify.map((item) => {
+                {notify.length !==0 ? notify.map((item) => {
                     return (
                         <Box key={item.id} sx={{display: 'flex', alignItems: 'center'}}>
                             <Typography sx={{fontSize: 12}} color="text.primary">
@@ -71,7 +73,7 @@ export default function ModalNotification() {
                             </Stack>                            
                         </Box>
                     )
-                })}
+                }) : <Stack sx={{p: '50px 0 50px 0', backgroundColor: "lightgray", borderRadius: '10px'}}> <Typography sx={{fontSize: 20, fontWeight: 'bold'}}  color="text.primary">Você não possui Notificações!</Typography> </Stack>}
             </Stack>
         </StyledBox>
     )

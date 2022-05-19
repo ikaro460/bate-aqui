@@ -9,6 +9,8 @@ export const CoachGroupsProvider = ({children}) => {
 
     const [notify, setNotify] = useState([]);
 
+    const [verifyNotify, setVerifyNotify] = useState(false)
+
     const getCoachGroups = (token, id) => {
 
         api.get(`/users/${id}/?_embed=coach`, {
@@ -34,7 +36,7 @@ export const CoachGroupsProvider = ({children}) => {
     },[coachGroups])
     
     return (
-        <CoachGroupsContext.Provider value={{coachGroups, setCoachGroups, getCoachGroups, notify, setNotify}}>
+        <CoachGroupsContext.Provider value={{coachGroups, setCoachGroups, getCoachGroups, notify, setNotify, verifyNotify, setVerifyNotify}}>
             {children}
         </CoachGroupsContext.Provider>
     )
