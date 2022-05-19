@@ -91,6 +91,7 @@ export default function ModalCreateGroup() {
 
                 <MobileTimePicker
                     label="Check-in"
+                    ampm={false}
                     value={value1}
                     onChange={(newValue) => {
                         setValue1(new Date(newValue));
@@ -101,6 +102,7 @@ export default function ModalCreateGroup() {
 
                 <MobileTimePicker
                     label="Check-out"
+                    ampm={false}
                     value={value2}
                     onChange={(newValue) => {
                         setValue2(new Date(newValue));
