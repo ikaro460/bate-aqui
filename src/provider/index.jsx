@@ -9,6 +9,7 @@ import { OpenModalAddUserProvider } from "./OpenModalAddUser";
 import { OpenModalCheckoutProvider } from "./OpenModalCheckout";
 import { CoachGroupsProvider } from "./CoachGroups";
 import { OpenModalDeleteUserProvider } from "./OpenModalDeleteUser";
+import { CheckinProvider } from "./Checkin";
 
 export const Providers = ({ children }) => {
   return (
@@ -23,7 +24,9 @@ export const Providers = ({ children }) => {
                     <OpenModalAddUserProvider>
                       <CoachGroupsProvider>
                         <OpenModalDeleteUserProvider>
-                          {children}
+                          <CheckinProvider>
+                            {children}
+                          </CheckinProvider>
                         </OpenModalDeleteUserProvider>
                       </CoachGroupsProvider>
                     </OpenModalAddUserProvider>

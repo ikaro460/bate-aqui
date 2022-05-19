@@ -67,7 +67,8 @@ function App() {
           primary: "#fff",
           secondary: "#000"
         },
-        tableRowContrast: "#F7F6FE"
+        tableRowContrast: "#F7F6FE",
+        notOnTime: "#4B4B4B"
       })
     },
     typography: {
@@ -205,6 +206,16 @@ function App() {
         }
       }
     },
+    // MuiButton: {
+    //   variant: [
+    //     {
+    //       props: { variant: "check" },
+    //       style: {
+    //         backgroundColor: "#ff0000"
+    //       }
+    //     }
+    //   ]
+    // }
   }
   
   // theme.typography = {

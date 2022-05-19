@@ -100,8 +100,6 @@ export default function Home() {
 
         //   })
     }, [modalCreateGroup]);
-    
-    console.log(coachGroups)
 
     useEffect(() => {
         getCoachGroups(localStorage.getItem("accessToken"), id);

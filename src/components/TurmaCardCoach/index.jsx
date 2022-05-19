@@ -6,27 +6,30 @@ import moment from "moment"
 import { useOpenModalCheckout } from "../../provider/OpenModalCheckout";
 import { useHistory } from "react-router-dom";
 import { api } from "../../services/api"
+import { useCheckin } from "../../provider/Checkin"
 
 
 export default function TurmaCardCoach({group, type}) {
 
   const { toggleModalCheckout }   = useOpenModalCheckout()
 
+  const { Checkin } = useCheckin()
+
   const [ openMore, setOpenMore ] = useState(false)
 
   const [ anchorEl, setAnchorEl ] = useState(null);
 
-  const { name, checkin, checkout, userId, id, groupName } = group
-
-  const history = useHistory();
+  const { name, checkin, checkout, userId, id, groupName, groupsId } = group
 
   console.log(group)
+
+  const history = useHistory();
 
   const excluirGrupo = (grupo) => {
 
     api.patch(`/coach/${grupo.id}`, { status_ativo: 2, status_aceito: 2 }, {headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       window.location.reload()
     })
     .catch((err) => {
@@ -54,6 +57,10 @@ export default function TurmaCardCoach({group, type}) {
     return history.push(`/turma/${id}`);
   };
 
+  const handleTurmaClick = () => {
+    return history.push(`/turma/${groupsId}`)
+  }
+
   return(
     <StyledCard >
 
@@ -73,7 +80,7 @@ export default function TurmaCardCoach({group, type}) {
             horizontal: 'left',
           }}
         >
-          <MenuItem>Editar</MenuItem>
+          <MenuItem onClick={handleTurmaClick} >Entrar</MenuItem>
           <MenuItem onClick={ () => excluirGrupo(group)}>Sair</MenuItem>
         </Menu>
 
@@ -88,15 +95,15 @@ export default function TurmaCardCoach({group, type}) {
         <Stack direction="row" spacing={3} alignItems="center" >
 
           {regexDePobre.find( (each) => {return each === tempoRestantepCheckin}) ? (
-            <Button color="success" variant="contained" >checkin</Button>
+            <Button color="success" variant="contained" onClick={ () => Checkin(group)} >checkin</Button>
           ):(
-            <Button color="error" variant="contained" >checkin</Button>
+            <Button disabled variant="contained" >checkin</Button>
           )}
 
           {regexDePobre.find( (each) => {return each === tempoRestantepCheckout}) ? (
             <Button color="success" variant="contained" onClick={ () => toggleModalCheckout(group)} >checkout</Button>
           ):(
-            <Button color="error" variant="contained" >checkout</Button>
+            <Button disabled variant="contained" >checkout</Button>
           )}
 
         </Stack>
