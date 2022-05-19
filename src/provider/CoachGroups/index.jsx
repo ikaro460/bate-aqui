@@ -33,7 +33,7 @@ export const CoachGroupsProvider = ({ children }) => {
         );
         setCoachGroups( 
             coachsToSeparate.filter((each) => {
-                return each.status_aceito === 1 && each.ativo === 1;
+                return each.status_aceito === 1 && each.status_ativo === 1;
             })
         )
     }, [coachsToSeparate]);
