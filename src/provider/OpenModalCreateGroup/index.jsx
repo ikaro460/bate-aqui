@@ -1,22 +1,19 @@
-import { createContext, useState, useEffect, useContext } from "react"
+import { createContext, useState, useContext } from "react";
 
+const OpenModalCreateGroupContext = createContext();
 
-const OpenModalCreateGroupContext = createContext()
+export const OpenModalCreateGroupProvider = ({ children }) => {
+    const [modalCreateGroup, setModalCreateGroup] = useState(false);
 
-export const OpenModalCreateGroupProvider = ({children}) => {
+    const toggleModalCreateGroup = () => {
+        setModalCreateGroup(!modalCreateGroup);
+    };
 
-  const [modalCreateGroup, setModalCreateGroup] = useState(false)
+    return (
+        <OpenModalCreateGroupContext.Provider value={{ modalCreateGroup, toggleModalCreateGroup }}>
+            {children}
+        </OpenModalCreateGroupContext.Provider>
+    );
+};
 
-  const toggleModalCreateGroup = () => {
-    setModalCreateGroup(!modalCreateGroup)
-  }
-
-  return(
-    <OpenModalCreateGroupContext.Provider value={{ modalCreateGroup, toggleModalCreateGroup }} >
-      {children}
-    </OpenModalCreateGroupContext.Provider>
-  )
-
-}
-
-export const useOpenModalCreateGroup = () => useContext(OpenModalCreateGroupContext)
+export const useOpenModalCreateGroup = () => useContext(OpenModalCreateGroupContext);

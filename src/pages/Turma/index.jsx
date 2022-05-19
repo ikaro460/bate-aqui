@@ -30,20 +30,9 @@ import { useUsers } from "../../provider/Users";
 import "./styles.css";
 import { ModalDeleteUser } from "../../components/ModalDeleteUser";
 
-const useStyles = makeStyles((themes) => ({
-    profile: {
-        position: "absolute",
-        top: "0px",
-    },
-}));
-
 const ContainerBox = styled(Box)(({ theme }) => ({
-    // minWidth: "max-content",
     minHeight: "100vh",
-
     textAlign: "left",
-    // position: "relative",
-
     padding: "25px 30px",
     backgroundColor: theme.palette.background.primary,
 }));
@@ -53,8 +42,6 @@ function createData(id, name, surname, data, checkin, checkout, students, works,
 }
 
 export default function Turma() {
-    const classes = useStyles();
-    const { id } = useParams();
     const { modalAddUser, toggleModalAddUser } = useOpenModalAddUser();
     const { modalDeleteUser, toggleModalDeleteUser } = useOpenModalDeleteUser();
     const { users, getUsers } = useUsers();

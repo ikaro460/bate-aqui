@@ -1,57 +1,34 @@
-import {
-    Modal,
-    Box,
-    Button,
-    Card,
-    CardMedia,
-    Grid,
-    Stack,
-    TextField,
-    Typography,
-    Skeleton,
-} from "@mui/material";
+import { Modal, Button, Grid, Stack, Typography, Skeleton } from "@mui/material";
 import TurmaCard from "../../components/TurmaCard";
-import ProfilePhoto from "../../imgs/foto.png";
 import CreateGroupButton from "../../components/CreateGroupButton";
 import { useOpenModalCreateGroup } from "../../provider/OpenModalCreateGroup";
 import { useOpenModalNotification } from "../../provider/OpenModalNotification";
 import ModalCreateGroup from "../../components/ModalCreateGroup";
 import ModalNotification from "../../components/ModalNotification";
 import { ContainerBox, StyledCard, ProfileImg, StyledGrid } from "./styles";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useParams, useHistory } from "react-router-dom";
-import moment from "moment";
 import { useCoachGroups } from "../../provider/CoachGroups";
 import ModalCheckout from "../../components/ModalCheckout";
 import TurmaCardCoach from "../../components/TurmaCardCoach";
-import axios from "axios";
 
 export default function Home() {
     const { modalCreateGroup, toggleModalCreateGroup } = useOpenModalCreateGroup();
 
     const { modalNotification, toggleModalNotification } = useOpenModalNotification();
 
-    const [notification, setNotification] = useState([]);
-
-    const { getCoachGroups, notify, setNotify, coachGroups, verifyNotify, setVerifyNotify } =
-        useCoachGroups();
-
-    // console.log(coachGroups)
+    const { getCoachGroups, coachGroups, verifyNotify } = useCoachGroups();
 
     const [user, setUser] = useState(false);
 
     const [groups, setGroups] = useState(false);
 
-    // const [coachGroups, setCoachGroups] = useState(false);
-
-    const { email, name, surname } = user;
+    const { name, surname } = user;
 
     const { id } = useParams();
 
     const history = useHistory();
-
-    // console.log(moment().locale());
 
     const axiosGetUser = () => {
         api.get(`/users/${localStorage.getItem("userId")}`, {
@@ -87,22 +64,7 @@ export default function Home() {
             .catch((err) => {
                 console.log(err);
             });
-
-        // api.get(`/users/${localStorage.getItem("userId")}?_embed=coach`, {
-        //   headers: {
-        //     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        //   },
-        // })
-        //   .then((res) => {
-
-        //     // setCoachGroups(res.data.coach.filter( (each) => {
-        //     //   return each.status_aceito === 1 && each.status_ativo === 1
-        //     // }))
-
-        //   })
     }, [modalCreateGroup]);
-
-    console.log(coachGroups);
 
     useEffect(() => {
         getCoachGroups(localStorage.getItem("accessToken"), id);

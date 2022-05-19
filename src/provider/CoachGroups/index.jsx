@@ -20,7 +20,6 @@ export const CoachGroupsProvider = ({ children }) => {
         })
             .then((response) => {
                 setCoachsToSeparate(response.data.coach);
-                console.log(coachGroups);
             })
 
             .catch((error) => console.log(error));

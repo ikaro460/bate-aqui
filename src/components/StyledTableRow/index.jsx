@@ -1,24 +1,7 @@
-import {
-    Box,
-    Button,
-    Card,
-    CardMedia,
-    TableContainer,
-    Typography,
-    Paper,
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableBody,
-    IconButton,
-    ButtonGroup,
-} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import { Typography, TableRow, TableCell } from "@mui/material";
 
 export default function StyledTableRow({ row, index }) {
-    const { id, name, surname, data, checkin, checkout, students, works, problems } = row;
+    const { name, surname, data, checkin, checkout, students, works, problems } = row;
 
     return (
         <TableRow
@@ -28,13 +11,6 @@ export default function StyledTableRow({ row, index }) {
                 },
             ]}
         >
-            {/* <TableCell
-                component="th"
-                scope="row"
-                sx={{ color: "text.primary", textAlign: "center" }}
-            >
-                <Typography variant="tableSubTitle">{id}</Typography>
-            </TableCell> */}
             <TableCell component="th" scope="row" sx={{ color: "text.primary", maxWidth: 180 }}>
                 <Typography variant="tableSubTitle">{name + " " + surname}</Typography>
             </TableCell>
@@ -56,20 +32,6 @@ export default function StyledTableRow({ row, index }) {
             <TableCell component="th" scope="row" sx={{ color: "text.primary", maxWidth: 180 }}>
                 <Typography variant="tableSubTitle">{problems}</Typography>
             </TableCell>
-            {/* <TableCell
-        component="th"
-        scope="row"
-        sx={{color: "text.primary", textAlign: "center", width: "140px"}}
-      >
-        <ButtonGroup>
-          <IconButton>
-            <EditIcon sx={{color: "primary.light"}} />
-          </IconButton>
-          <IconButton>
-            <DeleteOutlinedIcon sx={{color: "secondary.main"}} />
-          </IconButton>
-        </ButtonGroup>
-      </TableCell> */}
         </TableRow>
     );
 }

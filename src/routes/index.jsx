@@ -8,40 +8,31 @@ import Login from "../pages/Login";
 import Singup from "../pages/Singup";
 
 export default function Routes() {
+    return (
+        <Switch>
+            <Route exact path="/home/:id">
+                <SideBar />
+                <Header />
+                <Home />
+            </Route>
 
-  return (
-    <Switch>
+            <Route exact path="/turma/:groupsId">
+                <SideBar />
+                <Header />
+                <Turma />
+            </Route>
 
-      <Route exact path="/home/:id">
-        <SideBar />
-        <Header />
-        <Home />
-      </Route>
+            <Route exact path="/login">
+                <Login />
+            </Route>
 
-      <Route exact path="/turma/:groupsId">
-        <SideBar />
-        <Header />
-        <Turma />
-      </Route>
+            <Route path="/signup">
+                <Singup />
+            </Route>
 
-      <Route exact path="/login">
-        {/* <SideBar />
-        <Header /> */}
-        <Login />
-      </Route>
-
-      <Route path="/signup">
-        {/* <SideBar />
-        <Header /> */}
-        <Singup />
-      </Route>
-
-      <Route exact path="/">
-        {/* <SideBar />
-        <Header /> */}
-        <LandingPage />
-      </Route>
-
-    </Switch>
-  );
+            <Route exact path="/">
+                <LandingPage />
+            </Route>
+        </Switch>
+    );
 }

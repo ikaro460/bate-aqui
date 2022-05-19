@@ -1,21 +1,19 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useContext } from "react";
 
 const OpenModalAddUserContext = createContext();
 
 export const OpenModalAddUserProvider = ({ children }) => {
-  const [modalAddUser, setModalAddUser] = useState(false);
+    const [modalAddUser, setModalAddUser] = useState(false);
 
-  const toggleModalAddUser = () => {
-    setModalAddUser(!modalAddUser);
-  };
+    const toggleModalAddUser = () => {
+        setModalAddUser(!modalAddUser);
+    };
 
-  return (
-    <OpenModalAddUserContext.Provider
-      value={{ modalAddUser, toggleModalAddUser }}
-    >
-      {children}
-    </OpenModalAddUserContext.Provider>
-  );
+    return (
+        <OpenModalAddUserContext.Provider value={{ modalAddUser, toggleModalAddUser }}>
+            {children}
+        </OpenModalAddUserContext.Provider>
+    );
 };
 
 export const useOpenModalAddUser = () => useContext(OpenModalAddUserContext);

@@ -1,8 +1,7 @@
-import { Box, Button, Card, CardMedia, Grid, IconButton, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { useOpenModalCreateGroup } from "../../provider/OpenModalCreateGroup";
 import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
 import { styled } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useForm } from "react-hook-form";
@@ -33,10 +32,6 @@ export default function ModalCreateGroup() {
     const [value1, setValue1] = useState(null);
 
     const [value2, setValue2] = useState(null);
-
-    // console.log(value1)
-
-    // console.log(value2)
 
     const schema = yup.object().shape({
         name: yup.string().required("Campo obrigatorio"),

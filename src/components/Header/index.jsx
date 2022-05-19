@@ -19,32 +19,30 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 }));
 
 export default function Header() {
-  const [logged, setLogged] = useState(false);
+    const { toggleSideBar } = useSideBar();
 
-  const { toggleSideBar } = useSideBar();
+    const history = useHistory();
 
-  const history = useHistory();
+    const { hour } = useHour();
 
-  const { hour } = useHour();
+    const logout = () => {
+        localStorage.clear();
+        history.push("/");
+    };
 
-  const logout = () => {
-    localStorage.clear();
-    history.push('/')
-  }
+    return (
+        <StyledAppBar elevation={0}>
+            <IconButton onClick={toggleSideBar}>
+                <MenuIcon sx={{ color: "text.secondary" }} />
+            </IconButton>
 
-  return (
-    <StyledAppBar elevation={0}>
+            <Typography onClick={logout}>BateAqui</Typography>
 
-      <IconButton onClick={toggleSideBar}>
-        <MenuIcon sx={{ color: "text.secondary" }} />
-      </IconButton>
+            <Typography>{hour}</Typography>
 
-      <Typography onClick={logout}>BateAqui</Typography>
-
-      <Typography>{hour}</Typography>
-      
-      <Button sx={{color: "text.secondary"}}  onClick={logout}>Sair</Button>
-
-    </StyledAppBar>
-  )
+            <Button sx={{ color: "text.secondary" }} onClick={logout}>
+                Sair
+            </Button>
+        </StyledAppBar>
+    );
 }

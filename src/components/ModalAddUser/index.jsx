@@ -1,30 +1,12 @@
-import {
-    Autocomplete,
-    Box,
-    Button,
-    Card,
-    CardMedia,
-    Checkbox,
-    FormControlLabel,
-    FormGroup,
-    Grid,
-    IconButton,
-    Stack,
-    TextField,
-    Typography,
-} from "@mui/material";
+import { Box, Button, Card, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { useOpenModalAddUser } from "../../provider/OpenModalAddUser";
 import { useUsers } from "../../provider/Users";
-import { MobileTimePicker } from "@mui/x-date-pickers/MobileTimePicker";
 import { styled } from "@mui/material/styles";
-import { makeStyles } from "@mui/styles";
 import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+
 import { api } from "../../services/api";
 import { useParams } from "react-router-dom";
 import { ToastSuccess } from "../Toasts/Index";
@@ -81,23 +63,18 @@ export default function ModalAddUser({ token }) {
     const [usersToAdd, setUsersToAdd] = useState([]);
     const [groupCheckin, setGroupCheckin] = useState({});
 
-    // console.log(groupCheckin);
-
-    //PEGANDO ID DO GRUPO
     const { groupsId } = useParams();
 
-    //CHAMANDO USERS DO GRUPO
     const getGroupUsers = () => {
         api.get(`/coach?groupsId=:${groupsId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
-            .then((res) => console.log(res))
+            .then((res) => res)
             .catch((err) => console.log(err));
     };
 
-    //GET INFOS DO GRUPO
     const getGroupData = () => {
         api.get(`/groups/${groupsId}`, {
             headers: {
@@ -105,7 +82,6 @@ export default function ModalAddUser({ token }) {
             },
         })
             .then((res) => {
-                console.log(res.data);
                 setGroupCheckin({
                     checkin: res.data.checkin,
                     checkout: res.data.checkout,
@@ -118,15 +94,10 @@ export default function ModalAddUser({ token }) {
     useEffect(() => {
         getGroupUsers();
         getGroupData();
-        console.log(usersToAdd);
     }, [usersToAdd]);
 
     const onSubmit = () => {
-        console.log(usersToAdd);
-        console.log(searchValue);
-
         usersToAdd.map((user) => {
-            console.log(groupsId);
             const groupsIdNumber = Number(groupsId);
             const { id, name, surname } = user;
             const postData = {
@@ -141,15 +112,12 @@ export default function ModalAddUser({ token }) {
                 groupName: groupCheckin.groupName,
             };
 
-            console.log(postData);
-
             api.post(`/coach`, postData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             })
                 .then((res) => {
-                    console.log(res);
                     ToastSuccess("Usuário adicionados com suscesso");
                     toggleModalAddUser();
                 })
