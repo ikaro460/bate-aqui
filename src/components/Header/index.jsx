@@ -36,7 +36,12 @@ export default function Header() {
                 <MenuIcon sx={{ color: "text.secondary" }} />
             </IconButton>
 
-            <Typography onClick={logout}>BateAqui</Typography>
+            <Typography
+                sx={{ cursor: "pointer" }}
+                onClick={() => history.push(`/home/${localStorage.getItem("userId")}`)}
+            >
+                BateAqui
+            </Typography>
 
             <Typography>{hour}</Typography>
 
