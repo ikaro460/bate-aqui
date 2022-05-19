@@ -1,0 +1,17 @@
+.table {
+    /* width: 95%; */
+    display: block;
+    /* overflow-x: auto; */
+    background-color: aqua;
+}
+
+.table-container {
+    /* overflow-x: auto; */
+    background-color: orange;
+}
+
+.container {
+    padding: 20px;
+}
+
+/* overflowX: "scroll", minWidth: "max-content"  */ ;
