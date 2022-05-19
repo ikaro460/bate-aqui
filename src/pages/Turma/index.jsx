@@ -241,8 +241,18 @@ export default function Turma() {
                 Horário checkout: {groupInfo.checkout}
             </Typography>
 
-            <TableContainer component={Paper} sx={{ width: "100%", overflowX: "auto" }}>
-                <Table sx={{ overflowX: "scroll", minWidth: "max-content" }}>
+            <TableContainer
+                component={Paper}
+                sx={{ width: "100%", overflowX: "auto", overflowY: "auto", maxHeight: "600px" }}
+            >
+                <Table
+                    sx={{
+                        overflowX: "scroll",
+                        minWidth: "max-content",
+                        overflowY: "auto",
+                        minHeight: "100px",
+                    }}
+                >
                     <TableHead>
                         <TableRow>
                             {/* <TableCell sx={{ color: "text.primary", textAlign: "center" }}>
