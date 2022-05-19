@@ -51,7 +51,6 @@ function createData(id, name, surname, data, checkin, checkout, students, works,
 }
 
 export default function Turma() {
-
     const classes = useStyles();
     const { id } = useParams();
     const { modalAddUser, toggleModalAddUser } = useOpenModalAddUser();
@@ -71,8 +70,6 @@ export default function Turma() {
     const idUserLogged = localStorage.getItem("userId");
 
     const { groupsId } = useParams();
-
-    console.log(groupInfo);
 
     useEffect(() => {
         api.get(`groups/${groupsId}`, {
@@ -289,15 +286,14 @@ export default function Turma() {
                 open={modalAddUser}
                 onClose={toggleModalAddUser}
                 sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
                 }}
             >
                 <ModalAddUser users={users} token={token} />
-            </Modal>                    
-
+            </Modal>
         </ContainerBox>
     );
 }
