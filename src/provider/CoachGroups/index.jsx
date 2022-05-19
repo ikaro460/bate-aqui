@@ -4,7 +4,10 @@ import { api } from "../../services/api";
 const CoachGroupsContext = createContext([]);
 
 export const CoachGroupsProvider = ({ children }) => {
+
     const [coachGroups, setCoachGroups] = useState([]);
+
+    const [coachsToSeparate, setCoachsToSeparate] = useState([])
 
     const [notify, setNotify] = useState([]);
 
@@ -15,7 +18,7 @@ export const CoachGroupsProvider = ({ children }) => {
             },
         })
             .then((response) => {
-                setCoachGroups(response.data.coach);
+                setCoachsToSeparate(response.data.coach);
                 console.log(coachGroups);
             })
 
@@ -24,11 +27,16 @@ export const CoachGroupsProvider = ({ children }) => {
 
     useEffect(() => {
         setNotify(
-            coachGroups.filter((each) => {
+            coachsToSeparate.filter((each) => {
                 return each.status_aceito === 0;
             })
         );
-    }, [coachGroups]);
+        setCoachGroups( 
+            coachsToSeparate.filter((each) => {
+                return each.status_aceito === 1 && each.ativo === 1;
+            })
+        )
+    }, [coachsToSeparate]);
 
     return (
         <CoachGroupsContext.Provider
