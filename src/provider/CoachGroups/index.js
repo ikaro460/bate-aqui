@@ -15,7 +15,9 @@ export const CoachGroupsProvider = ({ children }) => {
             },
         })
             .then((response) => {
-                setCoachGroups(response.data.coach);
+                setCoachGroups(response.data.coach.filter( (each) => {
+                  return each.status_aceito === 1 && each.status_ativo === 1 
+                }));
                 console.log(coachGroups);
             })
 
