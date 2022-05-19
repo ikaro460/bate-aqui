@@ -15,9 +15,7 @@ export const CoachGroupsProvider = ({ children }) => {
             },
         })
             .then((response) => {
-                setCoachGroups(response.data.coach.filter( (each) => {
-                  return each.status_aceito === 1 && each.status_ativo === 1 
-                }));
+                setCoachGroups(response.data.coach);
                 console.log(coachGroups);
             })
 
@@ -34,9 +32,15 @@ export const CoachGroupsProvider = ({ children }) => {
 
     return (
         <CoachGroupsContext.Provider
-            value={{ coachGroups, setCoachGroups, getCoachGroups, notify, setNotify }}
+            value={{
+                coachGroups,
+                setCoachGroups,
+                getCoachGroups,
+                notify,
+                setNotify,
+            }}
         >
-            {children}
+            {children}{" "}
         </CoachGroupsContext.Provider>
     );
 };
