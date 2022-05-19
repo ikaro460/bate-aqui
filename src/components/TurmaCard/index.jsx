@@ -1,63 +1,78 @@
-import { Box, Button, Card, CardContent, IconButton, Stack, Typography } from "@mui/material"
-import { styled } from '@mui/material/styles';
-import { makeStyles } from "@mui/styles"
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Button, IconButton, Menu, MenuItem, Stack, Typography } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { ColorCard, StyledCard } from "./styles";
+import { useState } from "react";
 
+import { useHistory } from "react-router-dom";
 
-const StyledCard = styled(Card)(({theme}) => ({
-  width: "100%",
-  maxWidth: "240px",
-  minHeight: "220px",
-  padding: "0px",
-}))
+export default function TurmaCard({ group, type }) {
+    const [openMore, setOpenMore] = useState(false);
 
-const ColorCard = styled(CardContent)(({theme}) => ({
-  minHeight: "110px",
+    const [anchorEl, setAnchorEl] = useState(null);
 
-  position: "relative",
-  backgroundColor: "#CDE2ED",
-}))
+    const { name, id } = group;
 
-const InfosCard = styled(CardContent)(({theme}) => ({
-  height: "100%",
-  padding: "10px",
+    const history = useHistory();
 
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-}))
+    const toggleMore = (event) => {
+        setOpenMore(!openMore);
+        setAnchorEl(event.currentTarget);
+    };
 
+    const handleGroupClick = () => {
+        return history.push(`/turma/${id}`);
+    };
 
-export default function TurmaCard() {
+    return (
+        <StyledCard>
+            <ColorCard>
+                <IconButton
+                    id="basic-button"
+                    onClick={toggleMore}
+                    aria-controls={openMore ? "basic-menu" : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={openMore ? "true" : undefined}
+                    sx={{ position: "absolute", top: "0", right: "0" }}
+                >
+                    <MoreVertIcon sx={{ color: "background.primary" }} />
+                </IconButton>
 
-  return(
-    <StyledCard>
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={openMore}
+                    onClose={toggleMore}
+                    anchorOrigin={{
+                        vertical: "bottom",
+                        horizontal: "left",
+                    }}
+                >
+                    <MenuItem>Editar</MenuItem>
+                    <MenuItem>Excluir</MenuItem>
+                </Menu>
+            </ColorCard>
 
-      <ColorCard>
+            <Stack
+                justifyContent="space-around"
+                alignItems="center"
+                height="150px"
+                padding="15px 0px"
+                mt="-9.5px"
+            >
+                <Typography variant="h5" color="text.primary">
+                    {name}
+                </Typography>
 
-        <IconButton sx={{position: "absolute", top: "0", right: "0"}} >
-          <MoreVertIcon />
-        </IconButton>
+                <Typography variant="caption" color="text.primary" mt="-15px">
+                    {type}
+                </Typography>
 
-      </ColorCard>
-
-      <InfosCard>
-
-        <Typography>Turma 1</Typography>
-
-        <Typography variant="caption" >cargo</Typography>
-
-        <Stack direction="row" justifyContent="space-around" >
-
-          <Button variant="contained" >entrar</Button>
-
-          <Button variant="contained" >checkin</Button>
-
-        </Stack>
-
-      </InfosCard>
-
-    </StyledCard>
-  )
-
+                <Stack direction="row" spacing={3} alignItems="center">
+                    <Button variant="contained" onClick={() => handleGroupClick()}>
+                        Entrar
+                    </Button>
+                </Stack>
+            </Stack>
+        </StyledCard>
+    );
 }

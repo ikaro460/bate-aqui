@@ -1,74 +1,154 @@
-import { Box, Button, Card, CardMedia, Typography } from "@mui/material"
-import { styled } from '@mui/material/styles';
-import { makeStyles } from "@mui/styles"
-import { maxHeight } from "@mui/system";
+import { Modal, Button, Grid, Stack, Typography, Skeleton } from "@mui/material";
 import TurmaCard from "../../components/TurmaCard";
-
-const useStyles = makeStyles( (themes) => ({
-
-  profile: {
-    position: "absolute",
-    top: "0px",
-  }
-
-}))
-
-const ContainerBox = styled(Box)(({theme}) => ({
-  minHeight: "100vh - 56px",
-
-  margin: "25px 12px",
-}))
-
-const StyledCard = styled(Card)(({theme}) => ({
-  padding: "10px 12px",
-
-  display: "flex",
-  flexDirection: "column",
-  position: "relative",
-
-  border: "1px solid black"
-}))
-
-const ProfileImg = styled(CardMedia)(({theme}) => ({
-  minHeight: "100px",
-  maxHeight: "130px",
-}))
+import CreateGroupButton from "../../components/CreateGroupButton";
+import { useOpenModalCreateGroup } from "../../provider/OpenModalCreateGroup";
+import { useOpenModalNotification } from "../../provider/OpenModalNotification";
+import ModalCreateGroup from "../../components/ModalCreateGroup";
+import ModalNotification from "../../components/ModalNotification";
+import { ContainerBox, StyledCard, ProfileImg, StyledGrid } from "./styles";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
+import { useParams, useHistory } from "react-router-dom";
+import { useCoachGroups } from "../../provider/CoachGroups";
+import ModalCheckout from "../../components/ModalCheckout";
+import TurmaCardCoach from "../../components/TurmaCardCoach";
 
 export default function Home() {
+    const { modalCreateGroup, toggleModalCreateGroup } = useOpenModalCreateGroup();
 
-  const classes = useStyles()
+    const { modalNotification, toggleModalNotification } = useOpenModalNotification();
 
-  return(
-    <ContainerBox>
+    const { getCoachGroups, coachGroups, verifyNotify } = useCoachGroups();
 
-      <StyledCard>
+    const [user, setUser] = useState(false);
 
-        <Typography sx={{alignSelf: "flex-start"}} >
-          Perfil
-        </Typography>
+    const [groups, setGroups] = useState(false);
 
-        <CardMedia
-          component="img"
-          image="/imgs/Avatar-Maker.svg"
-        />
+    const { name, surname } = user;
 
-        <Typography>
-          Nome Sobrenome
-        </Typography>
+    const { id } = useParams();
 
-        <Typography>
-          Instituição
-        </Typography>
+    const history = useHistory();
 
-        <Button>
-          Perfil
-        </Button>
+    const axiosGetUser = () => {
+        api.get(`/users/${localStorage.getItem("userId")}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+        })
+            .then((res) => {
+                setUser(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+    const redirect = () => {
+        history.push(`/home/${localStorage.getItem("userId")} `);
+        axiosGetUser();
+    };
 
-      </StyledCard>
+    useEffect(() => {
+        id === localStorage.getItem("userId") ? axiosGetUser() : redirect();
+    }, []);
 
-      {/* <TurmaCard /> */}
+    useEffect(() => {
+        api.get(`/users/${localStorage.getItem("userId")}?_embed=groups`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+        })
+            .then((res) => {
+                setGroups(res.data.groups);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [modalCreateGroup]);
 
-    </ContainerBox>
-  )
+    useEffect(() => {
+        getCoachGroups(localStorage.getItem("accessToken"), id);
+    }, [verifyNotify]);
 
+    return (
+        <ContainerBox>
+            <StyledCard elevation={2}>
+                <Typography variant="h5" sx={{ alignSelf: "flex-start", color: "text.primary" }}>
+                    Perfil
+                </Typography>
+
+                <ProfileImg component="img" image={`https://robohash.org/${id}`} />
+
+                <Stack
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={1}
+                    sx={{ height: "100%" }}
+                >
+                    {user ? (
+                        <Typography variant="h5" sx={{ color: "text.primary" }}>
+                            {name} {surname}
+                        </Typography>
+                    ) : (
+                        <Skeleton variant="rectangular" height={21.34} width={110} />
+                    )}
+
+                    <Typography variant="subtitle2" sx={{ color: "text.primary" }}>
+                        Instituição
+                    </Typography>
+
+                    <Button variant="contained">Perfil</Button>
+                </Stack>
+            </StyledCard>
+
+            <StyledGrid container spacing={5}>
+                {groups &&
+                    groups.map((each, index) => (
+                        <Grid item key={index}>
+                            <TurmaCard group={each} type={"Facilitador"} />
+                        </Grid>
+                    ))}
+
+                {coachGroups &&
+                    coachGroups.map((each, index) => (
+                        <Grid item key={index}>
+                            <TurmaCardCoach group={each} type={"Coach"} />
+                        </Grid>
+                    ))}
+
+                <Grid item>
+                    <CreateGroupButton />
+                </Grid>
+            </StyledGrid>
+
+            <Modal
+                open={modalCreateGroup}
+                onClose={toggleModalCreateGroup}
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                }}
+            >
+                <ModalCreateGroup />
+            </Modal>
+
+            <ModalCheckout useId={id} name={name} />
+
+            <Modal
+                open={modalNotification}
+                onClose={toggleModalNotification}
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                }}
+            >
+                <ModalNotification></ModalNotification>
+            </Modal>
+        </ContainerBox>
+    );
 }
