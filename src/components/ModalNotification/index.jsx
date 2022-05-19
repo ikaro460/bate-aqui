@@ -4,6 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { api } from "../../services/api";
 import { useOpenModalNotification } from "../../provider/OpenModalNotification";
 import { useCoachGroups } from "../../provider/CoachGroups";
+import { ToastError, ToastSuccess } from "../Toasts/Index";
 
 const StyledBox = styled(Box)(({ theme }) => ({
     minWidth: "300px",
@@ -27,55 +28,65 @@ export default function ModalNotification() {
     const changeStatus = (id, value) => {
         const data = { status_aceito: value };
 
-        api.patch(`/coach/${id}`, data);
+        api.patch(`/coach/${id}`, data).then(() => {
+            value === 1 ? ToastSuccess("Convite aceito") : ToastError("Convite recusado");
+        });
 
         setVerifyNotify(!verifyNotify);
     };
-
+    console.log(notify);
     return (
-        <StyledBox component="div">
+        <StyledBox component="div" sx={{ maxHeight: "80vh", overflowY: "auto" }}>
             <IconButton
                 onClick={toggleModalNotification}
                 sx={{ position: "absolute", top: 0, right: 0 }}
             >
                 <CloseIcon sx={{ color: "text.primary" }} />
             </IconButton>
-
             <Typography variant="h4" mb="35px" color="text.primary">
                 Notificações
             </Typography>
+
             <Stack spacing={2} justifyContent="center" direction="column">
                 {notify.length !== 0 ? (
                     notify.map((item) => {
                         return (
-                            <Box key={item.id} sx={{ display: "flex", alignItems: "center" }}>
-                                <Typography sx={{ fontSize: 12 }} color="text.primary">
-                                    {`Você foi convidado a entrar no Grupo: ${item.groupName}`}
+                            <Stack key={item.id} spacing={1} sx={{ borderBottom: 1, pb: 1 }}>
+                                <Typography variant="p" color="text.primary">
+                                    {item.name} {item.surname} convidou você para o grupo{" "}
+                                    <Typography
+                                        ariant="p"
+                                        color="text.primary"
+                                        sx={{ fontWeight: 600 }}
+                                    >
+                                        {item.groupName}
+                                    </Typography>
                                 </Typography>
                                 <Stack spacing={2} justifyContent="center" direction="row">
                                     <Button
-                                        sx={{ width: 30 }}
                                         variant="contained"
+                                        size="small"
                                         onClick={() => changeStatus(item.id, 1)}
                                     >
                                         Aceitar
                                     </Button>
                                     <Button
+                                        size="small"
                                         variant="contained"
                                         onClick={() => changeStatus(item.id, 2)}
+                                        color="error"
                                     >
                                         Recusar
                                     </Button>
                                 </Stack>
-                            </Box>
+                            </Stack>
                         );
                     })
                 ) : (
                     <Stack
                         sx={{
                             p: "50px 0 50px 0",
-                            backgroundColor: "lightgray",
-                            borderRadius: "10px",
+                            borderTop: 1,
                         }}
                     >
                         {" "}
