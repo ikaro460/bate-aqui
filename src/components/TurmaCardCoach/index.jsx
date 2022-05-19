@@ -21,14 +21,15 @@ export default function TurmaCardCoach({group, type}) {
   const history = useHistory();
 
   const excluirGrupo = (grupo) => {
-    api.patch(`/groups/${grupo.groupsId}`, { status_ativo: 0 }, {headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
+
+    api.patch(`/coach/${grupo.id}`, { status_ativo: 2 }, {headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
     .then((res) => {
       console.log(res);
     })
     .catch((err) => {
       console.log(err);
     });
-    console.log(grupo)
+
   }
 
   const toggleMore = (event) => {
@@ -72,7 +73,7 @@ export default function TurmaCardCoach({group, type}) {
           }}
         >
           <MenuItem>Editar</MenuItem>
-          <MenuItem onClick={ () => excluirGrupo(group)}>Excluir</MenuItem>
+          <MenuItem onClick={ () => excluirGrupo(group)}>Sair</MenuItem>
         </Menu>
 
       </ColorCard>

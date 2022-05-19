@@ -11,18 +11,20 @@ export const CoachGroupsProvider = ({children}) => {
 
     const getCoachGroups = (token, id) => {
 
-        api.get(`/users/${id}/?_embed=coach`, {
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }            
+      api.get(`/users/${id}/?_embed=coach`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }            
+      })
+        .then((response) => {
+          setCoachGroups(response.data.coach.filter( (each) => {
+            return each.status_aceito === 1 && each.status_ativo === 1
+          }))
+          console.log(coachGroups)
         })
-          .then((response) => {
-            setCoachGroups(response.data.coach)
-          })
 
-          .catch((error) => console.log(error))
+        .catch((error) => console.log(error))
 
-        
     }
 
     useEffect( () => {
