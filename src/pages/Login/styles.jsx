@@ -76,3 +76,7 @@ export const DivCheckBox = styled(FormGroup)(({ theme }) => ({
 export const CheckboxGroup = styled(Checkbox)(({ theme }) => ({
   opacity: 100,
 }));
+
+export const Image = styled("img")(({ theme }) => ({
+    width: "40vw",
+}));

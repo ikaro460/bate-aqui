@@ -14,6 +14,7 @@ import {
     ButtonSubmit,
     LinkToLogin,
     LoginScreen,
+    Image
 } from "./styles.jsx";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import React, { useEffect, useState } from "react";
@@ -82,7 +83,7 @@ export default function Login() {
     return (
         <LoginScreen>
             {isActive && (
-                <img className={classes.img} src={LoginBackground} alt="login-background" />
+                <Image src={LoginBackground} alt="login-background" />
             )}
             <BoxSingup>
                 <BoxSingupPadlock>
