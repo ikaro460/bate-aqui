@@ -20,9 +20,9 @@ const StyledBox = styled(Box)(({ theme }) => ({
     minWidth: "300px",
     maxWidth: "360px",
     width: "100%",
-    padding: "35px 0px",
+    padding: "35px 35px",
     position: "relative",
-
+    
     backgroundColor: theme.palette.background.primary,
 
     [theme.breakpoints.down("sm")]: {
@@ -41,7 +41,7 @@ export default function ModalNotification() {
 
         api.patch(`/coach/${id}`, data)
     }
-
+  
     return (
         <StyledBox component="div">
             <IconButton
@@ -57,12 +57,12 @@ export default function ModalNotification() {
             <Stack spacing={2} justifyContent="center" direction="column">
                 {notify && notify.map((item) => {
                     return (
-                        <Box key={item.id}>
-                            <Typography color="text.primary">
-                                Você foi convidado a entrar na Turma M2 2022
+                        <Box key={item.id} sx={{display: 'flex', alignItems: 'center'}}>
+                            <Typography sx={{fontSize: 12}} color="text.primary">
+                                {`Você foi convidado a entrar no Grupo: ${item.groupName}`}
                             </Typography>
                             <Stack spacing={2} justifyContent="center" direction='row'>
-                            <Button variant="contained" onClick={() => changeStatus(item.id, 1)}>
+                            <Button sx={{width: 30}} variant="contained" onClick={() => changeStatus(item.id, 1)}>
                                 Aceitar
                             </Button>
                             <Button variant="contained" onClick={() => changeStatus(item.id, 2)}>
