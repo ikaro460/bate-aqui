@@ -1,188 +1,192 @@
-import { Modal, Box, Button, Card, CardMedia, Grid, Stack, TextField, Typography, Skeleton } from "@mui/material";
+import {
+    Modal,
+    Box,
+    Button,
+    Card,
+    CardMedia,
+    Grid,
+    Stack,
+    TextField,
+    Typography,
+    Skeleton,
+} from "@mui/material";
 import TurmaCard from "../../components/TurmaCard";
 import ProfilePhoto from "../../imgs/foto.png";
 import CreateGroupButton from "../../components/CreateGroupButton";
 import { useOpenModalCreateGroup } from "../../provider/OpenModalCreateGroup";
-import { useOpenModalNotification } from '../../provider/OpenModalNotification';
+import { useOpenModalNotification } from "../../provider/OpenModalNotification";
 import ModalCreateGroup from "../../components/ModalCreateGroup";
 import ModalNotification from "../../components/ModalNotification";
 import { ContainerBox, StyledCard, ProfileImg, StyledGrid } from "./styles";
 import { useCallback, useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useParams, useHistory } from "react-router-dom";
-import moment from "moment"
-import {useCoachGroups} from '../../provider/CoachGroups'
+import moment from "moment";
+import { useCoachGroups } from "../../provider/CoachGroups";
 import ModalCheckout from "../../components/ModalCheckout";
-import TurmaCardCoach from "../../components/TurmaCardCoach"
-import axios from 'axios'
+import TurmaCardCoach from "../../components/TurmaCardCoach";
+import axios from "axios";
 
 export default function Home() {
+    const { modalCreateGroup, toggleModalCreateGroup } = useOpenModalCreateGroup();
 
-  const { modalCreateGroup, toggleModalCreateGroup } = useOpenModalCreateGroup();
+    const { modalNotification, toggleModalNotification } = useOpenModalNotification();
 
-  const {modalNotification, toggleModalNotification} = useOpenModalNotification()
+    const [notification, setNotification] = useState([]);
 
-  const [notification, setNotification] = useState([])
-  
-  const { getCoachGroups, notify, setNotify, coachGroups, verifyNotify, setVerifyNotify } = useCoachGroups()
+    const { getCoachGroups, notify, setNotify, coachGroups, verifyNotify, setVerifyNotify } =
+        useCoachGroups();
 
-  // console.log(coachGroups)
-  
-  const [ user, setUser ] = useState(false)
+    // console.log(coachGroups)
 
-  const [groups, setGroups] = useState(false);
+    const [user, setUser] = useState(false);
 
-  // const [coachGroups, setCoachGroups] = useState(false);
+    const [groups, setGroups] = useState(false);
 
-  const { email, name, surname } = user;
+    // const [coachGroups, setCoachGroups] = useState(false);
 
-  const { id } = useParams();
-   
+    const { email, name, surname } = user;
 
-  const history = useHistory();
+    const { id } = useParams();
 
-  // console.log(moment().locale());
+    const history = useHistory();
 
-  const axiosGetUser = () => {
-    api
-      .get(`/users/${localStorage.getItem("userId")}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
-      .then((res) => {
-        setUser(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const redirect = () => {
-    history.push(`/home/${localStorage.getItem("userId")} `);
-    axiosGetUser();
-  };
+    // console.log(moment().locale());
 
-  useEffect(() => {
-    id === localStorage.getItem("userId") ? axiosGetUser() : redirect();
-  }, []);
-
-  useEffect(() => {
-    api
-      .get(`/users/${localStorage.getItem("userId")}?_embed=groups`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
-        .then((res) => {
-          setGroups(res.data.groups);
+    const axiosGetUser = () => {
+        api.get(`/users/${localStorage.getItem("userId")}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
         })
-        .catch((err) => {
-          console.log(err);
-        });
-        
-    // api.get(`/users/${localStorage.getItem("userId")}?_embed=coach`, {
-    //   headers: {
-    //     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    //   },
-    // })
-    //   .then((res) => {
+            .then((res) => {
+                setUser(res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+    const redirect = () => {
+        history.push(`/home/${localStorage.getItem("userId")} `);
+        axiosGetUser();
+    };
 
-    //     // setCoachGroups(res.data.coach.filter( (each) => {
-    //     //   return each.status_aceito === 1 && each.status_ativo === 1
-    //     // }))
+    useEffect(() => {
+        id === localStorage.getItem("userId") ? axiosGetUser() : redirect();
+    }, []);
 
-    //   })
+    useEffect(() => {
+        api.get(`/users/${localStorage.getItem("userId")}?_embed=groups`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+        })
+            .then((res) => {
+                setGroups(res.data.groups);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
 
-  }, [modalCreateGroup]);
+        // api.get(`/users/${localStorage.getItem("userId")}?_embed=coach`, {
+        //   headers: {
+        //     Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        //   },
+        // })
+        //   .then((res) => {
 
-  useEffect(() => {
-    getCoachGroups(localStorage.getItem("accessToken"), id)
-  }, [verifyNotify])
-  
- 
+        //     // setCoachGroups(res.data.coach.filter( (each) => {
+        //     //   return each.status_aceito === 1 && each.status_ativo === 1
+        //     // }))
 
-  return(
-    <ContainerBox>
-      <StyledCard elevation={2}>
-        <Typography
-          variant="h5"
-          sx={{ alignSelf: "flex-start", color: "text.primary" }}
-        >
-          Perfil
-        </Typography>
+        //   })
+    }, [modalCreateGroup]);
 
-        <ProfileImg component="img" image={`https://robohash.org/${id}`} />
+    console.log(coachGroups);
 
-        <Stack
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          spacing={1}
-          sx={{ height: "100%" }}
-        >
-          {user ? (
-            <Typography variant="h5" sx={{ color: "text.primary" }}>
-              {name} {surname}
-            </Typography>
-          ) : (
-            <Skeleton variant="rectangular" height={21.34} width={110} />
-          )}
+    useEffect(() => {
+        getCoachGroups(localStorage.getItem("accessToken"), id);
+    }, [verifyNotify]);
 
-          <Typography variant="subtitle2" sx={{ color: "text.primary" }}>
-            Instituição
-          </Typography>
+    return (
+        <ContainerBox>
+            <StyledCard elevation={2}>
+                <Typography variant="h5" sx={{ alignSelf: "flex-start", color: "text.primary" }}>
+                    Perfil
+                </Typography>
 
-          <Button variant="contained">Perfil</Button>
-        </Stack>
-      </StyledCard>
+                <ProfileImg component="img" image={`https://robohash.org/${id}`} />
 
-      <StyledGrid container spacing={5}>
+                <Stack
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={1}
+                    sx={{ height: "100%" }}
+                >
+                    {user ? (
+                        <Typography variant="h5" sx={{ color: "text.primary" }}>
+                            {name} {surname}
+                        </Typography>
+                    ) : (
+                        <Skeleton variant="rectangular" height={21.34} width={110} />
+                    )}
 
-        {groups &&
-          groups.map((each, index) => (
-            <Grid item key={index}>
-              <TurmaCard group={each} type={"Facilitador"} />
-            </Grid>
-          ))}
+                    <Typography variant="subtitle2" sx={{ color: "text.primary" }}>
+                        Instituição
+                    </Typography>
 
-        {coachGroups &&
-          coachGroups.map((each, index) => (
-            <Grid item key={index}>
-              <TurmaCardCoach group={each} type={"Coach"} />
-            </Grid>
-          ))}
+                    <Button variant="contained">Perfil</Button>
+                </Stack>
+            </StyledCard>
 
-        <Grid item>
-          <CreateGroupButton />
-        </Grid>
+            <StyledGrid container spacing={5}>
+                {groups &&
+                    groups.map((each, index) => (
+                        <Grid item key={index}>
+                            <TurmaCard group={each} type={"Facilitador"} />
+                        </Grid>
+                    ))}
 
-      </StyledGrid>
+                {coachGroups &&
+                    coachGroups.map((each, index) => (
+                        <Grid item key={index}>
+                            <TurmaCardCoach group={each} type={"Coach"} />
+                        </Grid>
+                    ))}
 
-      <Modal
-        open={modalCreateGroup}
-        onClose={toggleModalCreateGroup}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-        }}
-      >
-        <ModalCreateGroup />
-      </Modal>
+                <Grid item>
+                    <CreateGroupButton />
+                </Grid>
+            </StyledGrid>
 
-      <ModalCheckout useId={id} name={name} /> 
+            <Modal
+                open={modalCreateGroup}
+                onClose={toggleModalCreateGroup}
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                }}
+            >
+                <ModalCreateGroup />
+            </Modal>
 
-      <Modal
-        open={modalNotification}
-        onClose={toggleModalNotification}
-        sx={{display: "flex", justifyContent: "center", alignItems: "center", textAlign: "center"}}
-      >
+            <ModalCheckout useId={id} name={name} />
 
-        <ModalNotification></ModalNotification>
-        
-      </Modal>
-
-    </ContainerBox>
-  );
+            <Modal
+                open={modalNotification}
+                onClose={toggleModalNotification}
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                }}
+            >
+                <ModalNotification></ModalNotification>
+            </Modal>
+        </ContainerBox>
+    );
 }

@@ -16,19 +16,23 @@ export default function TurmaCardCoach({group, type}) {
 
   const [ anchorEl, setAnchorEl ] = useState(null);
 
-  const { name, checkin, checkout, userId, id } = group
+  const { name, checkin, checkout, userId, id, groupName } = group
 
   const history = useHistory();
 
+  console.log(group)
+
   const excluirGrupo = (grupo) => {
-    api.patch(`/groups/${grupo.groupsId}`, { status_ativo: 0 }, {headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
+
+    api.patch(`/coach/${grupo.id}`, { status_ativo: 2, status_aceito: 2 }, {headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
     .then((res) => {
       console.log(res);
+      window.location.reload()
     })
     .catch((err) => {
       console.log(err);
     });
-    console.log(grupo)
+
   }
 
   const toggleMore = (event) => {
@@ -39,8 +43,6 @@ export default function TurmaCardCoach({group, type}) {
   const tempoRestantepCheckin = moment(checkin, "h:mm").fromNow();
 
   const tempoRestantepCheckout = moment(checkout, "h:mm").fromNow();
-
-  // console.log(tempoRestantepCheckout)
 
   // console.log(tempoRestantepCheckin, name);
 
@@ -72,14 +74,14 @@ export default function TurmaCardCoach({group, type}) {
           }}
         >
           <MenuItem>Editar</MenuItem>
-          <MenuItem onClick={ () => excluirGrupo(group)}>Excluir</MenuItem>
+          <MenuItem onClick={ () => excluirGrupo(group)}>Sair</MenuItem>
         </Menu>
 
       </ColorCard>
 
       <Stack justifyContent="space-around" alignItems="center" height="150px" padding="15px 0px" mt="-9.5px" >
 
-        <Typography variant="h5" color="text.primary" >{name}</Typography>
+        <Typography variant="h5" color="text.primary" >{groupName}</Typography>
 
         <Typography variant="caption" color="text.primary" mt="-15px" >{type}</Typography>
 
@@ -94,7 +96,7 @@ export default function TurmaCardCoach({group, type}) {
           {regexDePobre.find( (each) => {return each === tempoRestantepCheckout}) ? (
             <Button color="success" variant="contained" onClick={ () => toggleModalCheckout(group)} >checkout</Button>
           ):(
-            <Button color="error" variant="contained" onClick={ () => toggleModalCheckout(group)}  >checkout</Button>
+            <Button color="error" variant="contained" >checkout</Button>
           )}
 
         </Stack>

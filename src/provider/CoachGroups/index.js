@@ -3,43 +3,57 @@ import { api } from "../../services/api";
 
 const CoachGroupsContext = createContext([]);
 
-export const CoachGroupsProvider = ({children}) => {
-
+export const CoachGroupsProvider = ({ children }) => {
     const [coachGroups, setCoachGroups] = useState([]);
+
+    const [coachsToSeparate, setCoachsToSeparate] = useState([]);
 
     const [notify, setNotify] = useState([]);
 
-    const [verifyNotify, setVerifyNotify] = useState(false)
+    const [verifyNotify, setVerifyNotify] = useState(false);
 
     const getCoachGroups = (token, id) => {
-
         api.get(`/users/${id}/?_embed=coach`, {
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }            
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         })
-          .then((response) => {
-            setCoachGroups(response.data.coach)
-          })
+            .then((response) => {
+                setCoachsToSeparate(response.data.coach);
+                console.log(coachGroups);
+            })
 
-          .catch((error) => console.log(error))
+            .catch((error) => console.log(error));
+    };
 
-        
-    }
+    useEffect(() => {
+        setNotify(
+            coachsToSeparate.filter((each) => {
+                return each.status_aceito === 0;
+            })
+        );
+        setCoachGroups(
+            coachsToSeparate.filter((each) => {
+                return each.status_aceito === 1 && each.status_ativo === 1;
+            })
+        );
+    }, [coachsToSeparate]);
 
-    useEffect( () => {
-
-      setNotify(coachGroups.filter( (each) => {
-        return each.status_aceito === 0
-      }))
-
-    },[coachGroups])
-    
     return (
-        <CoachGroupsContext.Provider value={{coachGroups, setCoachGroups, getCoachGroups, notify, setNotify, verifyNotify, setVerifyNotify}}>
+        <CoachGroupsContext.Provider
+            value={{
+                coachGroups,
+                setCoachGroups,
+                getCoachGroups,
+                notify,
+                setNotify,
+                verifyNotify,
+                setVerifyNotify,
+            }}
+        >
             {children}
         </CoachGroupsContext.Provider>
-    )
-}
+    );
+};
 
-export const useCoachGroups = () => useContext(CoachGroupsContext)
+export const useCoachGroups = () => useContext(CoachGroupsContext);

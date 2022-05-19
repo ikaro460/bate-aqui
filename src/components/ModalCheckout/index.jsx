@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "../../services/api";
+import { ToastSuccess } from "../Toasts/Index";
 
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -76,6 +77,7 @@ export default function ModalCheckout({ name }) {
     api.post("/checkin", formData, {headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },})
       .then((res) => {
         console.log(res);
+        ToastSuccess("Check-out feito!!")
         toggleModalCheckout();
       })
       .catch((err) => {

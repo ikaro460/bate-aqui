@@ -204,7 +204,7 @@ function App() {
           color: theme.palette.text.primary
         }
       }
-    }
+    },
   }
   
   // theme.typography = {
