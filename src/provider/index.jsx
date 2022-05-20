@@ -10,30 +10,35 @@ import { OpenModalCheckoutProvider } from "./OpenModalCheckout";
 import { CoachGroupsProvider } from "./CoachGroups";
 import { OpenModalDeleteUserProvider } from "./OpenModalDeleteUser";
 import { GroupUsersProvider } from "./GroupUsers";
+import { CheckinProvider } from "./Checkin";
+
 
 export const Providers = ({ children }) => {
+  
   return (
     <DarkModeProvider>
       <SideBarProvider>
         <OpenModalCreateGroupProvider>
           <UsersProvider>
-            <GroupUsersProvider>
-              <OwnerGroupsProvider>
-                <OpenModalCheckoutProvider>
-                  <HourProvider>
-                    <OpenModalNotificationProvider>
-                      <OpenModalAddUserProvider>
-                        <CoachGroupsProvider>
-                          <OpenModalDeleteUserProvider>
+            <OwnerGroupsProvider>
+              <OpenModalCheckoutProvider>
+               <CheckinProvider>
+                 <HourProvider>
+                  <OpenModalNotificationProvider>
+                    <OpenModalAddUserProvider>
+                      <CoachGroupsProvider>
+                        <OpenModalDeleteUserProvider>
+                          <GroupUsersProvider>
                             {children}
-                          </OpenModalDeleteUserProvider>
-                        </CoachGroupsProvider>
+                          </GroupUsersProvider>
+                        </OpenModalDeleteUserProvider>
+                       </CoachGroupsProvider>
                       </OpenModalAddUserProvider>
                     </OpenModalNotificationProvider>
                   </HourProvider>
-                </OpenModalCheckoutProvider>
-              </OwnerGroupsProvider>
-            </GroupUsersProvider>
+                </CheckinProvider>
+              </OpenModalCheckoutProvider>
+            </OwnerGroupsProvider>
           </UsersProvider>
         </OpenModalCreateGroupProvider>
       </SideBarProvider>

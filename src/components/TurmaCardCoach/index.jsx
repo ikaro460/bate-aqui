@@ -6,15 +6,23 @@ import moment from "moment";
 import { useOpenModalCheckout } from "../../provider/OpenModalCheckout";
 import { useHistory } from "react-router-dom";
 import { api } from "../../services/api";
+import { useCheckin } from "../../provider/Checkin"
+import { useHour } from "../../provider/Hour";
+
 
 export default function TurmaCardCoach({ group, type }) {
+
     const { toggleModalCheckout } = useOpenModalCheckout();
+
+    const { Checkin } = useCheckin()
 
     const [openMore, setOpenMore] = useState(false);
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const { checkin, checkout, id, groupName } = group;
+    const { name, checkin, checkout, userId, id, groupName, groupsId } = group
+
+    const { hour } = useHour()
 
     const history = useHistory();
 
@@ -25,7 +33,6 @@ export default function TurmaCardCoach({ group, type }) {
             { headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` } }
         )
             .then((res) => {
-                console.log(res);
                 window.location.reload();
             })
             .catch((err) => {
@@ -65,6 +72,10 @@ export default function TurmaCardCoach({ group, type }) {
         return history.push(`/turma/${id}`);
     };
 
+    const handleTurmaClick = () => {
+        return history.push(`/turma/${groupsId}`)
+    }
+
     return (
         <StyledCard>
             <ColorCard>
@@ -89,7 +100,7 @@ export default function TurmaCardCoach({ group, type }) {
                         horizontal: "left",
                     }}
                 >
-                    <MenuItem>Editar</MenuItem>
+                    <MenuItem onClick={handleTurmaClick} >Entrar</MenuItem>
                     <MenuItem onClick={() => excluirGrupo(group)}>Sair</MenuItem>
                 </Menu>
             </ColorCard>
@@ -113,11 +124,11 @@ export default function TurmaCardCoach({ group, type }) {
                     {regexDePobre.find((each) => {
                         return each === tempoRestantepCheckin;
                     }) ? (
-                        <Button color="success" variant="contained">
+                        <Button color="success" variant="contained" onClick={ () => Checkin(group, hour)} >
                             checkin
                         </Button>
                     ) : (
-                        <Button color="error" variant="contained">
+                        <Button disabled variant="contained">
                             checkin
                         </Button>
                     )}
@@ -133,7 +144,7 @@ export default function TurmaCardCoach({ group, type }) {
                             checkout
                         </Button>
                     ) : (
-                        <Button color="error" variant="contained">
+                        <Button disabled variant="contained">
                             checkout
                         </Button>
                     )}

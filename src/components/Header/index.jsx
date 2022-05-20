@@ -1,7 +1,6 @@
 import { AppBar, IconButton, Typography, Button } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { styled } from "@mui/material/styles";
-import { useState } from "react";
 import { useSideBar } from "../../provider/SideBar";
 import { useHistory } from "react-router-dom";
 import { useHour } from "../../provider/Hour";

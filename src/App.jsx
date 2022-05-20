@@ -5,8 +5,7 @@ import "./App.css";
 import { useDarkMode } from "./provider/DarkMode";
 import Routes from "./routes";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-
+import DarkModeIcon from "@mui/icons-material/DarkMode"; 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
@@ -68,6 +67,7 @@ function App() {
                           secondary: "#000",
                       },
                       tableRowContrast: "#F7F6FE",
+                      notOnTime: "#4B4B4B"
                   }),
         },
         typography: {
@@ -191,9 +191,10 @@ function App() {
                         icon={darkMode ? <DarkModeIcon /> : <LightModeIcon />}
                         onClick={toggleDarkMode}
                     />
+                    <ToastContainer/>
                 </LocalizationProvider>
             </ThemeProvider>
-            <ToastContainer />
+            
         </div>
     );
 }

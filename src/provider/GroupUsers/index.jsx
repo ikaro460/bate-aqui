@@ -19,7 +19,6 @@ export const GroupUsersProvider = ({ children }) => {
           (coach) => coach.status_ativo === 1 && coach.status_aceito === 1
         );
         setGroupUsers(coachsFilter);
-        console.log(groupUsers);
       })
       .catch((err) => console.log(err));
   };
