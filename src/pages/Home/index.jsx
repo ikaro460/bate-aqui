@@ -13,6 +13,7 @@ import { useCoachGroups } from "../../provider/CoachGroups";
 import ModalCheckout from "../../components/ModalCheckout";
 import TurmaCardCoach from "../../components/TurmaCardCoach";
 
+
 export default function Home() {
     const { modalCreateGroup, toggleModalCreateGroup } = useOpenModalCreateGroup();
 

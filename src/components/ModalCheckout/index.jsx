@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { api } from "../../services/api";
 import { ToastSuccess } from "../Toasts/Index";
+import { useHour } from "../../provider/Hour";
 
 const StyledBox = styled(Box)(({ theme }) => ({
     minWidth: "300px",
@@ -23,18 +24,28 @@ const StyledBox = styled(Box)(({ theme }) => ({
     },
 }));
 
+const data = new Date()
+
+const dia = String(data.getDate()).padStart(2, '0');
+const mes = String(data.getMonth() + 1).padStart(2, '0');
+const ano = data.getFullYear();
+const dataAtual = dia + '/' + mes + '/' + ano;
+
 export default function ModalCheckout({ name }) {
     const { modalCheckout, toggleModalCheckout, group } = useOpenModalCheckout();
 
+    const { hour } = useHour()
+
     const [infos, setInfos] = useState("");
 
-    useEffect(() => {
-        setInfos({
-            groupsId: group.groupsId,
-            userId: group.userId,
-            id: group.id,
-        });
-    }, []);
+    // useEffect(() => {
+    //     setInfos({
+    //         groupsId: group.groupsId,
+    //         userId: group.userId,
+    //         id: group.id,
+
+    //     });
+    // }, []);
 
     const schema = yup.object().shape({
         students: yup.string().required("Campo obrigatorio"),
@@ -51,16 +62,19 @@ export default function ModalCheckout({ name }) {
     });
 
     const onSubmit = (formData) => {
-        formData.userId = infos.userId;
-        formData.groupsId = infos.groupsId;
-        formData.coachId = infos.id;
+        formData.userId = group.userId;
+        formData.groupsId = group.groupsId;
+        formData.coachId = group.id;
         formData.name = name;
+        formData.surname = group.surname
+        formData.type = "checkout"
+        formData.date = dataAtual
+        formData.hour = hour
 
         api.post("/checkin", formData, {
             headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` },
         })
             .then((res) => {
-                console.log(res);
                 ToastSuccess("Check-out feito!!");
                 toggleModalCheckout();
             })

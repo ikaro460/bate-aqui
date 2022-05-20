@@ -68,6 +68,7 @@ function App() {
                           secondary: "#000",
                       },
                       tableRowContrast: "#F7F6FE",
+                      notOnTime: "#4B4B4B"
                   }),
         },
         typography: {
