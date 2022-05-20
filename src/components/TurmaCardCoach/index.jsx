@@ -6,23 +6,21 @@ import moment from "moment";
 import { useOpenModalCheckout } from "../../provider/OpenModalCheckout";
 import { useHistory } from "react-router-dom";
 import { api } from "../../services/api";
-import { useCheckin } from "../../provider/Checkin"
+import { useCheckin } from "../../provider/Checkin";
 import { useHour } from "../../provider/Hour";
 
-
 export default function TurmaCardCoach({ group, type }) {
-
     const { toggleModalCheckout } = useOpenModalCheckout();
 
-    const { Checkin } = useCheckin()
+    const { Checkin } = useCheckin();
 
     const [openMore, setOpenMore] = useState(false);
 
     const [anchorEl, setAnchorEl] = useState(null);
 
-    const { name, checkin, checkout, userId, id, groupName, groupsId } = group
+    const { name, checkin, checkout, userId, id, groupName, groupsId } = group;
 
-    const { hour } = useHour()
+    const { hour } = useHour();
 
     const history = useHistory();
 
@@ -73,8 +71,8 @@ export default function TurmaCardCoach({ group, type }) {
     };
 
     const handleTurmaClick = () => {
-        return history.push(`/turma/${groupsId}`)
-    }
+        return history.push(`/turma/${groupsId}`);
+    };
 
     return (
         <StyledCard>
@@ -100,7 +98,7 @@ export default function TurmaCardCoach({ group, type }) {
                         horizontal: "left",
                     }}
                 >
-                    <MenuItem onClick={handleTurmaClick} >Entrar</MenuItem>
+                    <MenuItem onClick={handleTurmaClick}>Entrar</MenuItem>
                     <MenuItem onClick={() => excluirGrupo(group)}>Sair</MenuItem>
                 </Menu>
             </ColorCard>
@@ -124,7 +122,11 @@ export default function TurmaCardCoach({ group, type }) {
                     {regexDePobre.find((each) => {
                         return each === tempoRestantepCheckin;
                     }) ? (
-                        <Button color="success" variant="contained" onClick={ () => Checkin(group, hour)} >
+                        <Button
+                            color="success"
+                            variant="contained"
+                            onClick={() => Checkin(group, hour)}
+                        >
                             checkin
                         </Button>
                     ) : (
