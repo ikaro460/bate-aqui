@@ -14,6 +14,7 @@ import { CheckinProvider } from "./Checkin";
 
 
 export const Providers = ({ children }) => {
+  
   return (
     <DarkModeProvider>
       <SideBarProvider>
@@ -21,21 +22,21 @@ export const Providers = ({ children }) => {
           <UsersProvider>
             <OwnerGroupsProvider>
               <OpenModalCheckoutProvider>
-                <HourProvider>
+               <CheckinProvider>
+                 <HourProvider>
                   <OpenModalNotificationProvider>
                     <OpenModalAddUserProvider>
                       <CoachGroupsProvider>
                         <OpenModalDeleteUserProvider>
-                          <CheckinProvider>
-                            <GroupUsersProvider>
-                              {children}
-                            </GroupUsersProvider>
-                          </CheckinProvider>
+                          <GroupUsersProvider>
+                            {children}
+                          </GroupUsersProvider>
                         </OpenModalDeleteUserProvider>
-                      </CoachGroupsProvider>
-                    </OpenModalAddUserProvider>
-                  </OpenModalNotificationProvider>
-                </HourProvider>
+                       </CoachGroupsProvider>
+                      </OpenModalAddUserProvider>
+                    </OpenModalNotificationProvider>
+                  </HourProvider>
+                </CheckinProvider>
               </OpenModalCheckoutProvider>
             </OwnerGroupsProvider>
           </UsersProvider>

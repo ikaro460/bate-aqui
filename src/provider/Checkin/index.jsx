@@ -2,18 +2,15 @@ import { createContext, useState, useEffect, useContext } from "react"
 import { api } from "../../services/api"
 import moment from "moment"
 import { ToastSuccess } from "../../components/Toasts/Index"
-import { useHour } from "../../provider/Hour";
 
 
 const CheckinContext = createContext()
 
 export const CheckinProvider = ({children}) => {
 
-  const Checkin = (group) => {
+  const Checkin = (group, hour) => {
 
-    const {userId, name, surname, groupsId, coachId, checkin} = group
-
-    const { hour } = useHour()
+    const {userId, name, surname, groupsId, coachId} = group
 
     const data = new Date()
 
@@ -37,12 +34,12 @@ export const CheckinProvider = ({children}) => {
 
     }, {headers: {Authorization: `Bearer ${localStorage.getItem("accessToken")}`}})
       .then((res) => {
+        console.log(res)
         return ToastSuccess("Check-in feito com sucesso!!!");
       })
       .catch((err) => {
         console.log(err);
       });
-
   }
 
   return(

@@ -7,6 +7,7 @@ import { useOpenModalCheckout } from "../../provider/OpenModalCheckout";
 import { useHistory } from "react-router-dom";
 import { api } from "../../services/api";
 import { useCheckin } from "../../provider/Checkin"
+import { useHour } from "../../provider/Hour";
 
 
 export default function TurmaCardCoach({ group, type }) {
@@ -20,6 +21,8 @@ export default function TurmaCardCoach({ group, type }) {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const { name, checkin, checkout, userId, id, groupName, groupsId } = group
+
+    const { hour } = useHour()
 
     const history = useHistory();
 
@@ -121,7 +124,7 @@ export default function TurmaCardCoach({ group, type }) {
                     {regexDePobre.find((each) => {
                         return each === tempoRestantepCheckin;
                     }) ? (
-                        <Button color="success" variant="contained"  onClick={ () => Checkin(group)} >
+                        <Button color="success" variant="contained" onClick={ () => Checkin(group, hour)} >
                             checkin
                         </Button>
                     ) : (
