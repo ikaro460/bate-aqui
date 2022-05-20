@@ -9,7 +9,7 @@ import { OpenModalAddUserProvider } from "./OpenModalAddUser";
 import { OpenModalCheckoutProvider } from "./OpenModalCheckout";
 import { CoachGroupsProvider } from "./CoachGroups";
 import { OpenModalDeleteUserProvider } from "./OpenModalDeleteUser";
-import { GroupUsersProvider } from "./GroupUsers";
+import { CheckinProvider } from "./Checkin";
 
 export const Providers = ({ children }) => {
   return (
@@ -17,23 +17,24 @@ export const Providers = ({ children }) => {
       <SideBarProvider>
         <OpenModalCreateGroupProvider>
           <UsersProvider>
-            <GroupUsersProvider>
-              <OwnerGroupsProvider>
-                <OpenModalCheckoutProvider>
-                  <HourProvider>
-                    <OpenModalNotificationProvider>
-                      <OpenModalAddUserProvider>
-                        <CoachGroupsProvider>
-                          <OpenModalDeleteUserProvider>
+            <OwnerGroupsProvider>
+              <OpenModalCheckoutProvider>
+                <HourProvider>
+                  <OpenModalNotificationProvider>
+                    <OpenModalAddUserProvider>
+                      <CoachGroupsProvider>
+                        <OpenModalDeleteUserProvider>
+                          {children}
+                          <CheckinProvider>
                             {children}
-                          </OpenModalDeleteUserProvider>
-                        </CoachGroupsProvider>
-                      </OpenModalAddUserProvider>
-                    </OpenModalNotificationProvider>
-                  </HourProvider>
-                </OpenModalCheckoutProvider>
-              </OwnerGroupsProvider>
-            </GroupUsersProvider>
+                          </CheckinProvider>
+                        </OpenModalDeleteUserProvider>
+                      </CoachGroupsProvider>
+                    </OpenModalAddUserProvider>
+                  </OpenModalNotificationProvider>
+                </HourProvider>
+              </OpenModalCheckoutProvider>
+            </OwnerGroupsProvider>
           </UsersProvider>
         </OpenModalCreateGroupProvider>
       </SideBarProvider>
