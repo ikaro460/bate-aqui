@@ -82,10 +82,16 @@ export default function ModalAddUser({ token }) {
             },
         })
             .then((res) => {
+                // console.log(res);
+                // console.log(users);
+                const userFind = users.find((user) => user.id === res.data.userId);
+                // console.log(userFind);
+                // console.log(res);
                 setGroupCheckin({
                     checkin: res.data.checkin,
                     checkout: res.data.checkout,
                     groupName: res.data.name,
+                    adminName: userFind.name + " " + userFind.surname,
                 });
             })
             .catch((err) => console.log(err));
@@ -110,6 +116,7 @@ export default function ModalAddUser({ token }) {
                 checkin: groupCheckin.checkin,
                 checkout: groupCheckin.checkout,
                 groupName: groupCheckin.groupName,
+                adminName: groupCheckin.adminName,
             };
 
             api.post(`/coach`, postData, {

@@ -34,7 +34,7 @@ export default function ModalNotification() {
 
         setVerifyNotify(!verifyNotify);
     };
-    console.log(notify);
+    // console.log(notify);
     return (
         <StyledBox component="div" sx={{ maxHeight: "80vh", overflowY: "auto" }}>
             <IconButton
@@ -53,7 +53,7 @@ export default function ModalNotification() {
                         return (
                             <Stack key={item.id} spacing={1} sx={{ borderBottom: 1, pb: 1 }}>
                                 <Typography variant="p" color="text.primary">
-                                    {item.name} {item.surname} convidou você para o grupo{" "}
+                                    {item.adminName} convidou você para o grupo{" "}
                                     <Typography
                                         ariant="p"
                                         color="text.primary"
